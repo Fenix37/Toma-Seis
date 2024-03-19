@@ -92,13 +92,10 @@ public class IU {
      * correspondiente
      */
     public Collection<String> pedirNombresJugadores() {
-        Juego j = new Juego();
-        int tope = getNumeroJugadores();
-        for(int i=0;i<tope;i++)
-        mostrarMensaje("Introduce el nombre para el jugador " + (i+1));
         
+        //jaja no seguimos el esqueleto, ahora esto está en Juego.java
         
-        
+        return null;
     }
 
     /**
@@ -107,12 +104,12 @@ public class IU {
      * @param jugador Jugador para el cual se mostrarán los datos por pantalla
      */
     private void mostrarJugador(Jugador jugador) {
-        jugador.getBaraja.toString();
-        String s = "aa";
-        s.
-    
-    
-    
+        String nombre = jugador.getNombre();
+        String cartas = jugador.getBaraja.toString();
+        System.out.println("~-----------------------~");
+        System.out.println("   ="+nombre+"=");
+        System.out.println(cartas);
+        System.out.println("<_______________________>");
     }
 
     /**
@@ -121,8 +118,18 @@ public class IU {
      * @param jugadores Jugadores cuyos datos se mostrarán por pantalla
      */
     public void mostrarJugadores(Collection<Jugador> jugadores) {
-
-    
+        /**
+         * Limpia la pantalla:
+         * Crea un proceso CMD y usa el comando System("CLS")
+         */
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            /*No hacer nada*/
+        }
+        for(int i=0; i<jugadores.size();i++){
+            mostrarJugador(jugadores[i]);
+        }
     
     
     
