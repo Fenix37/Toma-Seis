@@ -26,4 +26,8 @@ public class Jugador {
         this.baraja = baraja;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
 }
