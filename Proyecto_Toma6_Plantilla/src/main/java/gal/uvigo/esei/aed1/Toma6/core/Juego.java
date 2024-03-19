@@ -20,8 +20,8 @@ public class Juego {
     }
         
     public void jugar(){
-        
-
+        Baraja cosa = new Baraja();
+        System.out.println(cosa);
     }
     
     
