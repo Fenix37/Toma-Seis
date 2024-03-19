@@ -29,7 +29,7 @@ public class IU {
 
         do {
             repite = false;
-            System.out.print(msg);
+            mostrarMensaje(msg);
             try {
                 toret = Integer.parseInt(teclado.nextLine());
             } catch (NumberFormatException exc) {
@@ -48,7 +48,7 @@ public class IU {
      */
     public String leeString(String msg) {
         String toret;
-        System.out.print(msg);
+        mostrarMensaje(msg);
         toret = teclado.nextLine();
         return toret;
     }
@@ -59,7 +59,29 @@ public class IU {
      * @param msg El mensaje a mostrar
      */
     public void mostrarMensaje(String msg) {
+        
+        /**
+         * Limpia la pantalla:
+         * Crea un proceso CMD y usa el comando System("CLS")
+         */
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            /*No hacer nada*/
+        }
+        System.out.print("~");
+        for(int i=0;i<msg.length();i++){
+            System.out.print("-");
+        }
+        System.out.println("~");
+        System.out.print("|");
         System.out.println(msg);
+        System.out.println("|");
+        System.out.print("~");
+        for(int i=0;i<msg.length();i++){
+            System.out.print("-");
+        }
+        System.out.println("~");
     }
 
     /**
@@ -70,7 +92,13 @@ public class IU {
      * correspondiente
      */
     public Collection<String> pedirNombresJugadores() {
-
+        Juego j = new Juego();
+        int tope = getNumeroJugadores();
+        for(int i=0;i<tope;i++)
+        mostrarMensaje("Introduce el nombre para el jugador " + (i+1));
+        
+        
+        
     }
 
     /**
@@ -79,9 +107,9 @@ public class IU {
      * @param jugador Jugador para el cual se mostrarán los datos por pantalla
      */
     private void mostrarJugador(Jugador jugador) {
-
-    
-    
+        jugador.getBaraja.toString();
+        String s = "aa";
+        s.
     
     
     
