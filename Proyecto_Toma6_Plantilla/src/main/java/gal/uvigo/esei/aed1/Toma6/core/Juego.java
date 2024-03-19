@@ -16,6 +16,7 @@ public class Juego {
         this.iu = iu;
 
     }
+        
 
     public void jugar() {
         // Preguntar cuántos jugadores/as van a jugar
@@ -28,8 +29,7 @@ public class Juego {
         // Pedir nombres de los jugadores
         for (int i = 0; i < numJugadores; i++) {
             String nombre = iu.leeString("Ingrese el nombre del jugador " + (i + 1) + ": ");
-            
-            jugadores[i] = new Jugador(baraja, nombre);
+            jugadores[i] = new Jugador(subbarajar(), nombre);
         
         }
     }
