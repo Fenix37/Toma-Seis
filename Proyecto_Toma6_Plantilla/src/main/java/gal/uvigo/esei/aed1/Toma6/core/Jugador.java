@@ -7,7 +7,23 @@
 
 package gal.uvigo.esei.aed1.Toma6.core;
 
+import java.util.Scanner;
+
 
 public class Jugador {
-    
+    private Baraja baraja;
+    private String nombre;
+
+    public Jugador(Baraja baraja, String nombre) {
+        this.baraja = baraja;
+        this.nombre = nombre;
+    }
+
+    public Baraja getBaraja() {
+        return baraja;
+    }
+    public void setBaraja(Baraja baraja) {
+        this.baraja = baraja;
+    }
+
 }
