@@ -69,9 +69,9 @@ public class IU {
      * @return Los datos de los jugadores almacenados en la estructura de datos
      * correspondiente
      */
-    //public Collection<String> pedirNombresJugadores() {
+    public Collection<String> pedirNombresJugadores() {
 
-   // }
+    }
 
     /**
      * Muestra por pantalla los datos de un jugador
