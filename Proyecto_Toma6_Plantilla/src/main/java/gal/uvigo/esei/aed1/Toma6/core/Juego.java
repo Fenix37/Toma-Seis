@@ -11,13 +11,13 @@ import java.util.Stack;
 
 
 public class Juego {
-    private int numXogadores;
+    private Jugador jugadores[];
     private final IU iu;
-    
+    private Baraja baraja;
     
     public Juego(IU iu){
         this.iu = iu;
-
+        this.baraja = new Baraja();
     }
         
     public void jugar(){
@@ -26,17 +26,17 @@ public class Juego {
     }
     /**
      * 
-     * @param baralla: Baraja con todalas cartas do xogo para dividir en grupos
-     * @return pila coas cartas do xogador
+     * @brief Modifica a baralla original
+     * @return baraja coas cartas do xogador
      */
-    public Baraja subbarajar(Baraja baralla){
+    public Baraja subbarajar(){
         int random;
         Baraja baralladas=  new Baraja();
         //recorre baralla e (para cada carta) decide se a mete en barajadas ou non
         while(baralladas.getNumCartas()<10){
             random=((int)(Math.random()*23))%2;
             if(random==1){
-                baralladas.addCarta(baralla.getPop());
+                baralladas.addCarta(baraja.getPop());
             }   
         }
         baralladas.ordenarBaraja();
