@@ -84,7 +84,38 @@ public class Baraja {
                 }
             }
         }
+<<<<<<< Updated upstream
         return new Baraja(toret);
+=======
+        return toret;
+    }
+    
+    /**
+     *Modifica this, barajándola de forma aleatoria.
+     */
+    public void barajar() {
+        int random = 0;
+        int numCartas= baraja.size();
+        Baraja aux1 = new Baraja(true);
+        Baraja aux2 = new Baraja(true);
+        while (!this.esVacia()) {
+            aux1.addCarta(this.getPop());
+            if(!this.esVacia()){
+                aux2.addCarta(this.getPop());
+            }
+            
+        }
+        while (this.getNumCartas()<numCartas) {
+            // da un valor aleatorio a random que pode ser 0 ou 1
+            random = ((int) (Math.random() * 10)) % 2;
+            if (random == 1&&!aux1.esVacia()||aux2.esVacia()) {
+                this.addCarta(aux1.getPop());
+            } else  {
+                this.addCarta(aux2.getPop());
+            }
+        }
+
+>>>>>>> Stashed changes
     }
 
     @Override
