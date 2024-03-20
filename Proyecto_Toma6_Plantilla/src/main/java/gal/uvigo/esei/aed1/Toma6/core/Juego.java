@@ -29,7 +29,6 @@ public class Juego {
      * @brief Modifica a baralla original
      * @return baraja coas cartas do xogador
      */
-<<<<<<< Updated upstream
     public Baraja subbarajar(){
         int random;
         Baraja baralladas=  new Baraja();
@@ -49,11 +48,9 @@ public class Juego {
     
             
     public int getNumeroJugadores() {
-        return numXogadores;
+        return jugadores.length;
     }
     
     
-=======
 
->>>>>>> Stashed changes
 }

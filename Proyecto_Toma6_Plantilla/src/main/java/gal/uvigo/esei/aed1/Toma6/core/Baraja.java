@@ -84,10 +84,8 @@ public class Baraja {
                 }
             }
         }
-<<<<<<< Updated upstream
+
         return new Baraja(toret);
-=======
-        return toret;
     }
     
     /**
@@ -114,8 +112,6 @@ public class Baraja {
                 this.addCarta(aux2.getPop());
             }
         }
-
->>>>>>> Stashed changes
     }
 
     @Override
