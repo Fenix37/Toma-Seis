@@ -102,7 +102,7 @@ public class IU {
      */
     private void mostrarJugador(Jugador jugador) {
         String nombre = jugador.getNombre();
-        String cartas = jugador.getBaraja.toString();
+        String cartas = jugador.getBaraja().toString();
         System.out.println("~-----------------------~");
         System.out.println("   ="+nombre+"=");
         System.out.println(cartas);
@@ -124,8 +124,9 @@ public class IU {
         } catch (Exception e) {
             /*No hacer nada*/
         }
-        for(int i=0; i<jugadores.size();i++){
-            mostrarJugador(jugadores[i]);
+        int i = 0;
+        for(Jugador jugador: jugadores){
+            System.out.println("\n\nJugador " + (++i) + ":\n" + jugador);
         }
     
     

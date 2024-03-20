@@ -18,8 +18,8 @@ public class Baraja {
     public Baraja() {
         baraja = new Stack();
         //Valor predeterminado
-        int numBueyes = 1;
-        for (int i = 1; i < 104; i++) {
+        for (int i = 1; i < 105; i++) {
+            int numBueyes = 1;
             if (i % 5 == 0) {
                 if (i % 10 == 0) {
                     numBueyes = 3;
@@ -80,7 +80,7 @@ public class Baraja {
      * 
      * @return Devuelve una baraja vacía
      */
-    public static Baraja crearBarajaVacía() {
+    public static Baraja crearBarajaVacia() {
         return new Baraja(true);
     }
     /**
@@ -99,25 +99,50 @@ public class Baraja {
      * @return Devuelve la propia baraja ordenada vaciándola en el proceso.
      */
     public Baraja ordenarBaraja() {
-        Stack <Carta> toret = new Stack();
-        Stack <Carta> aux = new Stack();
-        toret.add(baraja.pop());
-        while (!baraja.empty()) {
-            if(baraja.peek().getNumCarta() > toret.peek().getNumCarta()) {
-                toret.add(baraja.pop());
+        Baraja toret = Baraja.crearBarajaVacia();
+        Baraja aux = Baraja.crearBarajaVacia();
+        toret.addCarta(baraja.pop());
+        while (!esVacia()) {
+            if(getTop().getNumCarta() > toret.getTop().getNumCarta()) {
+                toret.addCarta(getPop());
             }
             else{
-                while(toret.peek().getNumCarta() > baraja.peek().getNumCarta() || toret.empty()){
-                    aux.add(toret.pop());
+                while(!toret.esVacia() && toret.getTop().getNumCarta() > getTop().getNumCarta()){
+                    aux.addCarta(toret.getPop());
                 }
-                toret.add(baraja.pop());
-                while(!aux.empty()){
-                    toret.add(aux.pop());
-                    
+                toret.addCarta(getPop());
+                while(!aux.esVacia()){
+                    toret.addCarta(aux.getPop());
                 }
             }
         }
-        return new Baraja(toret);
+        return toret;
+    }
+    
+    /**
+     *Modifica this, barajándola de forma aleatoria.
+     */
+    public void barajar(){
+        int tam = getNumCartas();
+        Baraja aux1 = Baraja.crearBarajaVacia();
+        Baraja aux2 = Baraja.crearBarajaVacia();
+        for(int i = 0; i < 30; i++){
+            while(!esVacia()){
+                int res = (int)(Math.random()*23)%2;
+                if(res == 0){
+                    aux1.addCarta(getPop());
+                }
+                else{
+                    aux2.addCarta(getPop());
+                }
+            }
+            while(!aux1.esVacia()){
+                if(!aux1.esVacia()) addCarta(aux1.getPop());
+            }
+            while(!aux2.esVacia()){
+                if(!aux2.esVacia()) addCarta(aux2.getPop());
+            }
+        }
     }
 
     /**
@@ -130,7 +155,7 @@ public class Baraja {
         StringBuilder sb = new StringBuilder();
         Stack<Carta> aux = new Stack();
         for (int i = 0; i < tam; i++) {
-            sb.append(baraja.peek());
+            sb.append(baraja.peek().toString());
             aux.push(baraja.pop());
         }
         for (int i = 0; i < tam; i++) {
