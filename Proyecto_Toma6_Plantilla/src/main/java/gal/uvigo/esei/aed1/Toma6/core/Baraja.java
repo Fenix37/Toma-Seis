@@ -99,15 +99,54 @@ public class Baraja {
     }
     /**
      *
-     * @return Devuelve la propia baraja ordenada vaciándola en el proceso.
+     * @return Devuelve la propia baraja ordenada de menor a maior
      */
     public void ordenarBaraja() {
-
-        
+        Stack<Carta> aux1 = new Stack();
+        Stack<Carta> aux2 = new Stack();
+        /*o código vai metendo os elementos da baralla en aux1 ata que se atope 
+        con algún que é maior ca aux1.peek,nese caso saca os elementos de aux1 a
+        aux 2 ata atopar un sitio para o ultimo elemento da baralla.
+        unha vez atopa ese sitio volca aux2 enriba de aux1
+        */
+        while(!this.baraja.empty()||!aux2.empty()){
+            //esta parte é para o comezo
+            if(!this.baraja.empty()){
+                /*se aux1 está valeiro ou o ultimo elemento da baralla e menor co o último de aux1
+                    aux1.push(this.baraja.pop());
+                */
+              if(aux1.empty()||this.baraja.peek().getNumCarta()<aux1.peek().getNumCarta()){
+                if(aux2.empty()||aux2.peek().getNumCarta()<this.baraja.peek().getNumCarta()){
+                    aux1.push(this.baraja.pop());
+                    /*se o ultimo elemento de aux2 existe e (ultimo de aux1>ultimo de aux2>ultimo de baralla)
+                    mete aux2 na baralla
+                    */
+                }else if((aux2.peek().getNumCarta()<aux1.peek().getNumCarta())&&
+                        (aux2.peek().getNumCarta() >this.baraja.peek().getNumCarta()))
+                {
+                    aux1.push(aux2.pop());
+                    //se non se da ningún dos casos anteriores o último elemento de baraja vai a aux2
+                }else{
+                aux2.push(this.baraja.pop());
+            }
+            }else{
+                aux2.push(aux1.pop());
+            }  
+              //aquí volca os elementos que sobraran en aux2 ao rematarse a baralla
+            }else{
+                while(!aux2.empty()){
+                    aux1.push(aux2.pop());
+                }
+            }
+           // System.out.println(aux1+":\n");
+        }
+        System.out.println("fin");
+        //a baralla quedou gardada en aux1 polo que cambiamos a referencia para que apunte a este último 
+        this.baraja=aux1;
     }
     /**
      *Modifica this, barajándola de forma aleatoria.
-     */
+     */ 
     public void barajar() {
         int random = 0;
         int numCartas= baraja.size();

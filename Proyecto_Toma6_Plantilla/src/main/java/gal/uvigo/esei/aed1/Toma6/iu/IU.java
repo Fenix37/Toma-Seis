@@ -70,7 +70,15 @@ public class IU {
      * correspondiente
      */
     public Collection<String> pedirNombresJugadores() {
-
+        Juego j = new Juego();
+        int tope = getNumeroJugadores();
+        for(int i=0;i<tope;i++)
+        mostrarMensaje("Introduce el nombre para el jugador " + (i+1));
+        
+        
+        //jaja no seguimos el esqueleto, ahora esto está en Juego.java
+        
+        return null;
     }
 
     /**

@@ -30,23 +30,14 @@ public class Juego {
      * @return baraja coas cartas do xogador
      */
     public Baraja subbarajar(){
-        int random;
         Baraja baralladas=  new Baraja();
-        //recorre baralla e (para cada carta) decide se a mete en barajadas ou non
+        //mete cartas na baralla que devolve ata q esta teña 10
         while(baralladas.getNumCartas()<10){
-            random=((int)(Math.random()*23))%2;
-            if(random==1){
                 baralladas.addCarta(baraja.getPop());
             }   
-        }
         baralladas.ordenarBaraja();
        return baralladas; 
-    }/**
-     * Ordena una baralla
-     * @param baralla 
-     */
-    
-            
+    }    
     public int getNumeroJugadores() {
         return jugadores.length;
     }
