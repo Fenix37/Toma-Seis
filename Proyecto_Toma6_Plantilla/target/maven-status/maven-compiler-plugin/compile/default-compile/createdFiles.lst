@@ -1,8 +1,6 @@
-es\uvigo\esei\aed1\core\Carta.class
-es\uvigo\esei\aed1\core\Mesa.class
-es\uvigo\esei\aed1\iu\Main.class
-es\uvigo\esei\aed1\iu\IU.class
-es\uvigo\esei\aed1\core\Juego$Par.class
-es\uvigo\esei\aed1\core\Jugador.class
-es\uvigo\esei\aed1\core\Baraja.class
-es\uvigo\esei\aed1\core\Juego.class
+gal\uvigo\esei\aed1\Toma6\core\Baraja.class
+gal\uvigo\esei\aed1\Toma6\iu\Main.class
+gal\uvigo\esei\aed1\Toma6\core\Carta.class
+gal\uvigo\esei\aed1\Toma6\core\Jugador.class
+gal\uvigo\esei\aed1\Toma6\iu\IU.class
+gal\uvigo\esei\aed1\Toma6\core\Juego.class

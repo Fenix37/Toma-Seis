@@ -92,9 +92,6 @@ public class IU {
      * correspondiente
      */
     public Collection<String> pedirNombresJugadores() {
-        
-        //jaja no seguimos el esqueleto, ahora esto está en Juego.java
-        
         return null;
     }
 
