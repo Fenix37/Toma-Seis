@@ -1,11 +1,11 @@
 /**
- * Representa la interfaz del juego Toma 6, en este proyecto va a ser una entrada/salida en modo texto 
+ * Representa la interfaz del juego Toma 6, en este proyecto va a ser una entrada/salida en modo texto
  * Se recomienda una implementación modular.
  */
-
 package gal.uvigo.esei.aed1.Toma6.iu;
 
 import gal.uvigo.esei.aed1.Toma6.core.Jugador;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -59,10 +59,10 @@ public class IU {
      * @param msg El mensaje a mostrar
      */
     public void mostrarMensaje(String msg) {
-        
+
         /**
-         * Limpia la pantalla:
-         * Crea un proceso CMD y usa el comando System("CLS")
+         * Limpia la pantalla: Crea un proceso CMD y usa el comando
+         * System("CLS")
          */
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -70,7 +70,7 @@ public class IU {
             /*No hacer nada*/
         }
         System.out.print("~");
-        for(int i=0;i<msg.length();i++){
+        for (int i = 0; i < msg.length(); i++) {
             System.out.print("-");
         }
         System.out.println("~");
@@ -78,7 +78,7 @@ public class IU {
         System.out.println(msg);
         System.out.println("|");
         System.out.print("~");
-        for(int i=0;i<msg.length();i++){
+        for (int i = 0; i < msg.length(); i++) {
             System.out.print("-");
         }
         System.out.println("~");
@@ -92,7 +92,17 @@ public class IU {
      * correspondiente
      */
     public Collection<String> pedirNombresJugadores() {
-        return null;
+        Collection<String> toret = new ArrayList<>();
+        int numJugadores;
+        do {
+            numJugadores = leeNum("Ingrese el número de jugadores (entre 2 y 10): ");
+        } while (numJugadores < 2 || numJugadores > 10);
+        // Pedir nombres de los jugadores
+        for (int i = 0; i < numJugadores; i++) {
+            String nombre = leeString("Ingrese el nombre del jugador " + (i + 1) + ": ");
+            toret.add(nombre);
+        }
+        return toret;
     }
 
     /**
@@ -104,7 +114,7 @@ public class IU {
         String nombre = jugador.getNombre();
         String cartas = jugador.getBaraja().toString();
         System.out.println("~-----------------------~");
-        System.out.println("   ="+nombre+"=");
+        System.out.println("   =" + nombre + "=");
         System.out.println(cartas);
         System.out.println("<_______________________>");
     }
@@ -116,8 +126,8 @@ public class IU {
      */
     public void mostrarJugadores(Collection<Jugador> jugadores) {
         /**
-         * Limpia la pantalla:
-         * Crea un proceso CMD y usa el comando System("CLS")
+         * Limpia la pantalla: Crea un proceso CMD y usa el comando
+         * System("CLS")
          */
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -125,12 +135,10 @@ public class IU {
             /*No hacer nada*/
         }
         int i = 0;
-        for(Jugador jugador: jugadores){
+        for (Jugador jugador : jugadores) {
             System.out.println("\n\nJugador " + (++i) + ":\n" + jugador);
         }
-    
-    
-    
+
     }
 
 }

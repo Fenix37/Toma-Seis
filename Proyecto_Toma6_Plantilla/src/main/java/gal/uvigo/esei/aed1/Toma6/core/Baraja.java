@@ -13,7 +13,8 @@ public class Baraja {
     private Stack<Carta> baraja;
 
     /**
-     * Crea la baraja predeterminada con las 104 cartas ordenadas de mayor a menor.
+     * Crea la baraja predeterminada con las 104 cartas ordenadas de mayor a
+     * menor.
      */
     public Baraja() {
         baraja = new Stack();
@@ -38,16 +39,20 @@ public class Baraja {
             addCarta(new Carta(numBueyes, i));
         }
     }
+
     /**
-     *Crea una baraja nueva con la pila que se le pasa como parámetro.
+     * Crea una baraja nueva con la pila que se le pasa como parámetro.
+     *
      * @param baraja
      */
-    public Baraja(Stack<Carta> baraja){
+    public Baraja(Stack<Carta> baraja) {
         this.baraja = baraja;
     }
+
     public void addCarta(Carta carta) {
         baraja.push(carta);
     }
+
     /**
      *
      * @return Devuelve el número de cartas de la baraja.
@@ -55,6 +60,7 @@ public class Baraja {
     public int getNumCartas() {
         return baraja.size();
     }
+
     /**
      *
      * @return Devuelve la última carta de la baraja sin modificarla.
@@ -62,6 +68,7 @@ public class Baraja {
     public Carta getTop() {
         return baraja.peek();
     }
+
     /**
      *
      * @return Devuelve la última carta de la baraja y la elimina.
@@ -69,20 +76,25 @@ public class Baraja {
     public Carta getPop() {
         return baraja.pop();
     }
+
     /**
      * Crea una baraja vacía.
-     * @param esVacia Variable para que el constructor se diferencie del predeterminado
+     *
+     * @param esVacia Variable para que el constructor se diferencie del
+     * predeterminado
      */
-    private Baraja(boolean esVacia){
+    private Baraja(boolean esVacia) {
         baraja = new Stack();
     }
+
     /**
-     * 
+     *
      * @return Devuelve una baraja vacía
      */
     public static Baraja crearBarajaVacia() {
         return new Baraja(true);
     }
+
     /**
      *
      * @param carta: Carta a insertar en la baraja.
@@ -94,6 +106,7 @@ public class Baraja {
     public boolean esVacia() {
         return baraja.isEmpty();
     }
+
     /**
      *
      * @return Devuelve la propia baraja ordenada vaciándola en el proceso.
@@ -103,51 +116,68 @@ public class Baraja {
         Baraja aux = Baraja.crearBarajaVacia();
         toret.addCarta(baraja.pop());
         while (!esVacia()) {
-            if(getTop().getNumCarta() > toret.getTop().getNumCarta()) {
+            if (getTop().getNumCarta() < toret.getTop().getNumCarta()) {
                 toret.addCarta(getPop());
-            }
-            else{
-                while(!toret.esVacia() && toret.getTop().getNumCarta() > getTop().getNumCarta()){
+            } else {
+                while (!toret.esVacia() && toret.getTop().getNumCarta() < getTop().getNumCarta()) {
                     aux.addCarta(toret.getPop());
                 }
                 toret.addCarta(getPop());
-                while(!aux.esVacia()){
+                while (!aux.esVacia()) {
                     toret.addCarta(aux.getPop());
                 }
             }
         }
         return toret;
     }
-    
+
     /**
-     *Modifica this, barajándola de forma aleatoria.
+     * Modifica this, barajándola de forma aleatoria.
      */
-    public void barajar(){
+    public void barajar() {
         int tam = getNumCartas();
         Baraja aux1 = Baraja.crearBarajaVacia();
         Baraja aux2 = Baraja.crearBarajaVacia();
-        for(int i = 0; i < 15; i++){
-            while(!esVacia()){
-                int res = (int)(Math.random()*23)%2;
-                if(res == 0){
+        for (int i = 0; i < 15; i++) {
+            while (!esVacia()) {
+                int res = (int) (Math.random() * 23) % 2;
+                if (res == 0) {
                     aux1.addCarta(getPop());
-                }
-                else{
+                } else {
                     aux2.addCarta(getPop());
                 }
             }
-            while(!aux1.esVacia()){
-                if(!aux1.esVacia()) addCarta(aux1.getPop());
+            while (!aux1.esVacia()) {
+                if (!aux1.esVacia()) {
+                    addCarta(aux1.getPop());
+                }
             }
-            while(!aux2.esVacia()){
-                if(!aux2.esVacia()) addCarta(aux2.getPop());
+            while (!aux2.esVacia()) {
+                if (!aux2.esVacia()) {
+                    addCarta(aux2.getPop());
+                }
             }
         }
     }
 
     /**
      *
-     * @return Devuelve todas las cartas de la baraja como carta1 \n carta2 \n carta3 etc.
+     * @brief Modifica a baralla original
+     * @return baraja coas cartas do xogador
+     */
+    public Baraja subbarajar() {
+        Baraja baralladas = Baraja.crearBarajaVacia();
+        //recorre baralla e (para cada carta) decide se a mete en barajadas ou non
+        while (baralladas.getNumCartas() < 10) {
+            baralladas.addCarta(getPop());
+        }
+        return baralladas.ordenarBaraja();
+    }
+
+    /**
+     *
+     * @return Devuelve todas las cartas de la baraja como carta1 \n carta2 \n
+     * carta3 etc.
      */
     @Override
     public String toString() {
