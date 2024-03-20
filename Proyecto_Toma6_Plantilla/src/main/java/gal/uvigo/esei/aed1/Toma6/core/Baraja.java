@@ -126,7 +126,7 @@ public class Baraja {
         int tam = getNumCartas();
         Baraja aux1 = Baraja.crearBarajaVacia();
         Baraja aux2 = Baraja.crearBarajaVacia();
-        for(int i = 0; i < 30; i++){
+        for(int i = 0; i < 15; i++){
             while(!esVacia()){
                 int res = (int)(Math.random()*23)%2;
                 if(res == 0){
