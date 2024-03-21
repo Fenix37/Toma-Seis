@@ -7,6 +7,7 @@
 package gal.uvigo.esei.aed1.Toma6.core;
 
 
+import java.util.Random;
 import java.util.Stack;
 
 public class Baraja {
@@ -148,27 +149,31 @@ public class Baraja {
      *Modifica this, barajándola de forma aleatoria.
      */ 
     public void barajar() {
-        int random = 0;
-        int numCartas= baraja.size();
-        Baraja aux1 = new Baraja(true);
-        Baraja aux2 = new Baraja(true);
-        while (!this.esVacia()) {
-            aux1.addCarta(this.getPop());
-            if(!this.esVacia()){
-                aux2.addCarta(this.getPop());
+        Random random= new Random();
+        int randomNumber;
+        Stack<Carta> aux1 = new Stack<>();
+        Stack<Carta> aux2 = new Stack<>();
+        /*execútase 4 veces para asegurarse de mezclar ben todo(se se requerise 
+        máis aleatoriedade aumentar o número de iteracións)*/
+        for (int i = 0; i < 4; i++) {
+            //separa a baralla en 2 stacks de tamaño aleatorio
+            randomNumber = random.nextInt((this.baraja.size() + 1));
+            for (int j = 0; j< randomNumber; j++) {
+                 aux1.push(this.baraja.pop());   
             }
-            
-        }
-        while (this.getNumCartas()<numCartas) {
-            // da un valor aleatorio a random que pode ser 0 ou 1
-            random = ((int) (Math.random() * 10)) % 2;
-            if (random == 1&&!aux1.esVacia()||aux2.esVacia()) {
-                this.addCarta(aux1.getPop());
-            } else  {
-                this.addCarta(aux2.getPop());
+            while(!this.baraja.empty()){
+                aux2.push(this.baraja.pop());
+            }
+            //devolve os estaques a baralla no orde inverso ao orixinal
+            while(!aux1.empty()){
+                this.baraja.push(aux1.pop());
+            }
+            while(!aux2.empty()){
+                this.baraja.push(aux2.pop());
             }
         }
     }
+
 
     /**
      *
