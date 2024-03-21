@@ -24,6 +24,7 @@ public class Juego {
     public void jugar() {
         //Se baraja la baraja antes de empezar.
         baraja.barajar(); 
+        System.out.println(baraja);
        // Pedir nombres de los jugadores
         int i = 0;
         for (String str: iu.pedirNombresJugadores()) {

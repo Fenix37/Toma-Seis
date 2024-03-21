@@ -21,7 +21,9 @@ public class Baraja {
         //Valor predeterminado
         for (int i = 1; i < 105; i++) {
             int numBueyes = 1;
-            if (i % 5 == 0) {
+            if (i == 55) {
+                numBueyes = 7;
+            } else if (i % 5 == 0) {
                 if (i % 10 == 0) {
                     numBueyes = 3;
                 } else {
@@ -29,11 +31,7 @@ public class Baraja {
                 }
             } else {
                 if (i % 11 == 0) {
-                    if (i == 55) {
-                        numBueyes = 7;
-                    } else {
-                        numBueyes = 5;
-                    }
+                    numBueyes = 5;
                 }
             }
             addCarta(new Carta(numBueyes, i));
@@ -137,7 +135,7 @@ public class Baraja {
     public void barajar() {
         Baraja aux1 = Baraja.crearBarajaVacia();
         Baraja aux2 = Baraja.crearBarajaVacia();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 1; i++) {
             while (!esVacia()) {
                 int res = (int) (Math.random() * 23) % 2;
                 if (res == 0) {
