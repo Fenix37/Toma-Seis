@@ -135,7 +135,6 @@ public class Baraja {
      * Modifica this, barajándola de forma aleatoria.
      */
     public void barajar() {
-        int tam = getNumCartas();
         Baraja aux1 = Baraja.crearBarajaVacia();
         Baraja aux2 = Baraja.crearBarajaVacia();
         for (int i = 0; i < 15; i++) {
