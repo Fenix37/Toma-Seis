@@ -31,10 +31,13 @@ public class Juego {
      * @brief Modifica a baralla original
      * @return baraja coas cartas do xogador
      */
-    public Baraja subbarajar(){
+    public Baraja subbarajar(int numCartas){
+        if(numCartas<0){
+            throw new IllegalArgumentException("O número de cartas é negativo");
+        }
         Baraja baralladas=  new Baraja();
         //mete cartas na baralla que devolve ata q esta teña 10
-        while(baralladas.getNumCartas()<10){
+        while(baralladas.getNumCartas()<numCartas){
                 baralladas.introducirOrdenado(baraja.getPop());
             }   
        return baralladas; 
