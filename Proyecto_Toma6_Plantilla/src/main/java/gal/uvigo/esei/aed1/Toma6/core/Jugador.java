@@ -27,5 +27,12 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(nombre)
+                .append("\nBaraja: \n").append(baraja);
+        return sb.toString();
+    }
 
 }
