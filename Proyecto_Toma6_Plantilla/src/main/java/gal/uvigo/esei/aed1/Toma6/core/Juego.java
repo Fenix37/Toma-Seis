@@ -27,13 +27,16 @@ public class Juego {
         
     }
     /**
-     * 
+     * @param numCratas o número de cartas que debe ter a baralla a crear
      * @brief Modifica a baralla original
      * @return baraja coas cartas do xogador
      */
     public Baraja subbarajar(int numCartas){
         if(numCartas<0){
             throw new IllegalArgumentException("O número de cartas é negativo");
+        }
+        if(numCartas>this.baraja.getNumCartas()){
+            throw new IllegalArgumentException("O número de cartas é maior que o da baralla da que se deben extraer");
         }
         Baraja baralladas=  new Baraja();
         //mete cartas na baralla que devolve ata q esta teña 10
