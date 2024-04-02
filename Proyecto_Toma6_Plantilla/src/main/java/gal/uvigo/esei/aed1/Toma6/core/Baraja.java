@@ -123,7 +123,7 @@ public class Baraja {
         Stack<Carta> aux2 = new Stack<>();
         /*execútase 4 veces para asegurarse de mezclar ben todo(se se requerise 
         máis aleatoriedade aumentar o número de iteracións)*/
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 20; i++) {
             //separa a baralla en 2 stacks de tamaño aleatorio
             randomNumber = random.nextInt((this.baraja.size() + 1));
             for (int j = 0; j < randomNumber; j++) {
