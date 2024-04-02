@@ -33,9 +33,8 @@ public class Juego {
         Baraja baralladas=  new Baraja();
         //mete cartas na baralla que devolve ata q esta teña 10
         while(baralladas.getNumCartas()<10){
-                baralladas.addCarta(baraja.getPop());
+                baralladas.introducirOrdenado(baraja.getPop());
             }   
-        baralladas.ordenarBaraja();
        return baralladas; 
     }    
     public int getNumeroJugadores() {

@@ -6,18 +6,16 @@
  */
 package gal.uvigo.esei.aed1.Toma6.core;
 
-
 import java.util.Random;
 import java.util.Stack;
 
 public class Baraja {
-    
-    
 
     private Stack<Carta> baraja;
 
     /**
-     * Crea la baraja predeterminada con las 104 cartas ordenadas de mayor a menor.
+     * Crea la baraja predeterminada con las 104 cartas ordenadas de mayor a
+     * menor.
      */
     public Baraja() {
         baraja = new Stack();
@@ -42,16 +40,20 @@ public class Baraja {
             addCarta(new Carta(numBueyes, i));
         }
     }
+
     /**
-     *Crea una baraja nueva con la pila que se le pasa como parámetro.
+     * Crea una baraja nueva con la pila que se le pasa como parámetro.
+     *
      * @param baraja
      */
-    public Baraja(Stack<Carta> baraja){
+    public Baraja(Stack<Carta> baraja) {
         this.baraja = baraja;
     }
+
     public void addCarta(Carta carta) {
         baraja.push(carta);
     }
+
     /**
      *
      * @return Devuelve el número de cartas de la baraja.
@@ -59,6 +61,7 @@ public class Baraja {
     public int getNumCartas() {
         return baraja.size();
     }
+
     /**
      *
      * @return Devuelve la última carta de la baraja sin modificarla.
@@ -66,6 +69,7 @@ public class Baraja {
     public Carta getTop() {
         return baraja.peek();
     }
+
     /**
      *
      * @return Devuelve la última carta de la baraja y la elimina.
@@ -73,20 +77,25 @@ public class Baraja {
     public Carta getPop() {
         return baraja.pop();
     }
+
     /**
      * Crea una baraja vacía.
-     * @param esVacia Variable para que el constructor se diferencie del predeterminado
+     *
+     * @param esVacia Variable para que el constructor se diferencie del
+     * predeterminado
      */
-    private Baraja(boolean esVacia){
+    private Baraja(boolean esVacia) {
         baraja = new Stack();
     }
+
     /**
-     * 
+     *
      * @return Devuelve una baraja vacía
      */
     public static Baraja crearBarajaVacía() {
         return new Baraja(true);
     }
+
     /**
      *
      * @param carta: Carta a insertar en la baraja.
@@ -98,58 +107,17 @@ public class Baraja {
     public boolean esVacia() {
         return baraja.isEmpty();
     }
+
     /**
      *
      * @return Devuelve la propia baraja ordenada de menor a maior
      */
-    public void ordenarBaraja() {
-        Stack<Carta> aux1 = new Stack();
-        Stack<Carta> aux2 = new Stack();
-        /*o código vai metendo os elementos da baralla en aux1 ata que se atope 
-        con algún que é maior ca aux1.peek,nese caso saca os elementos de aux1 a
-        aux 2 ata atopar un sitio para o ultimo elemento da baralla.
-        unha vez atopa ese sitio volca aux2 enriba de aux1
-        */
-        while(!this.baraja.empty()||!aux2.empty()){
-            //esta parte é para o comezo
-            if(!this.baraja.empty()){
-                /*se aux1 está valeiro ou o ultimo elemento da baralla e menor co o último de aux1
-                    aux1.push(this.baraja.pop());
-                */
-              if(aux1.empty()||this.baraja.peek().getNumCarta()<aux1.peek().getNumCarta()){
-                if(aux2.empty()||aux2.peek().getNumCarta()<this.baraja.peek().getNumCarta()){
-                    aux1.push(this.baraja.pop());
-                    /*se o ultimo elemento de aux2 existe e (ultimo de aux1>ultimo de aux2>ultimo de baralla)
-                    mete aux2 na baralla
-                    */
-                }else if((aux2.peek().getNumCarta()<aux1.peek().getNumCarta())&&
-                        (aux2.peek().getNumCarta() >this.baraja.peek().getNumCarta()))
-                {
-                    aux1.push(aux2.pop());
-                    //se non se da ningún dos casos anteriores o último elemento de baraja vai a aux2
-                }else{
-                aux2.push(this.baraja.pop());
-            }
-            }else{
-                aux2.push(aux1.pop());
-            }  
-              //aquí volca os elementos que sobraran en aux2 ao rematarse a baralla
-            }else{
-                while(!aux2.empty()){
-                    aux1.push(aux2.pop());
-                }
-            }
-           // System.out.println(aux1+":\n");
-        }
-        System.out.println("fin");
-        //a baralla quedou gardada en aux1 polo que cambiamos a referencia para que apunte a este último 
-        this.baraja=aux1;
-    }
+
     /**
-     *Modifica this, barajándola de forma aleatoria.
-     */ 
+     * Modifica this, barajándola de forma aleatoria.
+     */
     public void barajar() {
-        Random random= new Random();
+        Random random = new Random();
         int randomNumber;
         Stack<Carta> aux1 = new Stack<>();
         Stack<Carta> aux2 = new Stack<>();
@@ -158,26 +126,58 @@ public class Baraja {
         for (int i = 0; i < 4; i++) {
             //separa a baralla en 2 stacks de tamaño aleatorio
             randomNumber = random.nextInt((this.baraja.size() + 1));
-            for (int j = 0; j< randomNumber; j++) {
-                 aux1.push(this.baraja.pop());   
+            for (int j = 0; j < randomNumber; j++) {
+                aux1.push(this.baraja.pop());
             }
-            while(!this.baraja.empty()){
+            while (!this.baraja.empty()) {
                 aux2.push(this.baraja.pop());
             }
             //devolve os estaques a baralla no orde inverso ao orixinal
-            while(!aux1.empty()){
+            while (!aux1.empty()) {
                 this.baraja.push(aux1.pop());
             }
-            while(!aux2.empty()){
+            while (!aux2.empty()) {
                 this.baraja.push(aux2.pop());
             }
         }
     }
 
+    /**
+     * Introduce a carta de forma que a baralla quede ordeada de menor a maior
+     * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada 
+     * introducirá a carta despóis do primer elemento cun número de carta maior que 
+     * o parámetro.
+     *
+     * @param novaCarta
+     */
+    public void introducirOrdenado(Carta novaCarta) {
+        Stack<Carta> aux = new Stack<>();
+        boolean introducida = false;
+        //se a baralla é baleira introducimos a carta si ou si.
+        if (this.esVacia()) {
+            this.addCarta(novaCarta);
+        } else {
+            //vai sacando elementos da baralla e metendos en aux ata que atopa un maior que novaCarta
+            while (!introducida) {
+                if (this.getTop().getNumCarta() < novaCarta.getNumCarta()) {
+                    aux.push(this.getPop());
+                } else {
+                    this.addCarta(novaCarta);
+                    introducida = true;
+                }
+
+            }
+            //volve a introducir todos os elementos de aux que(supon) xa están ordeados
+            while (!aux.empty()) {
+                this.addCarta(aux.pop());
+            }
+        }
+    }
 
     /**
      *
-     * @return Devuelve todas las cartas de la baraja como carta1 \n carta2 \n carta3 etc.
+     * @return Devuelve todas las cartas de la baraja como carta1 \n carta2 \n
+     * carta3 etc.
      */
     @Override
     public String toString() {
