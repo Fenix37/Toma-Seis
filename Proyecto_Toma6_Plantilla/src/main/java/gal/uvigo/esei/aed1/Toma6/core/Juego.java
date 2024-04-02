@@ -18,6 +18,8 @@ public class Juego {
     public Juego(IU iu){
         this.iu = iu;
         this.baraja = new Baraja();
+        baraja.barajar();
+        System.out.println(baraja.toString());
     }
         
     public void jugar(){

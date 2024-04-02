@@ -117,6 +117,7 @@ public class Baraja {
      * Modifica this, barajándola de forma aleatoria.
      */
     public void barajar() {
+        long semilla = System.currentTimeMillis();;
         Random random = new Random();
         int randomNumber;
         Stack<Carta> aux1 = new Stack<>();
@@ -124,21 +125,32 @@ public class Baraja {
         /*execútase 4 veces para asegurarse de mezclar ben todo(se se requerise 
         máis aleatoriedade aumentar o número de iteracións)*/
         for (int i = 0; i < 20; i++) {
+            Random aleatorio = new Random(semilla);
             //separa a baralla en 2 stacks de tamaño aleatorio
-            randomNumber = random.nextInt((this.baraja.size() + 1));
+            randomNumber = random.nextInt(getNumCartas()/2);
             for (int j = 0; j < randomNumber; j++) {
                 aux1.push(this.baraja.pop());
             }
             while (!this.baraja.empty()) {
                 aux2.push(this.baraja.pop());
             }
-            //devolve os estaques a baralla no orde inverso ao orixinal
+            //devolve os estaques a baralla mezclados ao orixinal
+            while(!aux1.empty()||!aux2.empty()){
+                if(!aux1.empty()){
+                    baraja.push(aux1.pop());
+                }
+                if(!aux2.empty()){
+                    baraja.push(aux2.pop());
+                }
+            }
+            /*
             while (!aux1.empty()) {
                 this.baraja.push(aux1.pop());
             }
             while (!aux2.empty()) {
                 this.baraja.push(aux2.pop());
             }
+            */
         }
     }
 
