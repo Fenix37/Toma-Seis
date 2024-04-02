@@ -22,6 +22,7 @@ public class Juego {
         
     public void jugar(){
         Baraja cosa = new Baraja();
+        cosa.barajar();
         System.out.println(cosa);
         
     }

@@ -115,11 +115,10 @@ public class Baraja {
      * Modifica this, barajándola de forma aleatoria.
      */
     public void barajar() {
-        long semilla = System.currentTimeMillis();;
         Random random = new Random();
         int randomNumber;
-        Baraja aux1 = new Baraja(true);
-        Baraja aux2 = new Baraja(true);
+        Baraja aux1 = Baraja.crearBarajaVacía();
+        Baraja aux2 = Baraja.crearBarajaVacía();
         /*execútase 4 veces para asegurarse de mezclar ben todo(se se requerise 
         máis aleatoriedade aumentar o número de iteracións)*/
         for (int i = 0; i < 20; i++) {
