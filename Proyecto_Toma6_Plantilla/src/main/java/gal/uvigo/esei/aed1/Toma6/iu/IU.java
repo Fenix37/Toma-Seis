@@ -1,11 +1,11 @@
 /**
- * Representa la interfaz del juego Toma 6, en este proyecto va a ser una entrada/salida en modo texto 
+ * Representa la interfaz del juego Toma 6, en este proyecto va a ser una entrada/salida en modo texto
  * Se recomienda una implementación modular.
  */
-
 package gal.uvigo.esei.aed1.Toma6.iu;
 
 import gal.uvigo.esei.aed1.Toma6.core.Jugador;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -70,23 +70,23 @@ public class IU {
      * correspondiente
      */
     public Collection<String> pedirNombresJugadores() {
-
-        return null;
-
-    }
-
-    /**
-     * Muestra por pantalla los datos de un jugador
-     *
-     * @param jugador Jugador para el cual se mostrarán los datos por pantalla
-     */
+        Collection<String> toret = new ArrayList<>();
+        int numJugadores;
+        do {
+            numJugadores = leeNum("Introduce el numero de jugadores: ");
+        } while (numJugadores < 2 || numJugadores > 10);
+        for (int i = 0; i < numJugadores; i++) {
+            toret.add(leeString("Introduce le numero del jugador" + (i + 1)));
+            return toret;
+        }
+        /**
+         * Muestra por pantalla los datos de un jugador
+         *
+         * @param jugador Jugador para el cual se mostrarán los datos por
+         * pantalla
+         */
     private void mostrarJugador(Jugador jugador) {
 
-    
-    
-    
-    
-    
     }
 
     /**
@@ -96,10 +96,6 @@ public class IU {
      */
     public void mostrarJugadores(Collection<Jugador> jugadores) {
 
-    
-    
-    
-    
     }
 
 }

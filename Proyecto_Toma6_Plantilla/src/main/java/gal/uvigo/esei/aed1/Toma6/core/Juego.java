@@ -1,36 +1,31 @@
 /**
- * Representa el juego Toma 6, con sus reglas (definidas en el documento Primera entrega). 
+ * Representa el juego Toma 6, con sus reglas (definidas en el documento Primera entrega).
  * Se recomienda una implementación modular.
  */
-
 package gal.uvigo.esei.aed1.Toma6.core;
 
-
 import gal.uvigo.esei.aed1.Toma6.iu.IU;
-import java.util.Stack;
-
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Juego {
-    private Jugador jugadores[];
+
     private final IU iu;
     private Baraja baraja;
-    
-    public Juego(IU iu){
+    private Collection<Jugador> jugadores;
+
+    public Juego(IU iu) {
         this.iu = iu;
-        this.baraja = new Baraja();
+        jugadores = new ArrayList<>();
+
     }
         
-    public void jugar(){
-        Baraja cosa = new Baraja();
-        cosa.barajar();
-        System.out.println(cosa);
-        
+
+    public void jugar() {
+        for(String nombreJugador: iu.pedirNombresJugadores()){
+            jugadores.add(new Jugador(this.subbarajar(10), nombreJugador));
+        }
     }
-    /**
-     * @param numCratas o número de cartas que debe ter a baralla a crear
-     * @brief Modifica a baralla original
-     * @return baraja coas cartas do xogador
-     */
     public Baraja subbarajar(int numCartas){
         if(numCartas<0){
             throw new IllegalArgumentException("O número de cartas é negativo");
@@ -46,9 +41,10 @@ public class Juego {
        return baralladas; 
     }    
     public int getNumeroJugadores() {
-        return jugadores.length;
+        return jugadores.size();
     }
-    
-    
+    public int getNumJugadores(){
+        return jugadores.size();
+    }
 
 }
