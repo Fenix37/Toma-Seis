@@ -18,13 +18,13 @@ public class Juego {
     public Juego(IU iu){
         this.iu = iu;
         this.baraja = new Baraja();
-        baraja.barajar();
-        System.out.println(baraja.toString());
     }
         
     public void jugar(){
         Baraja cosa = new Baraja();
         System.out.println(cosa);
+        baraja.barajar();
+        System.out.println(baraja.toString());
     }
     /**
      * 
