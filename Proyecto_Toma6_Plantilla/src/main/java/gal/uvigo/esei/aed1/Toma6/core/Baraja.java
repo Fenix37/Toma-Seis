@@ -10,7 +10,9 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Baraja {
+
     private Stack<Carta> baraja;
+
     /**
      * Crea la baraja predeterminada con las 104 cartas ordenadas de mayor a
      * menor.
@@ -110,7 +112,6 @@ public class Baraja {
      *
      * @return Devuelve la propia baraja ordenada de menor a maior
      */
-
     /**
      * Modifica this, barajándola de forma aleatoria.
      */
@@ -123,7 +124,7 @@ public class Baraja {
         máis aleatoriedade aumentar o número de iteracións)*/
         for (int i = 0; i < 20; i++) {
             //separa a baralla en 2 stacks de tamaño aleatorio
-            randomNumber = random.nextInt(getNumCartas()/2);
+            randomNumber = random.nextInt(getNumCartas() / 2);
             for (int j = 0; j < randomNumber; j++) {
                 aux1.addCarta(this.baraja.pop());
             }
@@ -131,24 +132,24 @@ public class Baraja {
                 aux2.addCarta(this.baraja.pop());
             }
             //devolve os estaques a baralla mezclados ao orixinal
-            while(!aux1.esVacia()||!aux2.esVacia()){
-                if(!aux1.esVacia()){
+            while (!aux1.esVacia() || !aux2.esVacia()) {
+                if (!aux1.esVacia()) {
                     baraja.push(aux1.getPop());
                 }
-                
-                if(!aux2.esVacia()){
+
+                if (!aux2.esVacia()) {
                     baraja.push(aux2.getPop());
                 }
-                
+
             }
         }
     }
 
     /**
      * Introduce a carta de forma que a baralla quede ordeada de menor a maior
-     * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada 
-     * introducirá a carta despóis do primer elemento cun número de carta maior que 
-     * o parámetro.
+     * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada
+     * introducirá a carta despóis do primer elemento cun número de carta maior
+     * que o parámetro.
      *
      * @param novaCarta
      */
@@ -183,15 +184,15 @@ public class Baraja {
      */
     @Override
     public String toString() {
-        int tam = baraja.size();
+        int tam = getNumCartas();
         StringBuilder sb = new StringBuilder();
-        Stack<Carta> aux = new Stack();
+        Baraja aux = Baraja.crearBarajaVacía();
         for (int i = 0; i < tam; i++) {
-            sb.append(baraja.peek());
-            aux.push(baraja.pop());
+            sb.append(this.getPop());
+            aux.addCarta(this.getTop());
         }
         for (int i = 0; i < tam; i++) {
-            baraja.push(aux.pop());
+            this.addCarta(aux.getTop());
         }
         return sb.toString();
     }
