@@ -10,9 +10,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Baraja {
-
     private Stack<Carta> baraja;
-
     /**
      * Crea la baraja predeterminada con las 104 cartas ordenadas de mayor a
      * menor.
@@ -120,37 +118,30 @@ public class Baraja {
         long semilla = System.currentTimeMillis();;
         Random random = new Random();
         int randomNumber;
-        Stack<Carta> aux1 = new Stack<>();
-        Stack<Carta> aux2 = new Stack<>();
+        Baraja aux1 = new Baraja(true);
+        Baraja aux2 = new Baraja(true);
         /*execútase 4 veces para asegurarse de mezclar ben todo(se se requerise 
         máis aleatoriedade aumentar o número de iteracións)*/
         for (int i = 0; i < 20; i++) {
-            Random aleatorio = new Random(semilla);
             //separa a baralla en 2 stacks de tamaño aleatorio
             randomNumber = random.nextInt(getNumCartas()/2);
             for (int j = 0; j < randomNumber; j++) {
-                aux1.push(this.baraja.pop());
+                aux1.addCarta(this.baraja.pop());
             }
             while (!this.baraja.empty()) {
-                aux2.push(this.baraja.pop());
+                aux2.addCarta(this.baraja.pop());
             }
             //devolve os estaques a baralla mezclados ao orixinal
-            while(!aux1.empty()||!aux2.empty()){
-                if(!aux1.empty()){
-                    baraja.push(aux1.pop());
+            while(!aux1.esVacia()||!aux2.esVacia()){
+                if(!aux1.esVacia()){
+                    baraja.push(aux1.getPop());
                 }
-                if(!aux2.empty()){
-                    baraja.push(aux2.pop());
+                
+                if(!aux2.esVacia()){
+                    baraja.push(aux2.getPop());
                 }
+                
             }
-            /*
-            while (!aux1.empty()) {
-                this.baraja.push(aux1.pop());
-            }
-            while (!aux2.empty()) {
-                this.baraja.push(aux2.pop());
-            }
-            */
         }
     }
 
