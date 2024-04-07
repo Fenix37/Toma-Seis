@@ -16,16 +16,25 @@ public class Juego {
 
     public Juego(IU iu) {
         this.iu = iu;
+        baraja = new Baraja();
         jugadores = new ArrayList<>();
 
     }
         
 
     public void jugar() {
+        baraja.barajar();
         for(String nombreJugador: iu.pedirNombresJugadores()){
             jugadores.add(new Jugador(this.subbarajar(10), nombreJugador));
         }
+        iu.mostrarJugadores(jugadores);
     }
+
+    /**
+     *
+     * @param numCartas Número de cartas que se van a retirar de la baraja para crear la subbaraja.
+     * @return Devuelve una subbaraja ordenada de los primeros numCartas elementos de la baraja.
+     */
     public Baraja subbarajar(int numCartas){
         if(numCartas<0){
             throw new IllegalArgumentException("O número de cartas é negativo");
