@@ -9,5 +9,30 @@ package gal.uvigo.esei.aed1.Toma6.core;
 
 
 public class Jugador {
-    
+    private Baraja baraja;
+    private String nombre;
+
+    public Jugador(Baraja baraja, String nombre) {
+        this.baraja = baraja;
+        this.nombre = nombre;
+    }
+
+    public Baraja getBaraja() {
+        return baraja;
+    }
+    public void setBaraja(Baraja baraja) {
+        this.baraja = baraja;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(nombre)
+                .append("\nBaraja: \n").append(baraja);
+        return sb.toString();
+    }
+
 }
