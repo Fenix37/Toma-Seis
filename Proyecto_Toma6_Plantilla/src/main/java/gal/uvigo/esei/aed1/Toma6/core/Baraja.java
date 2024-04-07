@@ -20,9 +20,11 @@ public class Baraja {
     public Baraja() {
         baraja = new Stack();
         //Valor predeterminado
-        int numBueyes = 1;
-        for (int i = 1; i < 104; i++) {
-            if (i % 5 == 0) {
+        for (int i = 1; i <= 104; i++) {
+            int numBueyes = 1;
+            if (i == 55) {
+                numBueyes = 7;
+            } else if (i % 5 == 0) {
                 if (i % 10 == 0) {
                     numBueyes = 3;
                 } else {
@@ -30,11 +32,7 @@ public class Baraja {
                 }
             } else {
                 if (i % 11 == 0) {
-                    if (i == 55) {
-                        numBueyes = 7;
-                    } else {
-                        numBueyes = 5;
-                    }
+                    numBueyes = 5;
                 }
             }
             addCarta(new Carta(numBueyes, i));
