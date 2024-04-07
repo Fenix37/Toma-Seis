@@ -182,15 +182,16 @@ public class Baraja {
      */
     @Override
     public String toString() {
-        int tam = getNumCartas();
+        int tam = this.getNumCartas();
         StringBuilder sb = new StringBuilder();
         Baraja aux = Baraja.crearBarajaVacía();
-        for (int i = 0; i < tam; i++) {
-            sb.append(this.getPop());
-            aux.addCarta(this.getTop());
+        for(int i = 0; i < tam; i++){
+            sb.append("[Número carta: ").append(this.getTop().getNumCarta())
+                    .append("] [Numero bueyes: ").append(this.getTop().getNumBueyes()).append("]\n");
+            aux.addCarta(this.getPop());
         }
-        for (int i = 0; i < tam; i++) {
-            this.addCarta(aux.getTop());
+        for(int i = 0; i < tam; i++){
+            this.addCarta(aux.getPop());
         }
         return sb.toString();
     }
