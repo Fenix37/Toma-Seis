@@ -45,7 +45,8 @@ public class Juego {
         Baraja baralladas = Baraja.crearBarajaVacía();
         //mete cartas na baralla que devolve ata q esta teña numCartas
         while(baralladas.getNumCartas()<numCartas){
-                baralladas.introducirOrdenado(baraja.getPop());
+            System.out.println(baraja.getTop());    
+            baralladas.introducirOrdenado(baraja.getPop());
             }
        return baralladas; 
     }    

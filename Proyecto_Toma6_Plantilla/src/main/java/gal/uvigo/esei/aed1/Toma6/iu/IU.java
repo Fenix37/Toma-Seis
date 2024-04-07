@@ -99,7 +99,7 @@ public class IU {
         for (int i = 0; i < numJugadores; i++) {
             String add = "";
             do{
-                add = leeString("Introduce el nombre del juegador " + (i + 1));
+                add = leeString("Introduce el nombre del jugador " + (i + 1));
             }while(add == "");
             toret.add(add);
         }
