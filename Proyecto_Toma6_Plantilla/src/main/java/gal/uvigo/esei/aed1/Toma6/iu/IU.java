@@ -141,8 +141,10 @@ public class IU {
         Jugador[] jugadoresArray;
         jugadoresArray = new Jugador[10];
         jugadores.toArray(jugadoresArray);
-        for(int i=0; i<jugadoresArray.length;i++){
+        int i=0;
+        while(jugadoresArray[i]!=null&&i<10){
             mostrarJugador(jugadoresArray[i]);
+            i++;
         }
     
 
