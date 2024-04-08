@@ -44,6 +44,7 @@ public class Juego {
                 baralladas.introducirOrdenado(baraja.getPop());
             }   
        return baralladas; 
+       //este comentario non debe estar aquí
     }    
     public int getNumeroJugadores() {
         return jugadores.size();
