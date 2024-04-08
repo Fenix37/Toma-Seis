@@ -160,7 +160,7 @@ public class Baraja {
         } else {
             //vai sacando elementos da baralla e metendos en aux ata que atopa un maior que novaCarta
             while (!introducida) {
-                if (this.getTop().getNumCarta() < novaCarta.getNumCarta()) {
+                if (!this.esVacia()&&this.getTop().getNumCarta() < novaCarta.getNumCarta()) {
                     aux.push(this.getPop());
                 } else {
                     this.addCarta(novaCarta);

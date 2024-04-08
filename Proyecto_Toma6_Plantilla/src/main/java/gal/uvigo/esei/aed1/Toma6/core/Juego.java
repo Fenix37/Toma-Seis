@@ -33,8 +33,13 @@ public class Juego {
         if(numCartas>this.baraja.getNumCartas()){
             throw new IllegalArgumentException("O número de cartas é maior que o da baralla da que se deben extraer");
         }
+<<<<<<< Updated upstream
         Baraja baralladas=  new Baraja();
         //mete cartas na baralla que devolve ata q esta teña 10
+=======
+        Baraja baralladas = Baraja.crearBarajaVacía();
+        //mete cartas na baralla que devolve ata q esta teña numCartas
+>>>>>>> Stashed changes
         while(baralladas.getNumCartas()<numCartas){
                 baralladas.introducirOrdenado(baraja.getPop());
             }   
