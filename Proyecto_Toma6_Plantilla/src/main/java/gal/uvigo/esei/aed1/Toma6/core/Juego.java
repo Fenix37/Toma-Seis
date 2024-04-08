@@ -42,12 +42,6 @@ public class Juego {
         if(numCartas>this.baraja.getNumCartas()){
             throw new IllegalArgumentException("O número de cartas é maior que o da baralla da que se deben extraer");
         }
-
-        Baraja baralladas = new Baraja();
-        //mete cartas na baralla que devolve ata q esta teña numCartas
-
-
-
         Baraja baralladas = Baraja.crearBarajaVacía();
         //mete cartas na baralla que devolve ata q esta teña numCartas
         while(baralladas.getNumCartas()<numCartas){
