@@ -138,8 +138,11 @@ public class IU {
         } catch (Exception e) {
             /*No hacer nada*/
         }
-        for(Jugador jug: jugadores){
-            mostrarJugador(jug);
+        Jugador[] jugadoresArray;
+        jugadoresArray = new Jugador[10];
+        jugadores.toArray(jugadoresArray);
+        for(int i=0; i<jugadoresArray.length;i++){
+            mostrarJugador(jugadoresArray[i]);
         }
     
 
