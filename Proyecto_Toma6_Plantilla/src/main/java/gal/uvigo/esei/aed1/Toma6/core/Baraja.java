@@ -105,6 +105,7 @@ public class Baraja {
     public boolean esVacia() {
         return baraja.isEmpty();
     }
+<<<<<<< Updated upstream
 
     /**
      *
@@ -143,6 +144,8 @@ public class Baraja {
         }
     }
 
+=======
+>>>>>>> Stashed changes
     /**
      * Introduce a carta de forma que a baralla quede ordeada de menor a maior
      * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada
@@ -151,29 +154,6 @@ public class Baraja {
      *
      * @param novaCarta
      */
-    public void introducirOrdenado(Carta novaCarta) {
-        Stack<Carta> aux = new Stack<>();
-        boolean introducida = false;
-        //se a baralla é baleira introducimos a carta si ou si.
-        if (this.esVacia()) {
-            this.addCarta(novaCarta);
-        } else {
-            //vai sacando elementos da baralla e metendos en aux ata que atopa un maior que novaCarta
-            while (!introducida) {
-                if (!this.esVacia()&&this.getTop().getNumCarta() < novaCarta.getNumCarta()) {
-                    aux.push(this.getPop());
-                } else {
-                    this.addCarta(novaCarta);
-                    introducida = true;
-                }
-
-            }
-            //volve a introducir todos os elementos de aux que(supon) xa están ordeados
-            while (!aux.empty()) {
-                this.addCarta(aux.pop());
-            }
-        }
-    }
 
     /**
      *
