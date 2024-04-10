@@ -65,36 +65,10 @@ public class Baraja {
 
     /**
      *
-     * @return Devuelve la última carta de la baraja sin modificarla.
-     */
-    public Carta getTop() {
-        return baraja.peek();
-    }
-
-    /**
-     *
      * @return Devuelve la última carta de la baraja y la elimina.
      */
     public Carta getPop() {
         return baraja.pop();
-    }
-
-    /**
-     * Crea una baraja vacía.
-     *
-     * @param esVacia Variable para que el constructor se diferencie del
-     * predeterminado
-     */
-    private Baraja(boolean esVacia) {
-        baraja = new Stack();
-    }
-
-    /**
-     *
-     * @return Devuelve una baraja vacía
-     */
-    public static Baraja crearBarajaVacía() {
-        return new Baraja(true);
     }
 
     /**
@@ -111,6 +85,7 @@ public class Baraja {
 
     /**
      *
+
      * @return Devuelve la propia baraja ordenada de menor a maior
      */
     /**
@@ -127,17 +102,6 @@ public class Baraja {
         }
     }
 
-
-
-    /**
-     * Introduce a carta de forma que a baralla quede ordeada de menor a maior
-     * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada
-     * introducirá a carta despóis do primer elemento cun número de carta maior
-     * que o parámetro.
-     *
-     * @param novaCarta
-     */
-
     /**
      *
      * @return Devuelve todas las cartas de la baraja como carta1 \n carta2 \n
@@ -145,15 +109,16 @@ public class Baraja {
      */
     @Override
     public String toString() {
-        int tam = getNumCartas();
+        int tam = this.getNumCartas();
         StringBuilder sb = new StringBuilder();
-        Baraja aux = Baraja.crearBarajaVacía();
-        for (int i = 0; i < tam; i++) {
-            sb.append(this.getPop());
-            aux.addCarta(this.getTop());
+        Stack<Carta> aux = new Stack<>();
+        for(int i = 0; i < tam; i++){
+            sb.append("[Número carta: ").append(baraja.peek().getNumCarta())
+                    .append("] [Número bueyes: ").append(baraja.peek().getNumBueyes()).append("]\n");
+            aux.add(this.getPop());
         }
-        for (int i = 0; i < tam; i++) {
-            this.addCarta(aux.getTop());
+        for(int i = 0; i < tam; i++){
+            this.addCarta(aux.pop());
         }
         return sb.toString();
     }
