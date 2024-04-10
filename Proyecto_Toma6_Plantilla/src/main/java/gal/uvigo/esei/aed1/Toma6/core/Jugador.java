@@ -46,7 +46,7 @@ public class Jugador {
                 mano.addLast(carta);
                 introducida=true;
             }else{
-               if (mano.get(i).getNumCarta() < carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
+               if (mano.get(i).getNumCarta() <= carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
                 mano.add(i + 1, carta);
                 introducida=true;
             } 
