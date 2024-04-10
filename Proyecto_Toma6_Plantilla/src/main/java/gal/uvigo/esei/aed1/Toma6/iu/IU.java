@@ -9,6 +9,7 @@ import gal.uvigo.esei.aed1.Toma6.core.Jugador;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class IU {
 
@@ -130,14 +131,14 @@ public class IU {
         for (Jugador jugadorActual : jugadores) {
             longitudNombres[i]=jugadorActual.getNombre().length();
             if(longitudNombres[i]<10){
-                for(int j=0;j<((longitudNombres[i]-10)/2);j++){
+                for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
                     System.out.print(" ");
                 }
                 System.out.print(jugadorActual.getNombre());
-                for(int j=0;j<((longitudNombres[i]-10)/2);j++){
+                for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
                     System.out.print(" ");
                 }
-                longitudNombres[i]+=2*((longitudNombres[i]-10)/2);
+                longitudNombres[i]+=2*(Math.abs(longitudNombres[i]-10)/2);
             }
             else{
                 
@@ -162,7 +163,7 @@ public class IU {
                     }
                 }
                 else{
-                    for(int f=0;f<((longitudNombres[j]-10)/2);f++){
+                    for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
                         System.out.print(" ");
                     }
                     System.out.print("Numero ");
@@ -175,18 +176,18 @@ public class IU {
                     else{
                         System.out.println(cartas[j].getNumCarta());
                     }
-                    for(int f=0;f<((longitudNombres[j]-10)/2);f++){
+                    for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
                         System.out.print(" ");
                     }
                 }
             }
             else{
                 if(longitudNombres[i]<10){
-                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
                         System.out.print(" ");
                     }
                     System.out.print("   Done   ");
-                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
                         System.out.print(" ");
                     }
                 }
@@ -204,22 +205,22 @@ public class IU {
                     System.out.print(" "+cartas[j].getNumBueyes()+" bueyes ");
                 }
                 else{
-                    for(int f=0;f<((longitudNombres[j]-8)/2);f++){
+                    for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
                         System.out.print(" ");
                     }
                     System.out.print(cartas[j].getNumBueyes()+" bueyes");
-                    for(int f=0;f<((longitudNombres[j]-8)/2);f++){
+                    for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
                         System.out.print(" ");
                     }
                 }
             }
             else{
                 if(longitudNombres[i]<10){
-                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
                         System.out.print(" ");
                     }
                     System.out.print("   Done   ");
-                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
                         System.out.print(" ");
                     }
                 }
