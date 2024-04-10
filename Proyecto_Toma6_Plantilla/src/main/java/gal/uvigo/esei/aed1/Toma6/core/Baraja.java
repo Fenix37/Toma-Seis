@@ -131,11 +131,11 @@ public class Baraja {
             }
             //devolve os estaques a baralla mezclados ao orixinal
             while (!aux1.esVacia() || !aux2.esVacia()) {
-                if (!aux1.esVacia()) {
+                if (!aux1.esVacia()&&random.nextInt(2)==1) {
                     baraja.push(aux1.getPop());
                 }
 
-                if (!aux2.esVacia()) {
+                if (!aux2.esVacia()&&random.nextInt(2)==0) {
                     baraja.push(aux2.getPop());
                 }
 
