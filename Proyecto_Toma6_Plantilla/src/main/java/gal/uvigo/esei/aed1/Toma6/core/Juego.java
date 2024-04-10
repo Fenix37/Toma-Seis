@@ -49,11 +49,4 @@ public class Juego {
             }
        return baralladas; 
     }    
-    public int getNumeroJugadores() {
-        return jugadores.size();
-    }
-    public int getNumJugadores(){
-        return jugadores.size();
-    }
-
 }
