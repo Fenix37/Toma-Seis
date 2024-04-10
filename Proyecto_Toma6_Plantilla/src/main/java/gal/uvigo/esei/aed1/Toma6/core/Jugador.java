@@ -67,6 +67,9 @@ public class Jugador {
      * existen cartas na mano lanza unha NullPointerException
      */
     public Carta SacarCarta(int numCarta) {
+        if(mano.isEmpty()){
+            throw new NullPointerException("o xogador non ten cartas");
+        }
         boolean esta = true;
         int fin = mano.size() - 1;
         int inicio = 0;
