@@ -37,9 +37,18 @@ public class Jugador {
         if(mano.size()==10){
             throw new ArrayIndexOutOfBoundsException("O xoador non debe ter máis de 10 cartas");
         }
-        for (int i = 0; i < mano.size(); i++) {
+        if(mano.isEmpty()){
+            mano.add(0, carta);
+            introducida=true;
+        }
+        for (int i = 0; i < mano.size()&&!introducida; i++) {
+            if(mano.get(i)==mano.getLast()){
+                mano.addLast(carta);
+                introducida=true;
+            }
             if (mano.get(i).getNumCarta() < carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
                 mano.add(i + 1, carta);
+                introducida=true;
             }
         }
     }
@@ -67,6 +76,10 @@ public class Jugador {
 
     @Override
     public String toString() {
+        StringBuilder mano=new StringBuilder();
+        for (Carta carta : this.mano) {
+            mano.append(carta.toString()).append("//");
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("~-----------------------~\n   =").append("Nombre: ").append(nombre).append("=\n   =Mano=\n").append(mano).append("<_______________________>");
         return sb.toString();
