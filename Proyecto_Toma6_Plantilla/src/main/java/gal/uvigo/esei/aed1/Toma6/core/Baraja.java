@@ -8,15 +8,10 @@ package gal.uvigo.esei.aed1.Toma6.core;
 
 import java.util.Random;
 import java.util.Stack;
-<<<<<<< Updated upstream
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-=======
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
->>>>>>> Stashed changes
+
 public class Baraja {
 
     private Stack<Carta> baraja;
@@ -113,8 +108,6 @@ public class Baraja {
     public boolean esVacia() {
         return baraja.isEmpty();
     }
-<<<<<<< Updated upstream
-=======
 
     /**
      *
@@ -135,7 +128,7 @@ public class Baraja {
     }
 
 
->>>>>>> Stashed changes
+
     /**
      * Introduce a carta de forma que a baralla quede ordeada de menor a maior
      * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada
@@ -164,14 +157,5 @@ public class Baraja {
         }
         return sb.toString();
     }
-    public void barajar(){
-        List<Carta> aux = new ArrayList<>();
-        while(!this.esVacia()){
-           aux.add(this.getPop()); 
-        }
-        Collections.shuffle(aux);
-        for (Carta carta : aux) {
-            this.addCarta(carta);
-        }
-    }
+
 }

@@ -13,18 +13,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Jugador {
-<<<<<<< Updated upstream
-
     private List<Carta> mano;
     private String nombre;
 
-    public Jugador(Baraja baraja, String nombre) {
-=======
-    private List <Carta>mano;
-    private String nombre;
-
     public Jugador(String nombre) {
->>>>>>> Stashed changes
         this.mano = new ArrayList<>();
         this.nombre = nombre;
     }
@@ -37,16 +29,10 @@ public class Jugador {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(nombre)
-<<<<<<< Updated upstream
         .append("\nBaraja: \n").append(mano);
         return sb.toString();
     }
 
-=======
-                .append("\nBaraja: \n").append(mano);
-        return sb.toString();
-    }
->>>>>>> Stashed changes
     public void IntroducirCarta(Carta carta) {
         boolean introducida = false;
         for (int i = 0; i < mano.size(); i++) {
@@ -55,8 +41,5 @@ public class Jugador {
             }
         }
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
+
