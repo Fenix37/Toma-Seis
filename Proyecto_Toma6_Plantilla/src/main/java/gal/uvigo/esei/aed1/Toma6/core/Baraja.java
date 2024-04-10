@@ -8,6 +8,9 @@ package gal.uvigo.esei.aed1.Toma6.core;
 
 import java.util.Random;
 import java.util.Stack;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Baraja {
 
@@ -82,6 +85,25 @@ public class Baraja {
 
     /**
      *
+
+     * @return Devuelve la propia baraja ordenada de menor a maior
+     */
+    /**
+     * Modifica this, barajándola de forma aleatoria.
+     */
+ public void barajar(){
+        List<Carta> aux = new ArrayList<>();
+        while(!this.esVacia()){
+           aux.add(this.getPop()); 
+        }
+        Collections.shuffle(aux);
+        for (Carta carta : aux) {
+            this.addCarta(carta);
+        }
+    }
+
+    /**
+     *
      * @return Devuelve todas las cartas de la baraja como carta1 \n carta2 \n
      * carta3 etc.
      */
@@ -100,4 +122,5 @@ public class Baraja {
         }
         return sb.toString();
     }
+
 }

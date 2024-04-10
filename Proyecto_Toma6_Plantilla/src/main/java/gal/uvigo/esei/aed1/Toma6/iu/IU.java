@@ -98,6 +98,12 @@ public class IU {
             numJugadores = leeNum("Introduce el numero de jugadores: ");
         } while (numJugadores < 2 || numJugadores > 10);
         for (int i = 0; i < numJugadores; i++) {
+
+            toret.add(leeString("Introduce le numero del jugador" + (i + 1)));
+            
+        }
+        return toret;
+    }
             String add = "";
             do{
                 add = leeString("Introduce el nombre del jugador " + (i + 1));
@@ -106,15 +112,13 @@ public class IU {
         }
         return toret;
     }
-    
         /**
          * Muestra por pantalla los datos de un jugador
          *
          * @param jugador Jugador para el cual se mostrarán los datos por
          * pantalla
          */
-    private void mostrarJugador(Jugador jugador) {
-        System.out.println(jugador.toString());
+
     }
 
     /**

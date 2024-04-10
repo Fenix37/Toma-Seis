@@ -29,11 +29,11 @@ public class Juego {
         }
         iu.mostrarJugadores(jugadores);
     }
-
     /**
      *
      * @param numCartas Número de cartas que se van a retirar de la baraja para crear la subbaraja.
      * @return Devuelve una subbaraja ordenada de los primeros numCartas elementos de la baraja.
+
      */
     public Baraja subbarajar(int numCartas){
         if(numCartas<0){
