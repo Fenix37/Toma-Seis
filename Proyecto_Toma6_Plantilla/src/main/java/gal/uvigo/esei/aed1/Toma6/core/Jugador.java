@@ -30,9 +30,7 @@ public class Jugador {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Nombre: ").append(nombre)
-                .append("\nBaraja: \n").append(baraja);
+        sb.append("~-----------------------~\n   =").append("Nombre: ").append(nombre).append("=\n   =Mano=\n").append(mano).append("<_______________________>");
         return sb.toString();
     }
-
 }

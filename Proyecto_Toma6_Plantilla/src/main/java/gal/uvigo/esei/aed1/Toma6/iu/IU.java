@@ -26,7 +26,6 @@ public class IU {
     public int leeNum(String msg) {
         boolean repite;
         int toret = 0;
-
         do {
             repite = false;
             mostrarMensaje(msg);
@@ -36,7 +35,6 @@ public class IU {
                 repite = true;
             }
         } while (repite);
-
         return toret;
     }
 
@@ -52,29 +50,32 @@ public class IU {
         toret = teclado.nextLine();
         return toret;
     }
-
+    /**
+         * Limpia la pantalla:
+         * Crea un proceso CMD y usa el comando System("CLS")
+         */
+    public void borrarPantalla(){
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            /*No hacer nada*/
+        }
+    }
+        
     /**
      * Muestra un mensaje por pantalla
      *
      * @param msg El mensaje a mostrar
      */
     public void mostrarMensaje(String msg) {
-        /**
-         * Limpia la pantalla:
-         * Crea un proceso CMD y usa el comando System("CLS")
-         */
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            /*No hacer nada*/
-        }
+        borrarPantalla();
         System.out.print("~");
         for(int i=0;i<msg.length();i++){
             System.out.print("-");
         }
         System.out.println("~");
         System.out.print("|");
-        System.out.println(msg);
+        System.out.print(msg);
         System.out.println("|");
         System.out.print("~");
         for(int i=0;i<msg.length();i++){
@@ -105,6 +106,7 @@ public class IU {
         }
         return toret;
     }
+    
         /**
          * Muestra por pantalla los datos de un jugador
          *
@@ -112,32 +114,16 @@ public class IU {
          * pantalla
          */
     private void mostrarJugador(Jugador jugador) {
-
-        String nombre = jugador.getNombre();
-        String cartas = jugador.getBaraja().toString();
-        System.out.println("~-----------------------~");
-        System.out.println("   ="+nombre+"=");
-        System.out.println(cartas);
-        System.out.println("<_______________________>");
-
+        System.out.println(jugador.toString());
     }
 
     /**
-     * Muestra por pantalla los datos de una coleccion de jugadores
+     * Muestra por pantalla los datos de una colección de jugadores
      *
      * @param jugadores Jugadores cuyos datos se mostrarán por pantalla
      */
     public void mostrarJugadores(Collection<Jugador> jugadores) {
-
-        /**
-         * Limpia la pantalla:
-         * Crea un proceso CMD y usa el comando System("CLS")
-         */
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            /*No hacer nada*/
-        }
+        borrarPantalla();
         Jugador[] jugadoresArray;
         jugadoresArray = new Jugador[10];
         jugadores.toArray(jugadoresArray);
@@ -146,8 +132,5 @@ public class IU {
             mostrarJugador(jugadoresArray[i]);
             i++;
         }
-    
-
     }
-
 }
