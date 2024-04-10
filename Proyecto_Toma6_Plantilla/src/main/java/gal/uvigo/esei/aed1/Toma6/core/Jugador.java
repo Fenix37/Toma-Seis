@@ -24,16 +24,7 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nombre: ").append(nombre)
-        .append("\nBaraja: \n").append(mano);
-        return sb.toString();
-    }
-
-    public void IntroducirCarta(Carta carta) {
+     public void IntroducirCarta(Carta carta) {
         boolean introducida = false;
         for (int i = 0; i < mano.size(); i++) {
             if (mano.get(i).getNumCarta() < carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
@@ -41,5 +32,10 @@ public class Jugador {
             }
         }
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("~-----------------------~\n   =").append("Nombre: ").append(nombre).append("=\n   =Mano=\n").append(mano).append("<_______________________>");
+        return sb.toString();
+    }
 }
-
