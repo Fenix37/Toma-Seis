@@ -26,10 +26,17 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-
+/**
+ * 
+ * @param carta :Carta que se desexa introducir na mano do xogador
+ * Modifica this ao añadir unha carta a mano do xogador e lanza unha 
+ * ArrayOutOfBoundsException en caso de que o xgador xa teña 10 cartas
+ */
     public void IntroducirCarta(Carta carta) {
-
         boolean introducida = false;
+        if(mano.size()==10){
+            throw new ArrayIndexOutOfBoundsException("O xoador non debe ter máis de 10 cartas");
+        }
         for (int i = 0; i < mano.size(); i++) {
             if (mano.get(i).getNumCarta() < carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
                 mano.add(i + 1, carta);
@@ -37,9 +44,17 @@ public class Jugador {
         }
     }
 
-
+/**
+ * 
+ * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
+ * @return Carta co número que se pediu e en caso de non atoparse IllgalArgumentException.
+ *          modifica this ao quitarlle unha carta e se non existen cartas na mano lanza unha NullPointerException
+ */
     public Carta SacarCarta(int numCarta) {
         Carta toRet;
+        if(this.mano.isEmpty()){
+            throw new NullPointerException("non hai cartas para extraer");
+        }
         for (int i = 0; i < mano.size(); i++) {
             if (mano.get(i).getNumCarta() == numCarta) {
                 toRet = mano.remove(i);
