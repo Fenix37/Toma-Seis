@@ -98,8 +98,10 @@ public class IU {
         } while (numJugadores < 2 || numJugadores > 10);
         for (int i = 0; i < numJugadores; i++) {
             toret.add(leeString("Introduce le numero del jugador" + (i + 1)));
-            return toret;
+            
         }
+        return toret;
+    }
         /**
          * Muestra por pantalla los datos de un jugador
          *
@@ -109,7 +111,7 @@ public class IU {
     private void mostrarJugador(Jugador jugador) {
 
         String nombre = jugador.getNombre();
-        String cartas = jugador.getBaraja.toString();
+        String cartas = jugador.getBaraja().toString();
         System.out.println("~-----------------------~");
         System.out.println("   ="+nombre+"=");
         System.out.println(cartas);
