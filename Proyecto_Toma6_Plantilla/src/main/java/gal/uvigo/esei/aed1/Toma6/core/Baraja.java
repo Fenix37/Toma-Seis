@@ -8,7 +8,9 @@ package gal.uvigo.esei.aed1.Toma6.core;
 
 import java.util.Random;
 import java.util.Stack;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 public class Baraja {
 
     private Stack<Carta> baraja;
@@ -105,47 +107,6 @@ public class Baraja {
     public boolean esVacia() {
         return baraja.isEmpty();
     }
-<<<<<<< Updated upstream
-
-    /**
-     *
-     * @return Devuelve la propia baraja ordenada de menor a maior
-     */
-    /**
-     * Modifica this, barajándola de forma aleatoria.
-     */
-    public void barajar() {
-        Random random = new Random();
-        int randomNumber;
-        Baraja aux1 = Baraja.crearBarajaVacía();
-        Baraja aux2 = Baraja.crearBarajaVacía();
-        /*execútase 4 veces para asegurarse de mezclar ben todo(se se requerise 
-        máis aleatoriedade aumentar o número de iteracións)*/
-        for (int i = 0; i < 20; i++) {
-            //separa a baralla en 2 stacks de tamaño aleatorio
-            randomNumber = random.nextInt(getNumCartas() / 2);
-            for (int j = 0; j < randomNumber; j++) {
-                aux1.addCarta(this.baraja.pop());
-            }
-            while (!this.baraja.empty()) {
-                aux2.addCarta(this.baraja.pop());
-            }
-            //devolve os estaques a baralla mezclados ao orixinal
-            while (!aux1.esVacia() || !aux2.esVacia()) {
-                if (!aux1.esVacia()&&random.nextInt(2)==1) {
-                    baraja.push(aux1.getPop());
-                }
-
-                if (!aux2.esVacia()&&random.nextInt(2)==0) {
-                    baraja.push(aux2.getPop());
-                }
-
-            }
-        }
-    }
-
-=======
->>>>>>> Stashed changes
     /**
      * Introduce a carta de forma que a baralla quede ordeada de menor a maior
      * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada
@@ -173,5 +134,15 @@ public class Baraja {
             this.addCarta(aux.getTop());
         }
         return sb.toString();
+    }
+    public void barajar(){
+        List<Carta> aux = new ArrayList<>();
+        while(!this.esVacia()){
+           aux.add(this.getPop()); 
+        }
+        Collections.shuffle(aux);
+        for (Carta carta : aux) {
+            this.addCarta(carta);
+        }
     }
 }
