@@ -45,11 +45,13 @@ public class Jugador {
             if(mano.get(i)==mano.getLast()){
                 mano.addLast(carta);
                 introducida=true;
-            }
-            if (mano.get(i).getNumCarta() < carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
+            }else{
+               if (mano.get(i).getNumCarta() < carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
                 mano.add(i + 1, carta);
                 introducida=true;
+            } 
             }
+            
         }
     }
 
