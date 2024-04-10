@@ -40,15 +40,12 @@ public class Jugador {
         if (mano.isEmpty()) {
             mano.add(0, carta);
             introducida = true;
-        }
-                    //coproba que a carta non vaia ao final
-            if (carta.getNumCarta() >= mano.getLast().getNumCarta()) {
+         //coproba que a carta non vaia ao final
+        }else  if (carta.getNumCarta() >= mano.getLast().getNumCarta()) {
                 mano.addLast(carta);
-                introducida = true;
                 //coproba que a carta non vaia ao comezo
             } else if (mano.getFirst().getNumCarta() > carta.getNumCarta()) {
                 mano.addFirst(carta);
-                introducida = true;
             } else {
         for (int i = 0; i < mano.size() && !introducida; i++) {
                 //coloca a carta cando vai polo medio da lista
