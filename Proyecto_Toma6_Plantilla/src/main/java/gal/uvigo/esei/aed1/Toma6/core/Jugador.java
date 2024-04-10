@@ -26,12 +26,13 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-/**
- * 
- * @param carta :Carta que se desexa introducir na mano do xogador
- * Modifica this ao añadir unha carta a mano do xogador e lanza unha 
- * ArrayOutOfBoundsException en caso de que o xgador xa teña 10 cartas
- */
+
+    /**
+     *
+     * @param carta :Carta que se desexa introducir na mano do xogador Modifica
+     * this ao añadir unha carta a mano do xogador e lanza unha
+     * ArrayOutOfBoundsException en caso de que o xgador xa teña 10 cartas
+     */
     public void IntroducirCarta(Carta carta) {
         boolean introducida = false;
         if (mano.size() == 10) {
@@ -40,14 +41,14 @@ public class Jugador {
         if (mano.isEmpty()) {
             mano.add(0, carta);
             introducida = true;
-         //coproba que a carta non vaia ao final
-        }else  if (carta.getNumCarta() >= mano.getLast().getNumCarta()) {
-                mano.addLast(carta);
-                //coproba que a carta non vaia ao comezo
-            } else if (mano.getFirst().getNumCarta() > carta.getNumCarta()) {
-                mano.addFirst(carta);
-            } else {
-        for (int i = 0; i < mano.size() && !introducida; i++) {
+            //coproba que a carta non vaia ao final
+        } else if (carta.getNumCarta() >= mano.getLast().getNumCarta()) {
+            mano.addLast(carta);
+            //coproba que a carta non vaia ao comezo
+        } else if (mano.getFirst().getNumCarta() > carta.getNumCarta()) {
+            mano.addFirst(carta);
+        } else {
+            for (int i = 0; i < mano.size() && !introducida; i++) {
                 //coloca a carta cando vai polo medio da lista
                 if (mano.get(i).getNumCarta() <= carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
                     mano.add(i + 1, carta);
@@ -57,30 +58,42 @@ public class Jugador {
 
         }
     }
-/**
- * 
- * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
- * @return Carta co número que se pediu e en caso de non atoparse IllgalArgumentException.
- *          modifica this ao quitarlle unha carta e se non existen cartas na mano lanza unha NullPointerException
- */
-    public Carta SacarCarta(int numCarta) {
-        Carta toRet;
-        if(this.mano.isEmpty()){
-            throw new NullPointerException("non hai cartas para extraer");
-        }
-        for (int i = 0; i < mano.size(); i++) {
-            if (mano.get(i).getNumCarta() == numCarta) {
-                toRet = mano.remove(i);
-                return toRet;
-            }
 
+    /**
+     *
+     * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
+     * @return Carta co número que se pediu e en caso de non atoparse
+     * IllgalArgumentException. modifica this ao quitarlle unha carta e se non
+     * existen cartas na mano lanza unha NullPointerException
+     */
+    public Carta SacarCarta(int numCarta) {
+        if(mano.isEmpty()){
+            throw new NullPointerException("o xogador non ten cartas");
         }
-        throw new IllegalArgumentException("Este xogadr non ten unha carta con ese número");
-}
+        boolean esta = true;
+        int fin = mano.size() - 1;
+        int inicio = 0;
+        int medio;
+        while (esta) {
+            medio = (fin + inicio) / 2;
+            if (mano.get(medio).getNumCarta() > numCarta) {
+                fin = medio - 1;
+            } else if (mano.get(medio).getNumCarta() < numCarta) {
+                inicio = medio + 1;
+            }
+            if (mano.get(medio).getNumCarta() == numCarta) {
+                return mano.get(medio);
+            }
+            if (inicio > fin) {
+                throw new IllegalArgumentException("O elemento non se atopa na lista");
+            }
+        }
+        return null;
+    }
 
     @Override
     public String toString() {
-        StringBuilder mano=new StringBuilder();
+        StringBuilder mano = new StringBuilder();
         for (Carta carta : this.mano) {
             mano.append(carta.toString()).append("//");
         }
