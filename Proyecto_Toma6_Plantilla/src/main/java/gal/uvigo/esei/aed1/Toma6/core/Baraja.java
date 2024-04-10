@@ -8,6 +8,9 @@ package gal.uvigo.esei.aed1.Toma6.core;
 
 import java.util.Random;
 import java.util.Stack;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Baraja {
 
@@ -62,36 +65,10 @@ public class Baraja {
 
     /**
      *
-     * @return Devuelve la última carta de la baraja sin modificarla.
-     */
-    public Carta getTop() {
-        return baraja.peek();
-    }
-
-    /**
-     *
      * @return Devuelve la última carta de la baraja y la elimina.
      */
     public Carta getPop() {
         return baraja.pop();
-    }
-
-    /**
-     * Crea una baraja vacía.
-     *
-     * @param esVacia Variable para que el constructor se diferencie del
-     * predeterminado
-     */
-    private Baraja(boolean esVacia) {
-        baraja = new Stack();
-    }
-
-    /**
-     *
-     * @return Devuelve una baraja vacía
-     */
-    public static Baraja crearBarajaVacía() {
-        return new Baraja(true);
     }
 
     /**
@@ -108,70 +85,20 @@ public class Baraja {
 
     /**
      *
+
      * @return Devuelve la propia baraja ordenada de menor a maior
      */
     /**
      * Modifica this, barajándola de forma aleatoria.
      */
-    public void barajar() {
-        Random random = new Random();
-        int randomNumber;
-        Baraja aux1 = Baraja.crearBarajaVacía();
-        Baraja aux2 = Baraja.crearBarajaVacía();
-        /*execútase 4 veces para asegurarse de mezclar ben todo(se se requerise 
-        máis aleatoriedade aumentar o número de iteracións)*/
-        for (int i = 0; i < 20; i++) {
-            //separa a baralla en 2 stacks de tamaño aleatorio
-            randomNumber = random.nextInt(getNumCartas() / 2);
-            for (int j = 0; j < randomNumber; j++) {
-                aux1.addCarta(this.baraja.pop());
-            }
-            while (!this.baraja.empty()) {
-                aux2.addCarta(this.baraja.pop());
-            }
-            //devolve os estaques a baralla mezclados ao orixinal
-            while (!aux1.esVacia() || !aux2.esVacia()) {
-                if (!aux1.esVacia()) {
-                    baraja.push(aux1.getPop());
-                }
-
-                if (!aux2.esVacia()) {
-                    baraja.push(aux2.getPop());
-                }
-
-            }
+ public void barajar(){
+        List<Carta> aux = new ArrayList<>();
+        while(!this.esVacia()){
+           aux.add(this.getPop()); 
         }
-    }
-
-    /**
-     * Introduce a carta de forma que a baralla quede ordeada de menor a maior
-     * NON SERVE PARA ORDEAR UNHA BARALLA XA CREADA,se a baralla está desordeada
-     * introducirá a carta despóis do primer elemento cun número de carta maior
-     * que o parámetro.
-     *
-     * @param novaCarta
-     */
-    public void introducirOrdenado(Carta novaCarta) {
-        Stack<Carta> aux = new Stack<>();
-        boolean introducida = false;
-        //se a baralla é baleira introducimos a carta si ou si.
-        if (this.esVacia()) {
-            this.addCarta(novaCarta);
-        } else {
-            //vai sacando elementos da baralla e metendos en aux ata que atopa un maior que novaCarta
-            while (!introducida) {
-                if (!this.esVacia()&&this.getTop().getNumCarta() < novaCarta.getNumCarta()) {
-                    aux.push(this.getPop());
-                } else {
-                    this.addCarta(novaCarta);
-                    introducida = true;
-                }
-
-            }
-            //volve a introducir todos os elementos de aux que(supon) xa están ordeados
-            while (!aux.empty()) {
-                this.addCarta(aux.pop());
-            }
+        Collections.shuffle(aux);
+        for (Carta carta : aux) {
+            this.addCarta(carta);
         }
     }
 
@@ -184,15 +111,16 @@ public class Baraja {
     public String toString() {
         int tam = this.getNumCartas();
         StringBuilder sb = new StringBuilder();
-        Baraja aux = Baraja.crearBarajaVacía();
+        Stack<Carta> aux = new Stack<>();
         for(int i = 0; i < tam; i++){
-            sb.append("[Número carta: ").append(this.getTop().getNumCarta())
-                    .append("] [Numero bueyes: ").append(this.getTop().getNumBueyes()).append("]\n");
-            aux.addCarta(this.getPop());
+            sb.append("[Número carta: ").append(baraja.peek().getNumCarta())
+                    .append("] [Número bueyes: ").append(baraja.peek().getNumBueyes()).append("]\n");
+            aux.add(this.getPop());
         }
         for(int i = 0; i < tam; i++){
-            this.addCarta(aux.getPop());
+            this.addCarta(aux.pop());
         }
         return sb.toString();
     }
+
 }
