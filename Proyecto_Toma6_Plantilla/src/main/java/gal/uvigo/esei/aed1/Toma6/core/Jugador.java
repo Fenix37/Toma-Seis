@@ -42,7 +42,7 @@ public class Jugador {
             introducida=true;
         }
         for (int i = 0; i < mano.size()&&!introducida; i++) {
-            if(mano.get(i)==mano.getLast()){
+            if(mano.get(i).getNumCarta()>=mano.getLast().getNumCarta()){
                 mano.addLast(carta);
                 introducida=true;
             }else{
