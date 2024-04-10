@@ -4,6 +4,7 @@
  */
 package gal.uvigo.esei.aed1.Toma6.iu;
 
+import gal.uvigo.esei.aed1.Toma6.core.Carta;
 import gal.uvigo.esei.aed1.Toma6.core.Jugador;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -105,6 +106,134 @@ public class IU {
         }
         return toret;
     }
+  
+    /**
+     * Enseña por pantalla la mesa sola
+     * @param mesa mesa a imprimir
+     */
+    public static void mostrarMesa(String mesa){
+        System.out.println(mesa);
+    }
+    
+    /**
+     * 
+     * @param mesa mesa a imprimir
+     * @param jugadores de aquí saco los nombres para poner de quien es cada carta
+     * @param Carta[] cartas elegidas por los jugadores
+     */
+    public static void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Carta[] cartas){
+        mostrarMesa(mesa);
+        int i=0;
+        int[] longitudNombres = new int[10];
+        
+        System.out.print("|");
+        for (Jugador jugadorActual : jugadores) {
+            longitudNombres[i]=jugadorActual.getNombre().length();
+            if(longitudNombres[i]<10){
+                for(int j=0;j<((longitudNombres[i]-10)/2);j++){
+                    System.out.print(" ");
+                }
+                System.out.print(jugadorActual.getNombre());
+                for(int j=0;j<((longitudNombres[i]-10)/2);j++){
+                    System.out.print(" ");
+                }
+                longitudNombres[i]+=2*((longitudNombres[i]-10)/2);
+            }
+            else{
+                
+                System.out.print(jugadorActual.getNombre());
+            }
+            System.out.print("|");
+            i++;
+        }
+        System.out.print("\n|");
+        for(int j=0; j<i; j++){
+            if(cartas[j]!=null){
+                if(longitudNombres[j]<=10){
+                    System.out.print("Numero ");
+                    if(cartas[j].getNumCarta()<10){
+                        System.out.print("00"+cartas[j].getNumCarta());
+                    }
+                    else if(cartas[j].getNumCarta()<100){
+                        System.out.print("0"+cartas[j].getNumCarta());
+                    }
+                    else{
+                        System.out.println(cartas[j].getNumCarta());
+                    }
+                }
+                else{
+                    for(int f=0;f<((longitudNombres[j]-10)/2);f++){
+                        System.out.print(" ");
+                    }
+                    System.out.print("Numero ");
+                    if(cartas[j].getNumCarta()<10){
+                        System.out.print("00"+cartas[j].getNumCarta());
+                    }
+                    else if(cartas[j].getNumCarta()<100){
+                        System.out.print("0"+cartas[j].getNumCarta());
+                    }
+                    else{
+                        System.out.println(cartas[j].getNumCarta());
+                    }
+                    for(int f=0;f<((longitudNombres[j]-10)/2);f++){
+                        System.out.print(" ");
+                    }
+                }
+            }
+            else{
+                if(longitudNombres[i]<10){
+                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                        System.out.print(" ");
+                    }
+                    System.out.print("   Done   ");
+                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                        System.out.print(" ");
+                    }
+                }
+                else{
+                    System.out.print("   Done   ");
+                }
+            }
+            
+            System.out.print("|");
+        }
+        System.out.print("\n|");
+        for(int j=0; j<i; j++){
+            if(cartas[j]!=null){
+                if(longitudNombres[j]<=10){
+                    System.out.print(" "+cartas[j].getNumBueyes()+" bueyes ");
+                }
+                else{
+                    for(int f=0;f<((longitudNombres[j]-8)/2);f++){
+                        System.out.print(" ");
+                    }
+                    System.out.print(cartas[j].getNumBueyes()+" bueyes");
+                    for(int f=0;f<((longitudNombres[j]-8)/2);f++){
+                        System.out.print(" ");
+                    }
+                }
+            }
+            else{
+                if(longitudNombres[i]<10){
+                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                        System.out.print(" ");
+                    }
+                    System.out.print("   Done   ");
+                    for(int r=0;r<((longitudNombres[i]-10)/2);r++){
+                        System.out.print(" ");
+                    }
+                }
+                else{
+                    System.out.print("   Done   ");
+                }
+            }
+            
+            System.out.print("|");
+        }
+        System.out.print("\n");
+    }
+            
+
         /**
          * Muestra por pantalla los datos de un jugador
          *
