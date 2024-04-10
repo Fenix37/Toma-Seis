@@ -34,27 +34,32 @@ public class Jugador {
  */
     public void IntroducirCarta(Carta carta) {
         boolean introducida = false;
-        if(mano.size()==10){
+        if (mano.size() == 10) {
             throw new ArrayIndexOutOfBoundsException("O xoador non debe ter máis de 10 cartas");
         }
-        if(mano.isEmpty()){
+        if (mano.isEmpty()) {
             mano.add(0, carta);
-            introducida=true;
+            introducida = true;
         }
-        for (int i = 0; i < mano.size()&&!introducida; i++) {
-            if(mano.get(i).getNumCarta()>=mano.getLast().getNumCarta()){
+                    //coproba que a carta non vaia ao final
+            if (carta.getNumCarta() >= mano.getLast().getNumCarta()) {
                 mano.addLast(carta);
-                introducida=true;
-            }else{
-               if (mano.get(i).getNumCarta() <= carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
-                mano.add(i + 1, carta);
-                introducida=true;
-            } 
+                introducida = true;
+                //coproba que a carta non vaia ao comezo
+            } else if (mano.getFirst().getNumCarta() > carta.getNumCarta()) {
+                mano.addFirst(carta);
+                introducida = true;
+            } else {
+        for (int i = 0; i < mano.size() && !introducida; i++) {
+                //coloca a carta cando vai polo medio da lista
+                if (mano.get(i).getNumCarta() <= carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
+                    mano.add(i + 1, carta);
+                    introducida = true;
+                }
             }
-            
+
         }
     }
-
 /**
  * 
  * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
