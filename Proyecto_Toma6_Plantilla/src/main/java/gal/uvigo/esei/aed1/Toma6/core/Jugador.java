@@ -5,6 +5,7 @@
  * ordenadas de menor a mayor por su número), convertir a String el objeto Jugador (toString)
  */
 package gal.uvigo.esei.aed1.Toma6.core;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Jugador {
+
     private List<Carta> mano;
     private String nombre;
 
@@ -24,7 +26,9 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-     public void IntroducirCarta(Carta carta) {
+
+    public void IntroducirCarta(Carta carta) {
+
         boolean introducida = false;
         for (int i = 0; i < mano.size(); i++) {
             if (mano.get(i).getNumCarta() < carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
@@ -32,6 +36,20 @@ public class Jugador {
             }
         }
     }
+
+
+    public Carta SacarCarta(int numCarta) {
+        Carta toRet;
+        for (int i = 0; i < mano.size(); i++) {
+            if (mano.get(i).getNumCarta() == numCarta) {
+                toRet = mano.remove(i);
+                return toRet;
+            }
+
+        }
+        throw new IllegalArgumentException("Este xogadr non ten unha carta con ese número");
+}
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
