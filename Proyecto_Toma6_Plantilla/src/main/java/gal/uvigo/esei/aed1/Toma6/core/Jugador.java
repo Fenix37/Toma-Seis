@@ -33,7 +33,7 @@ public class Jugador {
      * this ao añadir unha carta a mano do xogador e lanza unha
      * ArrayOutOfBoundsException en caso de que o xgador xa teña 10 cartas
      */
-    public void IntroducirCarta(Carta carta){
+    public void IntroducirCarta(Carta carta) {
         boolean introducida = false;
         int fin, inicio, medio;
         if (mano.size() == 10) {
@@ -50,20 +50,20 @@ public class Jugador {
                 medio = (fin + inicio) / 2;
                 if (mano.get(medio).getNumCarta() > carta.getNumCarta()) {
                     fin = medio - 1;
-                }
-                if (mano.get(medio).getNumCarta() < carta.getNumCarta()) {
+                } else if (mano.get(medio).getNumCarta() < carta.getNumCarta()) {
                     inicio = medio + 1;
-                }
-                if (mano.get(medio).getNumCarta() == carta.getNumCarta()) {
+                } else {
                     mano.add(medio, carta);
                     introducida = true;
-                } else if (inicio > fin) {
+                }
+                if (inicio > fin) {
                     mano.add(inicio, carta);
                     introducida = true;
                 }
             }
         }
     }
+
     /**
      *
      * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
@@ -72,7 +72,7 @@ public class Jugador {
      * existen cartas na mano lanza unha NullPointerException
      */
     public Carta SacarCarta(int numCarta) {
-        if(mano.isEmpty()){
+        if (mano.isEmpty()) {
             throw new NullPointerException("o xogador non ten cartas");
         }
         boolean esta = true;
@@ -85,8 +85,7 @@ public class Jugador {
                 fin = medio - 1;
             } else if (mano.get(medio).getNumCarta() < numCarta) {
                 inicio = medio + 1;
-            }
-            if (mano.get(medio).getNumCarta() == numCarta) {
+            } else {
                 return mano.get(medio);
             }
             if (inicio > fin) {
