@@ -20,5 +20,18 @@ public class MesaDeJuego {
             cartasEnMesa [i] = new ArrayList<>();
         }
     }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[Numero de carta|Numero de bueyes]\n");
+        for (int i = 0; i < 4; i++) {
+            sb.append("\n\n");
+            for (Carta carta : cartasEnMesa[i]) {
+                sb.append("["+carta.getNumCarta()+"|"+carta.getNumBueyes()+"] ");
+            }
+        }
+        
+        return null;
+    }
     
 }

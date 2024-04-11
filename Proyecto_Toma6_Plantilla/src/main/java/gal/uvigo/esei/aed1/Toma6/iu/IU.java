@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 import java.lang.Math;
+import java.util.List;
 
 public class IU {
 
@@ -237,14 +238,61 @@ public class IU {
         }
         System.out.print("\n");
     }
-            
+    
+    /**
+     * 
+     * @param nombreJugador
+     * @param mano
+     * @return 
+     */
+    public int pedirCartaAJugar(String nombreJugador, List<Carta> mano){
+        int decision =0;
+        Boolean done=false;
+        borrarPantalla();
+        mostrarMensaje("Es el turno de "+nombreJugador+". Pulsa Enter para continuar.");
+        pressEnterToContinue();
+        borrarPantalla();
+        for (Carta carta : mano) {
+            System.out.println(carta.toString());
+        }
+        System.out.println(nombreJugador+", escribe el numero de la carque que quieras jugar");
+        Scanner jin = new Scanner(System.in);
+        do{
+            try{
+            decision=Integer.parseInt(jin.nextLine());
+            } catch (NumberFormatException exc) {
+                
+            }
+            for (Carta carta : mano) {
+                if(carta.getNumBueyes()==decision){
+                    done=true;
+                }
+            }
+        }while(done==false);
+        jin.close();
+        return decision;
+    }
+    
+    /**
+     *  Pulsa Enter Para Continuar pausa el programa hasta que se pulsa Enter.
+     */
+    private void pressEnterToContinue(){
+        try
+        {
+            Scanner jin = new Scanner(System.in);
+            jin.nextLine();
+            jin.close();
+        }  
+        catch(Exception e)
+        {}  
+    }
 
-        /**
-         * Muestra por pantalla los datos de un jugador
-         *
-         * @param jugador Jugador para el cual se mostrarán los datos por
-         * pantalla
-         */
+    /**
+     * Muestra por pantalla los datos de un jugador
+     *
+     * @param jugador Jugador para el cual se mostrarán los datos por
+     * pantalla
+     */
     private void mostrarJugador(Jugador jugador) {
         System.out.println(jugador.toString());
     }
