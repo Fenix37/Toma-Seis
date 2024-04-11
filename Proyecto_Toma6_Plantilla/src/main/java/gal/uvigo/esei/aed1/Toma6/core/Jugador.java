@@ -33,32 +33,37 @@ public class Jugador {
      * this ao añadir unha carta a mano do xogador e lanza unha
      * ArrayOutOfBoundsException en caso de que o xgador xa teña 10 cartas
      */
-    public void IntroducirCarta(Carta carta) {
+    public void IntroducirCarta(Carta carta){
         boolean introducida = false;
+        int fin, inicio, medio;
         if (mano.size() == 10) {
             throw new ArrayIndexOutOfBoundsException("O xoador non debe ter máis de 10 cartas");
         }
         if (mano.isEmpty()) {
             mano.add(0, carta);
             introducida = true;
-            //coproba que a carta non vaia ao final
-        } else if (carta.getNumCarta() >= mano.getLast().getNumCarta()) {
-            mano.addLast(carta);
-            //coproba que a carta non vaia ao comezo
-        } else if (mano.getFirst().getNumCarta() > carta.getNumCarta()) {
-            mano.addFirst(carta);
         } else {
-            for (int i = 0; i < mano.size() && !introducida; i++) {
-                //coloca a carta cando vai polo medio da lista
-                if (mano.get(i).getNumCarta() <= carta.getNumCarta() && carta.getNumCarta() < mano.get(i + 1).getNumCarta()) {
-                    mano.add(i + 1, carta);
+            fin = mano.size() - 1;
+            inicio = 0;
+            //busqueda binaria
+            while (!introducida) {
+                medio = (fin + inicio) / 2;
+                if (mano.get(medio).getNumCarta() > carta.getNumCarta()) {
+                    fin = medio - 1;
+                }
+                if (mano.get(medio).getNumCarta() < carta.getNumCarta()) {
+                    inicio = medio + 1;
+                }
+                if (mano.get(medio).getNumCarta() == carta.getNumCarta()) {
+                    mano.add(medio, carta);
+                    introducida = true;
+                } else if (inicio > fin) {
+                    mano.add(inicio, carta);
                     introducida = true;
                 }
             }
-
         }
     }
-
     /**
      *
      * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
