@@ -20,6 +20,9 @@ public class MesaDeJuego {
             cartasEnMesa [i] = new ArrayList<>();
         }
     }
+    public void insertarCarta(Carta nueva, int fila){
+        cartasEnMesa[fila].add(nueva);
+    }
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -27,11 +30,11 @@ public class MesaDeJuego {
         for (int i = 0; i < 4; i++) {
             sb.append("\n\n");
             for (Carta carta : cartasEnMesa[i]) {
-                sb.append("["+carta.getNumCarta()+"|"+carta.getNumBueyes()+"] ");
+                sb.append("[").append(carta.getNumCarta()).append("|").append(carta.getNumBueyes()).append("] ");
             }
         }
         
-        return null;
+        return sb.toString();
     }
     
 }
