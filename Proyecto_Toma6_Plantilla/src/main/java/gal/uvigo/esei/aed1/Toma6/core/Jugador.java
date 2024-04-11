@@ -95,10 +95,10 @@ public class Jugador {
     public String toString() {
         StringBuilder mano = new StringBuilder();
         for (Carta carta : this.mano) {
-            mano.append(carta.toString()).append("//");
+            mano.append(carta.toString());
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("~-----------------------~\n   =").append("Nombre: ").append(nombre).append("=\n   =Mano=\n").append(mano).append("<_______________________>");
+        sb.append("~-----------------------~\n").append("Nombre: ").append(nombre).append("\n         =Mano=\n").append(mano).append("<_______________________>");
         return sb.toString();
     }
 }
