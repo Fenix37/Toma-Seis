@@ -54,6 +54,18 @@ public class IU {
         toret = teclado.nextLine();
         return toret;
     }
+    
+    /**
+    * Limpia la pantalla:
+    * Crea un proceso CMD y usa el comando System("CLS")
+    */
+    public void borrarPantalla(){
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            /*No hacer nada*/
+        }
+    }
 
     /**
      * Muestra un mensaje por pantalla
@@ -61,15 +73,7 @@ public class IU {
      * @param msg El mensaje a mostrar
      */
     public void mostrarMensaje(String msg) {
-        /**
-         * Limpia la pantalla:
-         * Crea un proceso CMD y usa el comando System("CLS")
-         */
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            /*No hacer nada*/
-        }
+        borrarPantalla();
         System.out.print("~");
         for(int i=0;i<msg.length();i++){
             System.out.print("-");
@@ -112,7 +116,7 @@ public class IU {
      * Enseña por pantalla la mesa sola
      * @param mesa mesa a imprimir
      */
-    public static void mostrarMesa(String mesa){
+    public void mostrarMesa(String mesa){
         System.out.println(mesa);
     }
     
@@ -122,7 +126,7 @@ public class IU {
      * @param jugadores de aquí saco los nombres para poner de quien es cada carta
      * @param Carta[] cartas elegidas por los jugadores
      */
-    public static void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Carta[] cartas){
+    public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Carta[] cartas){
         mostrarMesa(mesa);
         int i=0;
         int[] longitudNombres = new int[10];
@@ -242,14 +246,7 @@ public class IU {
          * pantalla
          */
     private void mostrarJugador(Jugador jugador) {
-
-        String nombre = jugador.getNombre();
-        String cartas = jugador.getBaraja().toString();
-        System.out.println("~-----------------------~");
-        System.out.println("   ="+nombre+"=");
-        System.out.println(cartas);
-        System.out.println("<_______________________>");
-
+        System.out.println(jugador.toString());
     }
 
     /**
@@ -258,26 +255,9 @@ public class IU {
      * @param jugadores Jugadores cuyos datos se mostrarán por pantalla
      */
     public void mostrarJugadores(Collection<Jugador> jugadores) {
-
-        /**
-         * Limpia la pantalla:
-         * Crea un proceso CMD y usa el comando System("CLS")
-         */
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            /*No hacer nada*/
+        borrarPantalla();
+        for (Jugador jugador : jugadores) {
+            mostrarJugador(jugador);
         }
-        Jugador[] jugadoresArray;
-        jugadoresArray = new Jugador[10];
-        jugadores.toArray(jugadoresArray);
-        int i=0;
-        while(jugadoresArray[i]!=null&&i<10){
-            mostrarJugador(jugadoresArray[i]);
-            i++;
-        }
-    
-
     }
-
 }
