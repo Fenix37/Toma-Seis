@@ -68,8 +68,8 @@ public class Jugador {
      *
      * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
      * @return Carta co número que se pediu e en caso de non atoparse
-     * IllgalArgumentException. modifica this ao quitarlle unha carta e se non
-     * existen cartas na mano lanza unha NullPointerException
+     *          IllgalArgumentException. modifica this ao quitarlle unha carta e se non
+     *          existen cartas na mano lanza unha NullPointerException
      */
     public Carta SacarCarta(int numCarta) {
         if (mano.isEmpty()) {
@@ -104,5 +104,12 @@ public class Jugador {
         StringBuilder sb = new StringBuilder();
         sb.append("~-----------------------~\n").append("Nombre: ").append(nombre).append("\n         =Mano=\n").append(mano).append("<_______________________>");
         return sb.toString();
+    }
+    public String  manoToString(){
+        StringBuilder toRet = new StringBuilder();
+        for (Carta carta : mano) {
+            toRet.append(carta.toString());
+        }
+        return toRet.toString();
     }
 }
