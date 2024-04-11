@@ -245,30 +245,25 @@ public class IU {
      * @param mano
      * @return 
      */
-    public int pedirCartaAJugar(String nombreJugador, List<Carta> mano){
+    public int pedirCartaAJugar(String nombreJugador, String mano){
         int decision =0;
         Boolean done=false;
         borrarPantalla();
         mostrarMensaje("Es el turno de "+nombreJugador+". Pulsa Enter para continuar.");
         pressEnterToContinue();
         borrarPantalla();
-        for (Carta carta : mano) {
-            System.out.println(carta.toString());
-        }
+        System.out.println(mano);
         System.out.println(nombreJugador+", escribe el numero de la carque que quieras jugar");
         Scanner jin = new Scanner(System.in);
         do{
             try{
             decision=Integer.parseInt(jin.nextLine());
-            } catch (NumberFormatException exc) {
-                
+            done=true;
             }
-            for (Carta carta : mano) {
-                if(carta.getNumBueyes()==decision){
-                    done=true;
-                }
+            catch (NumberFormatException exc) {   
+                //se repite el bucle
             }
-        }while(done==false);
+        }while(!done);
         jin.close();
         return decision;
     }
