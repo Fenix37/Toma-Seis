@@ -5,13 +5,8 @@
  * ordenadas de menor a mayor por su número), convertir a String el objeto Jugador (toString)
  */
 package gal.uvigo.esei.aed1.Toma6.core;
-
 import java.util.List;
 import java.util.ArrayList;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Jugador {
 
@@ -27,21 +22,24 @@ public class Jugador {
         return nombre;
     }
 
-    /**
-     *
-     * @param carta :Carta que se desexa introducir na mano do xogador Modifica
+    /**Modifica
      * this ao añadir unha carta a mano do xogador e lanza unha
      * ArrayOutOfBoundsException en caso de que o xgador xa teña 10 cartas
+     *
+     * @param carta :Carta que se desexa introducir na mano do xogador 
      */
     public void IntroducirCarta(Carta carta) {
         boolean introducida = false;
         int fin, inicio, medio;
+        //comproba que estea cheo
         if (mano.size() == 10) {
             throw new ArrayIndexOutOfBoundsException("O xoador non debe ter máis de 10 cartas");
         }
+        //comproba se está valeiro
         if (mano.isEmpty()) {
             mano.add(0, carta);
             introducida = true;
+            //algoritmo de ordenación binario que elixe onde vai a carta
         } else {
             fin = mano.size() - 1;
             inicio = 0;
@@ -64,17 +62,18 @@ public class Jugador {
         }
     }
 
-    /**
+    /**modifica this ao quitarlle unha carta e se non
+     *          existen cartas na mano lanza unha NullPointerException
      *
      * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
      * @return Carta co número que se pediu e en caso de non atoparse
-     *          IllgalArgumentException. modifica this ao quitarlle unha carta e se non
-     *          existen cartas na mano lanza unha NullPointerException
      */
     public Carta SacarCarta(int numCarta) {
+        //comproba se está valeiro
         if (mano.isEmpty()) {
             throw new NullPointerException("o xogador non ten cartas");
         }
+        //algoritmo de ordenación binario que busca a carta
         boolean esta = true;
         int fin = mano.size() - 1;
         int inicio = 0;
