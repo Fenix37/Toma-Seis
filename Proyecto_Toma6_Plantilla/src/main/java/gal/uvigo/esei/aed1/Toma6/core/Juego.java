@@ -13,29 +13,44 @@ public class Juego {
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
+    private MesaDeJuego mesa;
 
     public Juego(IU iu) {
         this.iu = iu;
         baraja = new Baraja();
         jugadores = new ArrayList<>();
+        mesa = new MesaDeJuego();
 
     }
-        
 
     public void jugar() {
         baraja.barajar();
-        for(String nombreJugador: iu.pedirNombresJugadores()){
+        for (String nombreJugador : iu.pedirNombresJugadores()) {
             jugadores.add(new Jugador(nombreJugador));
         }
-        iu.mostrarJugadores(jugadores);
-        
-        for (Jugador jug: jugadores){
+        for (Jugador jug : jugadores) {
             for (int i = 0; i < 10; i++) {
                 jug.IntroducirCarta(baraja.getPop());
             }
         }
-        for (Jugador jug: jugadores){
-            
+        for (int i = 0; i < 4; i++) {
+            mesa.insertarCarta(baraja.getPop(), i);
         }
-    }   
+        iu.mostrarJugadores(jugadores);
+        iu.mostrarMesa(mesa.toString());
+        Carta elecciones[] = new Carta[10];
+        int i = 0;
+        for (Jugador jug : jugadores) {
+            boolean cartaValida = false;
+            do {
+                try {
+                    elecciones[i] = jug.SacarCarta(iu.pedirCartaAJugar(jug));
+                    cartaValida = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            } while (!cartaValida);
+        }
+        
+    }
 }
