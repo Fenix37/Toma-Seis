@@ -5,13 +5,8 @@
  * ordenadas de menor a mayor por su número), convertir a String el objeto Jugador (toString)
  */
 package gal.uvigo.esei.aed1.Toma6.core;
-
 import java.util.List;
 import java.util.ArrayList;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Jugador {
 
