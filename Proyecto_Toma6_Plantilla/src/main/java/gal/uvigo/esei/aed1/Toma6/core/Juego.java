@@ -25,10 +25,17 @@ public class Juego {
     public void jugar() {
         baraja.barajar();
         for(String nombreJugador: iu.pedirNombresJugadores()){
-            jugadores.add(new Jugador(this.subbarajar(10), nombreJugador));
+            jugadores.add(new Jugador(nombreJugador));
         }
         iu.mostrarJugadores(jugadores);
-    }
-
-   
+        
+        for (Jugador jug: jugadores){
+            for (int i = 0; i < 10; i++) {
+                jug.IntroducirCarta(baraja.getPop());
+            }
+        }
+        for (Jugador jug: jugadores){
+            
+        }
+    }   
 }

@@ -67,7 +67,6 @@ public class Jugador {
      *
      * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
      * @return Carta co número que se pediu e en caso de non atoparse
-     *          IllgalArgumentException. 
      */
     public Carta SacarCarta(int numCarta) {
         //comproba se está valeiro
