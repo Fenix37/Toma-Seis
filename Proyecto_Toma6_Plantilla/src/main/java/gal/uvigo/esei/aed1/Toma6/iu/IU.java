@@ -9,8 +9,6 @@ import gal.uvigo.esei.aed1.Toma6.core.Jugador;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
-import java.lang.Math;
-import java.util.List;
 
 public class IU {
 
@@ -81,7 +79,7 @@ public class IU {
         }
         System.out.println("~");
         System.out.print("|");
-        System.out.println(msg);
+        System.out.print(msg);
         System.out.println("|");
         System.out.print("~");
         for(int i=0;i<msg.length();i++){
@@ -125,7 +123,7 @@ public class IU {
      * 
      * @param mesa mesa a imprimir
      * @param jugadores de aquí saco los nombres para poner de quien es cada carta
-     * @param Carta[] cartas elegidas por los jugadores
+     * @param cartas cartas elegidas por los jugadores
      */
     public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Carta[] cartas){
         mostrarMesa(mesa);
@@ -240,20 +238,19 @@ public class IU {
     }
     
     /**
-     * 
-     * @param nombreJugador
-     * @param mano
+     * le pido a mi victima que elija una de sus cartas
+     * @param jugador víctima
      * @return 
      */
-    public int pedirCartaAJugar(String nombreJugador, String mano){
-        int decision =0;
+    public int pedirCartaAJugar(Jugador jugador){
+        int decision = 0;
         Boolean done=false;
         borrarPantalla();
-        mostrarMensaje("Es el turno de "+nombreJugador+". Pulsa Enter para continuar.");
+        mostrarMensaje("Es el turno de "+jugador.getNombre()+". Pulsa Enter para continuar.");
         pressEnterToContinue();
         borrarPantalla();
-        System.out.println(mano);
-        System.out.println(nombreJugador+", escribe el numero de la carque que quieras jugar");
+        System.out.println(jugador.manoToString());
+        System.out.println(jugador.getNombre()+", escribe el numero de la carque que quieras jugar");
         Scanner jin = new Scanner(System.in);
         do{
             try{
