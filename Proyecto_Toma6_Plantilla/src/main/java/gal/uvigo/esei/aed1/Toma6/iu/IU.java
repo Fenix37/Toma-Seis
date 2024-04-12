@@ -19,7 +19,7 @@ public class IU {
     }
 
     /**
-     * Lee un número de teclado
+     * Envia un mensaje y lee un número de teclado
      *
      * @param msg El mensaje a visualizar.
      * @return El numero como entero
@@ -40,6 +40,28 @@ public class IU {
 
         return toret;
     }
+    
+    /**
+     * Lee un número de teclado
+     *
+     * @return El numero como entero
+     */
+    public int leeNum() {
+        boolean repite;
+        int toret = 0;
+
+        do {
+            repite = false;
+            try {
+                toret = Integer.parseInt(teclado.nextLine());
+            } catch (NumberFormatException exc) {
+                repite = true;
+            }
+        } while (repite);
+
+        return toret;
+    }
+    
 
     /**
      * Lee un texto de teclado
@@ -244,39 +266,16 @@ public class IU {
      */
     public int pedirCartaAJugar(Jugador jugador){
         int decision = 0;
-        Boolean done=false;
         borrarPantalla();
         mostrarMensaje("Es el turno de "+jugador.getNombre()+". Pulsa Enter para continuar.");
-        pressEnterToContinue();
+        Scanner jin = new Scanner(System.in);
+        jin.nextLine();
+        jin.close();
         borrarPantalla();
         System.out.println(jugador.manoToString());
         System.out.println(jugador.getNombre()+", escribe el numero de la carque que quieras jugar");
-        Scanner jin = new Scanner(System.in);
-        do{
-            try{
-            decision=Integer.parseInt(jin.nextLine());
-            done=true;
-            }
-            catch (NumberFormatException exc) {   
-                //se repite el bucle
-            }
-        }while(!done);
-        jin.close();
+        decision = leeNum();
         return decision;
-    }
-    
-    /**
-     *  Pulsa Enter Para Continuar pausa el programa hasta que se pulsa Enter.
-     */
-    private void pressEnterToContinue(){
-        try
-        {
-            Scanner jin = new Scanner(System.in);
-            jin.nextLine();
-            jin.close();
-        }  
-        catch(Exception e)
-        {}  
     }
 
     /**
