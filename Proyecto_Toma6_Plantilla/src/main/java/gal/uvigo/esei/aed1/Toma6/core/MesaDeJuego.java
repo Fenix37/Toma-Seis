@@ -23,6 +23,30 @@ public class MesaDeJuego {
     public void insertarCarta(Carta nueva, int fila){
         cartasEnMesa[fila].add(nueva);
     }
+    public boolean insertarCarta(Carta nueva, String nombre){
+        int fila = filaMenor(nueva.getNumCarta());
+        if(fila == -1){
+            System.out.println("La carta de " + nombre + " no puede ser jugada ya que es menor a todas las finales de la mesa.");
+            return false;
+        }
+        if(cartasEnMesa[fila].size() == 5){
+            System.out.println("La carta de " + nombre + " no puede ser jugada ya que su respectiva fila está llena.");
+            return false;
+        }
+        insertarCarta(nueva, fila);
+        return true;
+    }
+    private int filaMenor(int numCarta){
+        int menorDiferencia = 105;
+        int fila = -1;
+        for(int i = 0; i < cartasEnMesa.length; i++){
+            if(cartasEnMesa[i].getLast().getNumCarta() < numCarta && (numCarta - cartasEnMesa[i].getLast().getNumCarta()) < menorDiferencia){
+                fila = i;
+                menorDiferencia = numCarta - cartasEnMesa[i].getLast().getNumCarta();
+            }
+        }
+        return fila;
+    }
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
