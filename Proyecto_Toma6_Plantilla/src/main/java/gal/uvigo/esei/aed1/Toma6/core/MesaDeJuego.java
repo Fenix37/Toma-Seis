@@ -20,9 +20,27 @@ public class MesaDeJuego {
             cartasEnMesa [i] = new ArrayList<>();
         }
     }
+
+    /**Inserta una nueva carta a una de las listas según que fila es seleccionada
+     *
+     * @param nueva Carta a insertar en la mesa
+     * @param fila Fila donde se inserta la carta
+     */
     public void insertarCarta(Carta nueva, int fila){
+        if(fila < 0 ||fila > cartasEnMesa.length){
+            throw new IllegalArgumentException("La fila introducida no existe.");
+        }
         cartasEnMesa[fila].add(nueva);
     }
+
+    /**
+     *
+     * @param nueva Cartqa nueva a insertar en la mesa
+     * @param nombre Nombre del jugador al que le pertenece la carta que se trata de insertar
+     * @return false si no se puede insertar la carta, ya sea porque ya hay 5 cartas en la fila
+     * donde corresponde o porque sea menor a todas las últimas cartas de las listas.
+     * true si se pudo insertar la carta
+     */
     public boolean insertarCarta(Carta nueva, String nombre){
         int fila = filaMenor(nueva.getNumCarta());
         if(fila == -1){
@@ -36,6 +54,12 @@ public class MesaDeJuego {
         insertarCarta(nueva, fila);
         return true;
     }
+    /*
+    *Calcula la fila a la que pertenece el número de carta que se le pasa.
+    *Si no tiene fila correspondiente devuelve -1
+    *@param Número de la carta de la que se busca calcular la fila
+    *@return Fila a la que pertenece el número pasado, si no pertenece a ninguna se devuelve -1
+    */
     private int filaMenor(int numCarta){
         int menorDiferencia = 105;
         int fila = -1;
