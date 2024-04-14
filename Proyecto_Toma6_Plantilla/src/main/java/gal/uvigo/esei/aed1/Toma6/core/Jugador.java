@@ -85,7 +85,7 @@ public class Jugador {
             } else if (mano.get(medio).getNumCarta() < numCarta) {
                 inicio = medio + 1;
             } else {
-                return mano.get(medio);
+                return mano.remove(medio);
             }
             if (inicio > fin) {
                 throw new IllegalArgumentException("O elemento non se atopa na lista");
