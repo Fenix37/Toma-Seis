@@ -64,7 +64,7 @@ public class Juego {
             iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
             
             while (!elecciones.isEmpty()) {
-                iu.leeString("Turno de: " + nombres.getFirst() + "\nPulse enter para continuar.");
+                iu.leeString("Turno de: " + nombres.getFirst() + ". Pulse enter para continuar.");
                 if (mesa.insertarCarta(elecciones.getFirst(), nombres.getFirst()) == false) {
                     baraja.addCarta(elecciones.getFirst());
                 }
