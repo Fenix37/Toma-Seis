@@ -8,9 +8,8 @@ import gal.uvigo.esei.aed1.Toma6.core.Carta;
 import gal.uvigo.esei.aed1.Toma6.core.Jugador;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Scanner;
-import java.lang.Math;
 import java.util.List;
+import java.util.Scanner;
 
 public class IU {
 
@@ -21,7 +20,7 @@ public class IU {
     }
 
     /**
-     * Lee un número de teclado
+     * Envia un mensaje y lee un número de teclado
      *
      * @param msg El mensaje a visualizar.
      * @return El numero como entero
@@ -42,6 +41,28 @@ public class IU {
 
         return toret;
     }
+    
+    /**
+     * Lee un número de teclado
+     *
+     * @return El numero como entero
+     */
+    public int leeNum() {
+        boolean repite;
+        int toret = 0;
+
+        do {
+            repite = false;
+            try {
+                toret = Integer.parseInt(teclado.nextLine());
+            } catch (NumberFormatException exc) {
+                repite = true;
+            }
+        } while (repite);
+
+        return toret;
+    }
+    
 
     /**
      * Lee un texto de teclado
@@ -81,7 +102,7 @@ public class IU {
         }
         System.out.println("~");
         System.out.print("|");
-        System.out.println(msg);
+        System.out.print(msg);
         System.out.println("|");
         System.out.print("~");
         for(int i=0;i<msg.length();i++){
@@ -125,161 +146,133 @@ public class IU {
      * 
      * @param mesa mesa a imprimir
      * @param jugadores de aquí saco los nombres para poner de quien es cada carta
-     * @param Carta[] cartas elegidas por los jugadores
+     * @param cartas cartas elegidas por los jugadores
      */
-    public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Carta[] cartas){
-        mostrarMesa(mesa);
-        int i=0;
-        int[] longitudNombres = new int[10];
+public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, List<Carta> cartas){
+    mostrarMesa(mesa);
+    int i=0;
+    int[] longitudNombres = new int[10];
+    
+    System.out.print("|");
+    for (Jugador jugadorActual : jugadores) {
+        longitudNombres[i]=jugadorActual.getNombre().length();
+        if(longitudNombres[i]<10){
+            for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
+                System.out.print(" ");
+            }
+            System.out.print(jugadorActual.getNombre());
+            for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
+                System.out.print(" ");
+            }
+            longitudNombres[i]+=2*(Math.abs(longitudNombres[i]-10)/2);
+        }
+        else{
+            System.out.print(jugadorActual.getNombre());
+        }
+        System.out.print("|");
+        i++;
+    }
+    System.out.print("\n|");
+    for(int j=0; j<i; j++){
+        if(cartas.get(j)!=null){
+            if(longitudNombres[j]<=10){
+                System.out.print("Numero ");
+                if(cartas.get(j).getNumCarta()<10){
+                    System.out.print("00"+cartas.get(j).getNumCarta());
+                }
+                else if(cartas.get(j).getNumCarta()<100){
+                    System.out.print("0"+cartas.get(j).getNumCarta());
+                }
+                else{
+                    System.out.println(cartas.get(j).getNumCarta());
+                }
+            }
+            else{
+                for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
+                    System.out.print(" ");
+                }
+                System.out.print("Numero ");
+                if(cartas.get(j).getNumCarta()<10){
+                    System.out.print("00"+cartas.get(j).getNumCarta());
+                }
+                else if(cartas.get(j).getNumCarta()<100){
+                    System.out.print("0"+cartas.get(j).getNumCarta());
+                }
+                else{
+                    System.out.println(cartas.get(j).getNumCarta());
+                }
+                for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
+                    System.out.print(" ");
+                }
+            }
+        }
+        else{
+            if(longitudNombres[i]<10){
+                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+                    System.out.print(" ");
+                }
+                System.out.print("   Done   ");
+                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+                    System.out.print(" ");
+                }
+            }
+            else{
+                System.out.print("   Done   ");
+            }
+        }
         
         System.out.print("|");
-        for (Jugador jugadorActual : jugadores) {
-            longitudNombres[i]=jugadorActual.getNombre().length();
-            if(longitudNombres[i]<10){
-                for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
-                    System.out.print(" ");
-                }
-                System.out.print(jugadorActual.getNombre());
-                for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
-                    System.out.print(" ");
-                }
-                longitudNombres[i]+=2*(Math.abs(longitudNombres[i]-10)/2);
-            }
-            else{
-                
-                System.out.print(jugadorActual.getNombre());
-            }
-            System.out.print("|");
-            i++;
-        }
-        System.out.print("\n|");
-        for(int j=0; j<i; j++){
-            if(cartas[j]!=null){
-                if(longitudNombres[j]<=10){
-                    System.out.print("Numero ");
-                    if(cartas[j].getNumCarta()<10){
-                        System.out.print("00"+cartas[j].getNumCarta());
-                    }
-                    else if(cartas[j].getNumCarta()<100){
-                        System.out.print("0"+cartas[j].getNumCarta());
-                    }
-                    else{
-                        System.out.println(cartas[j].getNumCarta());
-                    }
-                }
-                else{
-                    for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
-                        System.out.print(" ");
-                    }
-                    System.out.print("Numero ");
-                    if(cartas[j].getNumCarta()<10){
-                        System.out.print("00"+cartas[j].getNumCarta());
-                    }
-                    else if(cartas[j].getNumCarta()<100){
-                        System.out.print("0"+cartas[j].getNumCarta());
-                    }
-                    else{
-                        System.out.println(cartas[j].getNumCarta());
-                    }
-                    for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
-                        System.out.print(" ");
-                    }
-                }
-            }
-            else{
-                if(longitudNombres[i]<10){
-                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
-                        System.out.print(" ");
-                    }
-                    System.out.print("   Done   ");
-                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
-                        System.out.print(" ");
-                    }
-                }
-                else{
-                    System.out.print("   Done   ");
-                }
-            }
-            
-            System.out.print("|");
-        }
-        System.out.print("\n|");
-        for(int j=0; j<i; j++){
-            if(cartas[j]!=null){
-                if(longitudNombres[j]<=10){
-                    System.out.print(" "+cartas[j].getNumBueyes()+" bueyes ");
-                }
-                else{
-                    for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
-                        System.out.print(" ");
-                    }
-                    System.out.print(cartas[j].getNumBueyes()+" bueyes");
-                    for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
-                        System.out.print(" ");
-                    }
-                }
-            }
-            else{
-                if(longitudNombres[i]<10){
-                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
-                        System.out.print(" ");
-                    }
-                    System.out.print("   Done   ");
-                    for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
-                        System.out.print(" ");
-                    }
-                }
-                else{
-                    System.out.print("   Done   ");
-                }
-            }
-            
-            System.out.print("|");
-        }
-        System.out.print("\n");
     }
+    System.out.print("\n|");
+    for(int j=0; j<i; j++){
+        if(cartas.get(j)!=null){
+            if(longitudNombres[j]<=10){
+                System.out.print(" "+cartas.get(j).getNumBueyes()+" bueyes ");
+            }
+            else{
+                for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
+                    System.out.print(" ");
+                }
+                System.out.print(cartas.get(j).getNumBueyes()+" bueyes");
+                for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
+                    System.out.print(" ");
+                }
+            }
+        }
+        else{
+            if(longitudNombres[i]<10){
+                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+                    System.out.print(" ");
+                }
+                System.out.print("   Done   ");
+                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+                    System.out.print(" ");
+                }
+            }
+            else{
+                System.out.print("   Done   ");
+            }
+        }
+        
+        System.out.print("|");
+    }
+    System.out.print("\n");
+}
     
     /**
-     * 
-     * @param nombreJugador
-     * @param mano
+     * le pido a mi victima que elija una de sus cartas
+     * @param jugador víctima
      * @return 
      */
-    public int pedirCartaAJugar(String nombreJugador, String mano){
-        int decision =0;
-        Boolean done=false;
+    public int pedirCartaAJugar(Jugador jugador){
+        int decision = 0;
         borrarPantalla();
-        mostrarMensaje("Es el turno de "+nombreJugador+". Pulsa Enter para continuar.");
-        pressEnterToContinue();
+        leeString("Es el turno de "+jugador.getNombre()+". Pulsa Enter para continuar.");
         borrarPantalla();
-        System.out.println(mano);
-        System.out.println(nombreJugador+", escribe el numero de la carque que quieras jugar");
-        Scanner jin = new Scanner(System.in);
-        do{
-            try{
-            decision=Integer.parseInt(jin.nextLine());
-            done=true;
-            }
-            catch (NumberFormatException exc) {   
-                //se repite el bucle
-            }
-        }while(!done);
-        jin.close();
+        System.out.println(jugador.manoToString());
+        System.out.println(jugador.getNombre()+", escribe el numero de la carque que quieras jugar");
+        decision = leeNum();
         return decision;
-    }
-    
-    /**
-     *  Pulsa Enter Para Continuar pausa el programa hasta que se pulsa Enter.
-     */
-    private void pressEnterToContinue(){
-        try
-        {
-            Scanner jin = new Scanner(System.in);
-            jin.nextLine();
-            jin.close();
-        }  
-        catch(Exception e)
-        {}  
     }
 
     /**
