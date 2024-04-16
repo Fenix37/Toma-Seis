@@ -54,17 +54,14 @@ public class Juego {
                     }
                 } while (!cartaValida);
             }
-            ordenarCartas(elecciones, nombres);
-            System.out.println("Turnos: ");
-            for(int i = 0; i < nombres.size(); i++){
-                System.out.println((i+1) + ": " + nombres.get(i));
-            }
             //Se muestra la mesa
             System.out.println("Elecciones hechas: ");
             iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
+            ordenarCartas(elecciones, nombres);
             
             while (!elecciones.isEmpty()) {
-                iu.leeString("Turno de: " + nombres.getFirst() + ". Pulse enter para continuar.");
+                iu.leeString("Turno de: " + nombres.getFirst()
+                        + elecciones.getFirst() + "\nPulse enter para continuar.");
                 if (mesa.insertarCarta(elecciones.getFirst(), nombres.getFirst()) == false) {
                     baraja.addCarta(elecciones.getFirst());
                 }
