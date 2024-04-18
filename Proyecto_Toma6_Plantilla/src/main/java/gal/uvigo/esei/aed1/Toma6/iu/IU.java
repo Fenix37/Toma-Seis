@@ -270,7 +270,7 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
         leeString("Es el turno de "+jugador.getNombre()+". Pulsa Enter para continuar.");
         borrarPantalla();
         System.out.println(jugador.manoToString());
-        System.out.println(jugador.getNombre()+", escribe el numero de la carque que quieras jugar");
+        System.out.println(jugador.getNombre()+", escribe el numero de la carta que quieras jugar");
         decision = leeNum();
         return decision;
     }
