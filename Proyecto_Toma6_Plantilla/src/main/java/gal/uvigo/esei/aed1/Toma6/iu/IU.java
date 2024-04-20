@@ -174,7 +174,7 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
     }
     System.out.print("\n|");
     for(int j=0; j<i; j++){
-        if(cartas.get(j)!=null){
+        if(cartas.get(j).getNumBueyes()!=0){
             if(longitudNombres[j]<=10){
                 System.out.print("Numero ");
                 if(cartas.get(j).getNumCarta()<10){
@@ -225,7 +225,7 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
     }
     System.out.print("\n|");
     for(int j=0; j<i; j++){
-        if(cartas.get(j)!=null){
+        if(cartas.get(j).getNumBueyes()!=0){
             if(longitudNombres[j]<=10){
                 System.out.print(" "+cartas.get(j).getNumBueyes()+" bueyes ");
             }
