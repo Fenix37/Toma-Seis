@@ -33,7 +33,7 @@ public class Jugador {
         int fin, inicio, medio;
         //comproba que estea cheo
         if (mano.size() == 10) {
-            throw new ArrayIndexOutOfBoundsException("O xoador non debe ter máis de 10 cartas");
+            throw new ArrayIndexOutOfBoundsException("O xogador non debe ter máis de 10 cartas");
         }
         //comproba se está valeiro
         if (mano.isEmpty()) {
