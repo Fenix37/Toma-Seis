@@ -64,9 +64,9 @@ public class MesaDeJuego {
         int menorDiferencia = 105;
         int fila = -1;
         for(int i = 0; i < cartasEnMesa.length; i++){
-            if(cartasEnMesa[i].getLast().getNumCarta() < numCarta && (numCarta - cartasEnMesa[i].getLast().getNumCarta()) < menorDiferencia){
+            if(cartasEnMesa[i].get(cartasEnMesa[i].size()-1).getNumCarta() < numCarta && (numCarta - cartasEnMesa[i].get(cartasEnMesa[i].size()-1).getNumCarta()) < menorDiferencia){
                 fila = i;
-                menorDiferencia = numCarta - cartasEnMesa[i].getLast().getNumCarta();
+                menorDiferencia = numCarta - cartasEnMesa[i].get(cartasEnMesa[i].size()-1).getNumCarta();
             }
         }
         return fila;

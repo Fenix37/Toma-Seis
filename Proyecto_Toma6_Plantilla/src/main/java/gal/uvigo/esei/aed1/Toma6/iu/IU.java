@@ -169,6 +169,9 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
         else{
             System.out.print(jugadorActual.getNombre());
         }
+        if(jugadorActual.getNombre().length()%2!=0){
+            System.out.print(" ");
+        }
         System.out.print("|");
         i++;
     }
@@ -184,7 +187,7 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
                     System.out.print("0"+cartas.get(j).getNumCarta());
                 }
                 else{
-                    System.out.println(cartas.get(j).getNumCarta());
+                    System.out.print(cartas.get(j).getNumCarta());
                 }
             }
             else{
@@ -199,7 +202,7 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
                     System.out.print("0"+cartas.get(j).getNumCarta());
                 }
                 else{
-                    System.out.println(cartas.get(j).getNumCarta());
+                    System.out.print(cartas.get(j).getNumCarta());
                 }
                 for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
                     System.out.print(" ");
@@ -207,12 +210,12 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
             }
         }
         else{
-            if(longitudNombres[i]<10){
-                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+            if(longitudNombres[i]>10){
+                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
                     System.out.print(" ");
                 }
-                System.out.print("   Done   ");
-                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+                System.out.print("Done");
+                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
                     System.out.print(" ");
                 }
             }
@@ -240,12 +243,12 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
             }
         }
         else{
-            if(longitudNombres[i]<10){
-                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+            if(longitudNombres[i]>10){
+                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
                     System.out.print(" ");
                 }
-                System.out.print("   Done   ");
-                for(int r=0;r<(Math.abs(longitudNombres[i]-10)/2);r++){
+                System.out.print("Done");
+                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
                     System.out.print(" ");
                 }
             }
@@ -272,6 +275,7 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
         System.out.println(jugador.manoToString());
         System.out.println(jugador.getNombre()+", escribe el numero de la carque que quieras jugar");
         decision = leeNum();
+        borrarPantalla();
         return decision;
     }
 

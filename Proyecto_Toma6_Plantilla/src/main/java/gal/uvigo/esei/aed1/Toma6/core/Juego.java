@@ -39,8 +39,11 @@ public class Juego {
         for (int i = 0; i < 4; i++) {
             mesa.insertarCarta(baraja.getPop(), i);
         }
+        Scanner jin = new Scanner(System.in);
         iu.mostrarJugadores(jugadores);
         iu.mostrarMesa(mesa.toString());
+        System.out.println("Pulsa enter para empezar el turno");
+        jin.nextLine();
         List<Carta> elecciones = new ArrayList<>();
         List<String> nombres = new ArrayList<>();
         List<Integer> orden = new ArrayList<>();
@@ -63,20 +66,21 @@ public class Juego {
             iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
             int i=0;
             System.out.println("Pulse enter para empezar el reparto");
-            Scanner jin = new Scanner(System.in);
             jin.nextLine();
-            jin.close();
-            while (!nombres.isEmpty()) {
+            iu.borrarPantalla();
+            while (orden.size()>i) {
                 
                 if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
                     baraja.addCarta(elecciones.get(orden.get(i)));
                 }
                 elecciones.set(orden.get(i), new Carta(0,105));
-                nombres.remove(nombres.get(orden.get(i)));
                 iu.mostrarMesaEnReparto(mesa.toString(), jugadores,elecciones);
                 i++;
-                iu.leeString("Pulse enter para continuar.");
+                jin.nextLine();
+                iu.borrarPantalla();
             }
+            elecciones.clear();
+            nombres.clear();
         }
         System.out.println("Fin de la partida.");
     }
