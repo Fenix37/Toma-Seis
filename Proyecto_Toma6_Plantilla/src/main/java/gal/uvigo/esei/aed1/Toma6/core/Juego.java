@@ -7,7 +7,9 @@ package gal.uvigo.esei.aed1.Toma6.core;
 import gal.uvigo.esei.aed1.Toma6.iu.IU;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Juego {
 
@@ -37,10 +39,14 @@ public class Juego {
         for (int i = 0; i < 4; i++) {
             mesa.insertarCarta(baraja.getPop(), i);
         }
+        Scanner jin = new Scanner(System.in);
         iu.mostrarJugadores(jugadores);
         iu.mostrarMesa(mesa.toString());
+        System.out.println("Pulsa enter para empezar el turno");
+        jin.nextLine();
         List<Carta> elecciones = new ArrayList<>();
         List<String> nombres = new ArrayList<>();
+        List<Integer> orden = new ArrayList<>();
         for (int turno = 0; turno < 10; turno++) {
             for (Jugador jug : jugadores) {
                 boolean cartaValida = false;
@@ -54,37 +60,54 @@ public class Juego {
                     }
                 } while (!cartaValida);
             }
+            orden = ordenarCartas(elecciones);
             //Se muestra la mesa
             System.out.println("Elecciones hechas: ");
             iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
-            ordenarCartas(elecciones, nombres);
-            
-            while (!elecciones.isEmpty()) {
-                iu.leeString("Turno de: " + nombres.getFirst()
-                        + elecciones.getFirst() + "\nPulse enter para continuar.");
-                if (mesa.insertarCarta(elecciones.getFirst(), nombres.getFirst()) == false) {
-                    baraja.addCarta(elecciones.getFirst());
+            int i=0;
+            System.out.println("Pulse enter para empezar el reparto");
+            jin.nextLine();
+            iu.borrarPantalla();
+            while (orden.size()>i) {
+                
+                if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
+                    baraja.addCarta(elecciones.get(orden.get(i)));
                 }
-                elecciones.removeFirst();
-                nombres.removeFirst();
-                iu.mostrarMesa(mesa.toString());
+                elecciones.set(orden.get(i), new Carta(0,105));
+                iu.mostrarMesaEnReparto(mesa.toString(), jugadores,elecciones);
+                i++;
+                jin.nextLine();
+                iu.borrarPantalla();
             }
+            elecciones.clear();
+            nombres.clear();
         }
         System.out.println("Fin de la partida.");
     }
 
-    public void ordenarCartas(List<Carta> cartas, List<String> nombres) {
-        for (int i = 0; i < cartas.size() - 1; i++) {
-            for (int j = 0; j < cartas.size() - 1; j++) {
-                if (cartas.get(j).getNumCarta() > cartas.get(j + 1).getNumCarta()) {
-                    Carta auxCarta = cartas.get(j);
-                    String auxString = nombres.get(j);
-                    cartas.set(j, cartas.get(j + 1));
-                    cartas.set(j + 1, auxCarta);
-                    nombres.set(j, nombres.get(j + 1));
-                    nombres.set(j + 1, auxString);
+    public List<Integer> ordenarCartas(List<Carta> cartas) {
+        List<Integer> orden = new ArrayList<>();
+        for (Carta carta : cartas) {
+            orden.add(carta.getNumCarta());
+        }
+        Collections.sort(orden);
+        int index;
+        boolean continiu;
+        int count=0;
+        for (Integer i : orden) {
+            index=0;
+            continiu=true;
+            for (Carta carta : cartas){
+                if(carta.getNumCarta()==i){
+                    continiu=false;
+                }
+                if(continiu==true){
+                    index++;
                 }
             }
+            orden.set(count,index);
+            count++;
         }
+        return orden;
     }
 }
