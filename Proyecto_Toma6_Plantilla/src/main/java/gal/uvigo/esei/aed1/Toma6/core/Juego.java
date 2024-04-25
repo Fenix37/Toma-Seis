@@ -50,7 +50,7 @@ public class Juego {
      *
      */
     public void inicializarMesa() {
-        for (int i = 0; i <MesaDeJuego.NUM_FILAS_MESA; i++) {
+        for (int i = 0; i < MesaDeJuego.NUM_FILAS_MESA; i++) {
             mesa.insertarCarta(baraja.getPop(), i);
         }
     }
@@ -73,9 +73,9 @@ public class Juego {
                 boolean cartaValida = false;
                 do {
                     jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
-                    if (jugada == null) {  
+                    if (jugada == null) {
                         iu.mostrarMensaje("Esta carta non se atopa na sua man,por favor introduzca unha carta válida. ");
-                    }else{
+                    } else {
                         cartaValida = true;
                     }
                 } while (!cartaValida);
@@ -92,7 +92,7 @@ public class Juego {
             jin.nextLine();
             iu.borrarPantalla();
             while (orden.size() > i) {
-
+                
                 if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
                     baraja.addCarta(elecciones.get(orden.get(i)));
                 }
