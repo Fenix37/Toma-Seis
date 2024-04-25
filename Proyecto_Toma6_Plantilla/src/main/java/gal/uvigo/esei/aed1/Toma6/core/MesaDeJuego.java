@@ -38,22 +38,20 @@ public class MesaDeJuego {
      *
      * @param nueva Cartqa nueva a insertar en la mesa
      * @param nombre Nombre del jugador al que le pertenece la carta que se trata de insertar
-     * @return false si no se puede insertar la carta, ya sea porque ya hay 5 cartas en la fila
-     * donde corresponde o porque sea menor a todas las últimas cartas de las listas.
-     * true si se pudo insertar la carta
+     * @return "-2" si no se puede insertar la carta porque ya hay 5 cartas en la fila
+     * donde corresponde, y "-1" porque es menor a todas las últimas cartas de las listas.
+     * "1" si se pudo insertar la carta
      */
-    public boolean insertarCarta(Carta nueva, String nombre){
+    public int insertarCarta(Carta nueva, String nombre){
         int fila = filaMenor(nueva.getNumCarta());
         if(fila == -1){
-            System.out.println("La carta de " + nombre + " no puede ser jugada ya que es menor a todas las finales de la mesa.");
-            return false;
+            return -1;
         }
         if(cartasEnMesa[fila].size() == 5){
-            System.out.println("La carta de " + nombre + " no puede ser jugada ya que su respectiva fila está llena.");
-            return false;
+            return -2;
         }
         insertarCarta(nueva, fila);
-        return true;
+        return 1;
     }
     /*
     *Calcula la fila a la que pertenece el número de carta que se le pasa.

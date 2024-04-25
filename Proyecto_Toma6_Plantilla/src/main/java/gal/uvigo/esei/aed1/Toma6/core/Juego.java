@@ -92,10 +92,12 @@ public class Juego {
             jin.nextLine();
             iu.borrarPantalla();
             while (orden.size() > i) {
-
-                if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
-                    baraja.addCarta(elecciones.get(orden.get(i)));
+                int resultadoElecciones = mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i)));
+                
+                if () {
+                    
                 }
+                
                 elecciones.set(orden.get(i), new Carta(0, 105));
                 iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
                 i++;
