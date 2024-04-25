@@ -12,11 +12,20 @@ import java.util.ArrayList;
 public class Jugador {
 
     private List<Carta> mano;
+    private List <Carta> cartas; 
     private String nombre;
 
     public Jugador(String nombre) {
         this.mano = new ArrayList<>();
+        this.cartas = new ArrayList<>();
         this.nombre = nombre;
+    }
+    public int getNumBueyes(){
+        int numBueyes = 0;
+        for(Carta carta: cartas){
+            numBueyes += carta.getNumBueyes();
+        }
+        return numBueyes;
     }
 
     public String getNombre() {
