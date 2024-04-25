@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class Juego {
 
+    public final static int NumBueyesGanar = 66;
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
@@ -24,6 +25,38 @@ public class Juego {
         jugadores = new ArrayList<>();
         mesa = new MesaDeJuego();
 
+    }
+/**
+ * 
+ * @return true se existe algún xogador con máis de 66 bueyes e false en 
+ * caso contrario
+ */
+    private boolean finalRonda() {
+        for (Jugador jugador : jugadores) {
+            if (jugador.getNumBueyes() >= NumBueyesGanar) {
+                return true;
+            }
+        }
+        return false;
+    }
+/**
+ * 
+ * @return o xogador con menos bueyes,se houbera varios devolve todos os que
+ * teñan menos bueyes
+ */
+    private List<Jugador> Ganadores() {
+        int minimo = 0;
+        List<Jugador> toRet = new ArrayList();
+        for (Jugador jugador : jugadores) {
+            if (jugador.getNumBueyes() == minimo) {
+                toRet.add(jugador);
+            } else if (jugador.getNumBueyes() < minimo) {
+                toRet.clear();
+                toRet.add(jugador);
+                minimo = jugador.getNumBueyes();
+            }
+        }
+        return toRet;
     }
 
     /**
@@ -63,7 +96,7 @@ public class Juego {
         Scanner jin = new Scanner(System.in);
         iu.mostrarJugadores(jugadores);
         iu.mostrarMesa(mesa.toString());
-        
+
         System.out.println("Pulsa enter para empezar el turno");
         jin.nextLine();
         List<Carta> elecciones = new ArrayList<>();
@@ -80,7 +113,7 @@ public class Juego {
                         cartaValida = true;
                     }
                 } while (!cartaValida);
-                
+
                 elecciones.add(jugada);
                 nombres.add(jug.getNombre());
 
@@ -94,7 +127,7 @@ public class Juego {
             jin.nextLine();
             iu.borrarPantalla();
             while (orden.size() > i) {
-                
+
                 if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
                     baraja.addCarta(elecciones.get(orden.get(i)));
                 }
