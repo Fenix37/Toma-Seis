@@ -41,28 +41,6 @@ public class IU {
 
         return toret;
     }
-    
-    /**
-     * Lee un número de teclado
-     *
-     * @return El numero como entero
-     */
-    public int leeNum() {
-        boolean repite;
-        int toret = 0;
-
-        do {
-            repite = false;
-            try {
-                toret = Integer.parseInt(teclado.nextLine());
-            } catch (NumberFormatException exc) {
-                repite = true;
-            }
-        } while (repite);
-
-        return toret;
-    }
-    
 
     /**
      * Lee un texto de teclado
@@ -76,18 +54,6 @@ public class IU {
         toret = teclado.nextLine();
         return toret;
     }
-    
-    /**
-    * Limpia la pantalla:
-    * Crea un proceso CMD y usa el comando System("CLS")
-    */
-    public void borrarPantalla(){
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            /*No hacer nada*/
-        }
-    }
 
     /**
      * Muestra un mensaje por pantalla
@@ -95,20 +61,17 @@ public class IU {
      * @param msg El mensaje a mostrar
      */
     public void mostrarMensaje(String msg) {
-        borrarPantalla();
-        System.out.print("~");
+        StringBuilder sb = new StringBuilder();
+        sb.append("~");
         for(int i=0;i<msg.length();i++){
-            System.out.print("-");
+            sb.append("-");
         }
-        System.out.println("~");
-        System.out.print("|");
-        System.out.print(msg);
-        System.out.println("|");
-        System.out.print("~");
+        sb.append("~\n|").append(msg).append("|\n~");
         for(int i=0;i<msg.length();i++){
-            System.out.print("-");
+            sb.append("-");
         }
-        System.out.println("~");
+        sb.append("~\n");
+        System.out.println(sb);
     }
 
     /**
@@ -133,7 +96,7 @@ public class IU {
         }
         return toret;
     }
-  
+    
     /**
      * Enseña por pantalla la mesa sola
      * @param mesa mesa a imprimir
@@ -148,119 +111,15 @@ public class IU {
      * @param jugadores de aquí saco los nombres para poner de quien es cada carta
      * @param cartas cartas elegidas por los jugadores
      */
-public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, List<Carta> cartas){
-    mostrarMesa(mesa);
-    int i=0;
-    int[] longitudNombres = new int[10];
-    
-    System.out.print("|");
-    for (Jugador jugadorActual : jugadores) {
-        longitudNombres[i]=jugadorActual.getNombre().length();
-        if(longitudNombres[i]<10){
-            for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
-                System.out.print(" ");
-            }
-            System.out.print(jugadorActual.getNombre());
-            for(int j=0;j<(Math.abs(longitudNombres[i]-10)/2);j++){
-                System.out.print(" ");
-            }
-            longitudNombres[i]+=2*(Math.abs(longitudNombres[i]-10)/2);
+    public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, List<Carta> cartas){
+        mostrarMesa(mesa);
+        int i=0;
+        mostrarMensaje("Nombre: NumeroDeLaCarta, BueyesDeLaCarta");
+        for (Jugador jugadorActual : jugadores) {
+            System.out.print(jugadorActual.getNombre()+": " + cartas.get(i));
+            i++;
         }
-        else{
-            System.out.print(jugadorActual.getNombre());
-        }
-        if(jugadorActual.getNombre().length()%2!=0){
-            System.out.print(" ");
-        }
-        System.out.print("|");
-        i++;
     }
-    System.out.print("\n|");
-    for(int j=0; j<i; j++){
-        if(cartas.get(j).getNumBueyes()!=0){
-            if(longitudNombres[j]<=10){
-                System.out.print("Numero ");
-                if(cartas.get(j).getNumCarta()<10){
-                    System.out.print("00"+cartas.get(j).getNumCarta());
-                }
-                else if(cartas.get(j).getNumCarta()<100){
-                    System.out.print("0"+cartas.get(j).getNumCarta());
-                }
-                else{
-                    System.out.print(cartas.get(j).getNumCarta());
-                }
-            }
-            else{
-                for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
-                    System.out.print(" ");
-                }
-                System.out.print("Numero ");
-                if(cartas.get(j).getNumCarta()<10){
-                    System.out.print("00"+cartas.get(j).getNumCarta());
-                }
-                else if(cartas.get(j).getNumCarta()<100){
-                    System.out.print("0"+cartas.get(j).getNumCarta());
-                }
-                else{
-                    System.out.print(cartas.get(j).getNumCarta());
-                }
-                for(int f=0;f<(Math.abs(longitudNombres[j]-10)/2);f++){
-                    System.out.print(" ");
-                }
-            }
-        }
-        else{
-            if(longitudNombres[i]>10){
-                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
-                    System.out.print(" ");
-                }
-                System.out.print("Done");
-                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
-                    System.out.print(" ");
-                }
-            }
-            else{
-                System.out.print("   Done   ");
-            }
-        }
-        
-        System.out.print("|");
-    }
-    System.out.print("\n|");
-    for(int j=0; j<i; j++){
-        if(cartas.get(j).getNumBueyes()!=0){
-            if(longitudNombres[j]<=10){
-                System.out.print(" "+cartas.get(j).getNumBueyes()+" bueyes ");
-            }
-            else{
-                for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
-                    System.out.print(" ");
-                }
-                System.out.print(cartas.get(j).getNumBueyes()+" bueyes");
-                for(int f=0;f<(Math.abs(longitudNombres[j]-8)/2);f++){
-                    System.out.print(" ");
-                }
-            }
-        }
-        else{
-            if(longitudNombres[i]>10){
-                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
-                    System.out.print(" ");
-                }
-                System.out.print("Done");
-                for(int r=0;r<(Math.abs(longitudNombres[i]-4)/2);r++){
-                    System.out.print(" ");
-                }
-            }
-            else{
-                System.out.print("   Done   ");
-            }
-        }
-        
-        System.out.print("|");
-    }
-    System.out.print("\n");
-}
     
     /**
      * le pido a mi victima que elija una de sus cartas
@@ -268,15 +127,9 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
      * @return 
      */
     public int pedirCartaAJugar(Jugador jugador){
-        int decision = 0;
-        borrarPantalla();
-        leeString("Es el turno de "+jugador.getNombre()+". Pulsa Enter para continuar.");
-        borrarPantalla();
+        mostrarMensaje("Es el turno de "+jugador.getNombre());
         System.out.println(jugador.manoToString());
-        System.out.println(jugador.getNombre()+", escribe el numero de la carta que quieras jugar");
-        decision = leeNum();
-        borrarPantalla();
-        return decision;
+        return leeNum(jugador.getNombre()+", escribe el numero de la carta que quieras jugar");
     }
 
     /**
@@ -295,7 +148,6 @@ public void mostrarMesaEnReparto(String mesa, Collection<Jugador> jugadores, Lis
      * @param jugadores Jugadores cuyos datos se mostrarán por pantalla
      */
     public void mostrarJugadores(Collection<Jugador> jugadores) {
-        borrarPantalla();
         for (Jugador jugador : jugadores) {
             mostrarJugador(jugador);
         }
