@@ -57,14 +57,25 @@ public class MesaDeJuego {
         cartasEnMesa[fila].add(nueva); // Insertar la carta en la fila correspondiente de la mesa
         return 1; // La inserción fue exitosa
     }
-
+    public List<Carta> vaciarFila(int fila, Carta nueva){
+        if(fila < 0 || fila > NUM_FILAS_MESA-1){
+            throw new IllegalArgumentException("La fila introducida es incorrecta");
+        }
+        List<Carta> cartas = new ArrayList<>();
+        int numCartas = cartasEnMesa[fila].size();
+        for(int i = 0; i < numCartas; i++){
+            cartas.add(cartasEnMesa[i].remove(i));
+        }
+        cartasEnMesa[fila].add(nueva);
+        return cartas;
+    }
     /*
     *Calcula la fila a la que pertenece el número de carta que se le pasa.
     *Si no tiene fila correspondiente devuelve -1
     *@param Número de la carta de la que se busca calcular la fila
     *@return Fila a la que pertenece el número pasado, si no pertenece a ninguna se devuelve -1
      */
-    private int filaMenor(int numCarta) {
+    public int filaMenor(int numCarta) {
         int menorDiferencia = 105;
         int fila = -1;
         for (int i = 0; i < NUM_FILAS_MESA; i++) {

@@ -8,6 +8,7 @@ import gal.uvigo.esei.aed1.Toma6.iu.IU;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -92,9 +93,20 @@ public class Juego {
             jin.nextLine();
             iu.borrarPantalla();
             while (orden.size() > i) {
-                
-                if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
-                    baraja.addCarta(elecciones.get(orden.get(i)));
+                int resultadoEleccion = mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i)));
+                if (resultadoEleccion == -1) {
+                    int op = -1;
+                    do{
+                        iu.mostrarMensaje("La carta no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
+                        op = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: ");
+                    }while(op < 0 || op > MesaDeJuego.NUM_FILAS_MESA-1);
+                    Jugador aModificar = getJugador(i);
+                    for(Carta carta: mesa.vaciarFila(op, elecciones.get(i))){
+                        aModificar.addMonton(carta);
+                    }
+                }
+                else{
+                    
                 }
                 elecciones.set(orden.get(i), new Carta(0, 105));
                 iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
@@ -107,7 +119,16 @@ public class Juego {
         }
         System.out.println("Fin de la partida.");
     }
-
+    public Jugador getJugador(int pos){
+        if(pos < 0 || pos > jugadores.size()-1){
+            throw new IllegalArgumentException("Posicion invalida");
+        }
+        Iterator<Jugador> itr = jugadores.iterator();
+        for(int i = 0; i < pos; i++){
+            itr.next();
+        }
+        return itr.next();
+    }
     public List<Integer> ordenarCartas(List<Carta> cartas) {
         List<Integer> orden = new ArrayList<>();
         for (Carta carta : cartas) {
