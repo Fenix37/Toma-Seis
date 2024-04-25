@@ -12,10 +12,11 @@ import java.util.List;
  * @author aragu
  */
 public class MesaDeJuego {
+    public static final int NUM_FILAS_MESA = 4;
     private List <Carta>[]cartasEnMesa;
     
     public MesaDeJuego(){
-        cartasEnMesa = new List[4];
+        cartasEnMesa = new List[NUM_FILAS_MESA];
         for (int i = 0; i < cartasEnMesa.length; i++) {
             cartasEnMesa [i] = new ArrayList<>();
         }
@@ -27,7 +28,7 @@ public class MesaDeJuego {
      * @param fila Fila donde se inserta la carta
      */
     public void insertarCarta(Carta nueva, int fila){
-        if(fila < 0 ||fila > cartasEnMesa.length){
+        if(fila < 0 ||fila >= NUM_FILAS_MESA){
             throw new IllegalArgumentException("La fila introducida no existe.");
         }
         cartasEnMesa[fila].add(nueva);
@@ -63,7 +64,7 @@ public class MesaDeJuego {
     private int filaMenor(int numCarta){
         int menorDiferencia = 105;
         int fila = -1;
-        for(int i = 0; i < cartasEnMesa.length; i++){
+        for(int i = 0; i < NUM_FILAS_MESA; i++){
             if(cartasEnMesa[i].get(cartasEnMesa[i].size()-1).getNumCarta() < numCarta && (numCarta - cartasEnMesa[i].get(cartasEnMesa[i].size()-1).getNumCarta()) < menorDiferencia){
                 fila = i;
                 menorDiferencia = numCarta - cartasEnMesa[i].get(cartasEnMesa[i].size()-1).getNumCarta();
@@ -75,7 +76,7 @@ public class MesaDeJuego {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("[Numero de carta|Numero de bueyes]\n");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < NUM_FILAS_MESA; i++) {
             sb.append("\n\n");
             for (Carta carta : cartasEnMesa[i]) {
                 sb.append("[").append(carta.getNumCarta()).append("|").append(carta.getNumBueyes()).append("] ");
