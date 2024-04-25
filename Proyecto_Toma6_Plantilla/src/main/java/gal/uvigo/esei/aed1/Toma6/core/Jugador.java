@@ -20,6 +20,9 @@ public class Jugador {
         this.monton = new ArrayList<>();
         this.nombre = nombre;
     }
+    public void addMonton(Carta nueva){
+        monton.add(nueva);
+    }
     public int getNumBueyes(){
         int numBueyes = 0;
         for(Carta carta: monton){
