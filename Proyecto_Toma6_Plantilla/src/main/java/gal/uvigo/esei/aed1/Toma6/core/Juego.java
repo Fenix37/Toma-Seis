@@ -44,19 +44,20 @@ public class Juego {
             }
         }
     }
+
     /**
-     * Modifica:
-     * mesa,introduce en cada fila da mesa unha carta
-     * 
+     * Modifica: mesa,introduce en cada fila da mesa unha carta
+     *
      */
     public void inicializarMesa() {
         final int NumMontonesMesa = 4;
         for (int i = 0; i < NumMontonesMesa; i++) {
-            mesa.insertarCarta(baraja.getPop(),i);
+            mesa.insertarCarta(baraja.getPop(), i);
         }
     }
 
     public void jugar() {
+        Carta jugada;
         baraja.barajar();
         crearJugadores();
         inicializarMesa();
@@ -72,14 +73,16 @@ public class Juego {
             for (Jugador jug : jugadores) {
                 boolean cartaValida = false;
                 do {
-                    try {
-                        elecciones.add(jug.sacarCarta(iu.pedirCartaAJugar(jug)));
-                        nombres.add(jug.getNombre());
+                    jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
+                    if (jugada == null) {  
+                        iu.mostrarMensaje("Esta carta non se atopa na sua man,por favor introduzca unha carta válida. ");
+                    }else{
                         cartaValida = true;
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
                     }
                 } while (!cartaValida);
+                elecciones.add(jugada);
+                nombres.add(jug.getNombre());
+
             }
             orden = ordenarCartas(elecciones);
             //Se muestra la mesa
