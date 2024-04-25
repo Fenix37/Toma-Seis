@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Set;
 
 public class Juego {
 
@@ -94,66 +94,58 @@ public class Juego {
         baraja.barajar();
         crearJugadores();
         inicializarMesa();
-        Scanner jin = new Scanner(System.in);
         iu.mostrarJugadores(jugadores);
         iu.mostrarMesa(mesa.toString());
 
-        System.out.println("Pulsa enter para empezar el turno");
-        jin.nextLine();
         List<Carta> elecciones = new ArrayList<>();
-        List<String> nombres = new ArrayList<>();
-        List<Integer> orden = new ArrayList<>();
+        List<Integer> orden;
         for (int turno = 0; turno < 10; turno++) {
             for (Jugador jug : jugadores) {
                 boolean cartaValida = false;
                 do {
                     jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
                     if (jugada == null) {
-                        iu.mostrarMensaje("Esta carta non se atopa na sua man,por favor introduzca unha carta válida. ");
+                        iu.mostrarMensaje("Esta carta non se atopa na sua man, por favor introduzca unha carta válida. ");
                     } else {
                         cartaValida = true;
                     }
                 } while (!cartaValida);
-
                 elecciones.add(jugada);
-                nombres.add(jug.getNombre());
-
             }
-            orden = ordenarCartas(elecciones);
-            //Se muestra la mesa
-            System.out.println("Elecciones hechas: ");
+            iu.mostrarMensaje("Elecciones hechas: ");
             iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
+            orden = ordenarCartas(elecciones);
             int i = 0;
-            System.out.println("Pulse enter para empezar el reparto");
-            jin.nextLine();
-            iu.borrarPantalla();
-            while (orden.size() > i) {
-                int resultadoEleccion = mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i)));
+            while (elecciones.size() > i) {
+                int resultadoEleccion = mesa.insertarCarta(elecciones.getFirst());
                 if (resultadoEleccion == -1) {
                     int op = -1;
                     do{
                         iu.mostrarMensaje("La carta no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
                         op = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: ");
                     }while(op < 0 || op > MesaDeJuego.NUM_FILAS_MESA-1);
-                    Jugador aModificar = getJugador(i);
-                    for(Carta carta: mesa.vaciarFila(op, elecciones.get(i))){
+                    Jugador aModificar = getJugador(orden.get(i));
+                    for(Carta carta: mesa.vaciarFila(op, elecciones.getFirst())){
                         aModificar.addMonton(carta);
                     }
                 }
                 else{
                    
                 }
-                elecciones.set(orden.get(i), new Carta(0, 105));
-                iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
+                elecciones.removeFirst();
+                iu.mostrarMesa(mesa.toString());
                 i++;
-                jin.nextLine();
-                iu.borrarPantalla();
             }
             elecciones.clear();
-            nombres.clear();
         }
         System.out.println("Fin de la partida.");
     }
+    
+    /**
+     * Consigue el objeto Jugador con un indice del Collection Jugadores
+     * @param pos indice donde se encuentra el jugador deseado
+     * @return jugador buscado
+     */
     public Jugador getJugador(int pos){
         if(pos < 0 || pos > jugadores.size()-1){
             throw new IllegalArgumentException("Posicion invalida");
@@ -164,28 +156,31 @@ public class Juego {
         }
         return itr.next();
     }
+    
+    /**
+     * Ordena la lista de cartas y crea una lista con su posicion original
+     * @param cartas lista de cartas a ordenar
+     * @return lista con las posiciones originales de las cartas
+     */
     public List<Integer> ordenarCartas(List<Carta> cartas) {
         List<Integer> orden = new ArrayList<>();
-        for (Carta carta : cartas) {
-            orden.add(carta.getNumCarta());
+        for (int i=0; i<cartas.size();i++) {
+            orden.add(i);
         }
-        Collections.sort(orden);
-        int index;
-        boolean continiu;
-        int count = 0;
-        for (Integer i : orden) {
-            index = 0;
-            continiu = true;
-            for (Carta carta : cartas) {
-                if (carta.getNumCarta() == i) {
-                    continiu = false;
-                }
-                if (continiu == true) {
-                    index++;
+        Carta tempC;
+        int tempI;
+        for (int i = 0; i < (cartas.size()-1); i++) {
+            for (int j = 0; j < (cartas.size()-i-1); j++) {
+                if(cartas.get(j).getNumCarta()>(cartas.get(j).getNumCarta()+1)){
+                    tempC=cartas.get(j);
+                    tempI=orden.get(j);
+                    cartas.set(j, cartas.get(j+1));
+                    orden.set(j, orden.get(j+1));
+                    cartas.set(j+1, tempC);
+                    orden.set(j+1, tempI);
                 }
             }
-            orden.set(count, index);
-            count++;
+            
         }
         return orden;
     }
