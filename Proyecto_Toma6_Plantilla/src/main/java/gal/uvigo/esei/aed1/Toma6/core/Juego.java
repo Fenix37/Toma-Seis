@@ -50,8 +50,7 @@ public class Juego {
      * 
      */
     public void inicializarMesa() {
-        final int NumMontonesMesa = 4;
-        for (int i = 0; i < NumMontonesMesa; i++) {
+        for (int i = 0; i < MesaDeJuego.NUM_FILAS_MESA; i++) {
             mesa.insertarCarta(baraja.getPop(),i);
         }
     }
