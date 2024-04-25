@@ -26,19 +26,40 @@ public class Juego {
 
     }
 
-    public void jugar() {
-        baraja.barajar();
+    /**
+     * Modifica: jugadores ao crear os xogadores con todolos seus valores
+     * asignados
+     *
+     */
+    public void crearJugadores() {
+        final int numCartas = 10;
+        //crea os xogadores
         for (String nombreJugador : iu.pedirNombresJugadores()) {
             jugadores.add(new Jugador(nombreJugador));
         }
+        //asignalle as cartas a cada un
         for (Jugador jug : jugadores) {
-            for (int i = 0; i < 10; i++) {
-                jug.IntroducirCarta(baraja.getPop());
+            for (int i = 0; i < numCartas; i++) {
+                jug.introducirCarta(baraja.getPop());
             }
         }
-        for (int i = 0; i < 4; i++) {
+    }
+
+    /**
+     * Modifica: mesa,introduce en cada fila da mesa unha carta
+     *
+     */
+    public void inicializarMesa() {
+        for (int i = 0; i <MesaDeJuego.NUM_FILAS_MESA; i++) {
             mesa.insertarCarta(baraja.getPop(), i);
         }
+    }
+
+    public void jugar() {
+        Carta jugada;
+        baraja.barajar();
+        crearJugadores();
+        inicializarMesa();
         Scanner jin = new Scanner(System.in);
         iu.mostrarJugadores(jugadores);
         iu.mostrarMesa(mesa.toString());
@@ -51,30 +72,32 @@ public class Juego {
             for (Jugador jug : jugadores) {
                 boolean cartaValida = false;
                 do {
-                    try {
-                        elecciones.add(jug.SacarCarta(iu.pedirCartaAJugar(jug)));
-                        nombres.add(jug.getNombre());
+                    jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
+                    if (jugada == null) {  
+                        iu.mostrarMensaje("Esta carta non se atopa na sua man,por favor introduzca unha carta válida. ");
+                    }else{
                         cartaValida = true;
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
                     }
                 } while (!cartaValida);
+                elecciones.add(jugada);
+                nombres.add(jug.getNombre());
+
             }
             orden = ordenarCartas(elecciones);
             //Se muestra la mesa
             System.out.println("Elecciones hechas: ");
             iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
-            int i=0;
+            int i = 0;
             System.out.println("Pulse enter para empezar el reparto");
             jin.nextLine();
             iu.borrarPantalla();
-            while (orden.size()>i) {
-                
+            while (orden.size() > i) {
+
                 if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
                     baraja.addCarta(elecciones.get(orden.get(i)));
                 }
-                elecciones.set(orden.get(i), new Carta(0,105));
-                iu.mostrarMesaEnReparto(mesa.toString(), jugadores,elecciones);
+                elecciones.set(orden.get(i), new Carta(0, 105));
+                iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
                 i++;
                 jin.nextLine();
                 iu.borrarPantalla();
@@ -93,19 +116,19 @@ public class Juego {
         Collections.sort(orden);
         int index;
         boolean continiu;
-        int count=0;
+        int count = 0;
         for (Integer i : orden) {
-            index=0;
-            continiu=true;
-            for (Carta carta : cartas){
-                if(carta.getNumCarta()==i){
-                    continiu=false;
+            index = 0;
+            continiu = true;
+            for (Carta carta : cartas) {
+                if (carta.getNumCarta() == i) {
+                    continiu = false;
                 }
-                if(continiu==true){
+                if (continiu == true) {
                     index++;
                 }
             }
-            orden.set(count,index);
+            orden.set(count, index);
             count++;
         }
         return orden;

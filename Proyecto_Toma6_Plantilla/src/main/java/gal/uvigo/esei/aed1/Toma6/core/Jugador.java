@@ -5,6 +5,7 @@
  * ordenadas de menor a mayor por su número), convertir a String el objeto Jugador (toString)
  */
 package gal.uvigo.esei.aed1.Toma6.core;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -22,18 +23,18 @@ public class Jugador {
         return nombre;
     }
 
-    /**Modifica
-     * this ao añadir unha carta a mano do xogador e lanza unha
+    /**
+     * Modifica this ao añadir unha carta a mano do xogador e lanza unha
      * ArrayOutOfBoundsException en caso de que o xgador xa teña 10 cartas
      *
-     * @param carta :Carta que se desexa introducir na mano do xogador 
+     * @param carta :Carta que se desexa introducir na mano do xogador
      */
-    public void IntroducirCarta(Carta carta) {
+    public void introducirCarta(Carta carta) {
         boolean introducida = false;
         int fin, inicio, medio;
         //comproba que estea cheo
         if (mano.size() == 10) {
-            throw new ArrayIndexOutOfBoundsException("O xoador non debe ter máis de 10 cartas");
+            throw new ArrayIndexOutOfBoundsException("O xogador non debe ter máis de 10 cartas");
         }
         //comproba se está valeiro
         if (mano.isEmpty()) {
@@ -62,23 +63,24 @@ public class Jugador {
         }
     }
 
-    /**modifica this ao quitarlle unha carta e se non
-     *          existen cartas na mano lanza unha NullPointerException
+    /**
+     * modifica this ao quitarlle unha carta e se non existen cartas na mano
+     * lanza unha NullPointerException
      *
      * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
-     * @return Carta co número que se pediu e en caso de non atoparse
+     * @return Carta co número que se pediu e en caso de non atoparse ou de
+     * estar a mano baleira null
      */
-    public Carta SacarCarta(int numCarta) {
+    public Carta sacarCarta(int numCarta) {
         //comproba se está valeiro
         if (mano.isEmpty()) {
-            throw new NullPointerException("o xogador non ten cartas");
+            return null;
         }
         //algoritmo de ordenación binario que busca a carta
-        boolean esta = true;
         int fin = mano.size() - 1;
         int inicio = 0;
         int medio;
-        while (esta) {
+        while (true) {
             medio = (fin + inicio) / 2;
             if (mano.get(medio).getNumCarta() > numCarta) {
                 fin = medio - 1;
@@ -88,23 +90,19 @@ public class Jugador {
                 return mano.remove(medio);
             }
             if (inicio > fin) {
-                throw new IllegalArgumentException("O elemento non se atopa na lista");
+                return null;
             }
         }
-        return null;
     }
 
     @Override
     public String toString() {
-        StringBuilder mano = new StringBuilder();
-        for (Carta carta : this.mano) {
-            mano.append(carta.toString());
-        }
         StringBuilder sb = new StringBuilder();
-        sb.append("~-----------------------~\n").append("Nombre: ").append(nombre).append("\n         =Mano=\n").append(mano).append("<_______________________>");
+        sb.append("~-----------------------~\n").append("Nombre: ").append(nombre).append("\n         =Mano=\n").append(manoToString()).append("<_______________________>");
         return sb.toString();
     }
-    public String  manoToString(){
+
+    public String manoToString() {
         StringBuilder toRet = new StringBuilder();
         for (Carta carta : mano) {
             toRet.append(carta.toString());
