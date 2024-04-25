@@ -63,6 +63,7 @@ public class Juego {
         Scanner jin = new Scanner(System.in);
         iu.mostrarJugadores(jugadores);
         iu.mostrarMesa(mesa.toString());
+        
         System.out.println("Pulsa enter para empezar el turno");
         jin.nextLine();
         List<Carta> elecciones = new ArrayList<>();
@@ -79,6 +80,7 @@ public class Juego {
                         cartaValida = true;
                     }
                 } while (!cartaValida);
+                
                 elecciones.add(jugada);
                 nombres.add(jug.getNombre());
 
