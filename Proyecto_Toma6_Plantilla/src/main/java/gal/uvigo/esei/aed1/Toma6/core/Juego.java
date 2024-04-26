@@ -26,11 +26,12 @@ public class Juego {
         mesa = new MesaDeJuego();
 
     }
-/**
- * 
- * @return true se existe algún xogador con máis de 66 bueyes e false en 
- * caso contrario
- */
+
+    /**
+     *
+     * @return true se existe algún xogador con máis de 66 bueyes e false en
+     * caso contrario
+     */
     private boolean finalRonda() {
         for (Jugador jugador : jugadores) {
             if (jugador.getNumBueyes() >= NumBueyesGanar) {
@@ -39,12 +40,13 @@ public class Juego {
         }
         return false;
     }
-/**
- * 
- * @return o xogador con menos bueyes,se houbera varios devolve todos os que
- * teñan menos bueyes
- */
-    private List<Jugador> Ganadores() {
+
+    /**
+     *
+     * @return o xogador con menos bueyes,se houbera varios devolve todos os que
+     * teñan menos bueyes
+     */
+    private List<Jugador> ganadores() {
         int minimo = 0;
         List<Jugador> toRet = new ArrayList();
         for (Jugador jugador : jugadores) {
@@ -108,7 +110,8 @@ public class Juego {
                 do {
                     jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
                     if (jugada == null) {
-                        iu.mostrarMensaje("Esta carta non se atopa na sua man,por favor introduzca unha carta válida. ");
+                        iu.mostrarMensaje("Esta carta non se atopa na sua man, "
+                                + "por favor introduzca unha carta valida. ");
                     } else {
                         cartaValida = true;
                     }
@@ -138,7 +141,17 @@ public class Juego {
             elecciones.clear();
             nombres.clear();
         }
-        System.out.println("Fin de la partida.");
+        if (finalRonda()) {
+            iu.mostrarMensaje("FINAL DO XOGO\n");
+            Collection<Jugador> ganadores = ganadores();
+            if (ganadores.size() > 1) {
+                iu.mostrarMensaje("\tOs gañadores son:");
+            } else {
+                iu.mostrarMensaje("\tGañou:");
+            }
+            iu.mostrarJugadores(ganadores());
+        }
+
     }
 
     public List<Integer> ordenarCartas(List<Carta> cartas) {
