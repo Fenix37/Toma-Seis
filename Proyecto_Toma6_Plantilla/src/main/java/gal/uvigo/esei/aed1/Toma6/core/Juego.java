@@ -116,7 +116,7 @@ public class Juego {
             iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
             orden = ordenarCartas(elecciones);
             int i = 0;
-            while (elecciones.size() > i) {
+            while (!elecciones.isEmpty()) {
                 int resultadoEleccion = mesa.insertarCarta(elecciones.getFirst());
                 if (resultadoEleccion == -1) {
                     int op = -1;
