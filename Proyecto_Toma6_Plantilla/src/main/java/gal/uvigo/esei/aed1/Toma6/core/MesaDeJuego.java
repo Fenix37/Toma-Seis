@@ -39,14 +39,12 @@ public class MesaDeJuego {
 
     /**
      *
-     * @param nueva Cartqa nueva a insertar en la mesa
-     * @param nombre Nombre del jugador al que le pertenece la carta que se
-     * trata de insertar
+     * @param nueva Carta nueva a insertar en la mesa
      * @return "-2" si no se puede insertar la carta porque ya hay 5 cartas en
      * la fila donde corresponde, y "-1" porque es menor a todas las últimas
      * cartas de las listas. "1" si se pudo insertar la carta
      */
-    public int insertarCarta(Carta nueva, String nombre) {
+    public int insertarCarta(Carta nueva) {
         int fila = filaMenor(nueva.getNumCarta());
         if (fila == -1) {
             return -1; // La carta no puede ser jugada ya que es menor a todas las finales de la mesa.
@@ -57,14 +55,32 @@ public class MesaDeJuego {
         cartasEnMesa[fila].add(nueva); // Insertar la carta en la fila correspondiente de la mesa
         return 1; // La inserción fue exitosa
     }
-
+    
+    /**
+     * 
+     * @param fila
+     * @param nueva
+     * @return 
+     */
+    public List<Carta> vaciarFila(int fila, Carta nueva){
+        if(fila < 0 || fila > NUM_FILAS_MESA-1){
+            throw new IllegalArgumentException("La fila introducida es incorrecta");
+        }
+        List<Carta> cartas = new ArrayList<>();
+        int numCartas = cartasEnMesa[fila].size();
+        for(int i = 0; i < numCartas; i++){
+            cartas.add(cartasEnMesa[i].remove(i));
+        }
+        cartasEnMesa[fila].add(nueva);
+        return cartas;
+    }
     /*
     *Calcula la fila a la que pertenece el número de carta que se le pasa.
     *Si no tiene fila correspondiente devuelve -1
     *@param Número de la carta de la que se busca calcular la fila
     *@return Fila a la que pertenece el número pasado, si no pertenece a ninguna se devuelve -1
      */
-    private int filaMenor(int numCarta) {
+    public int filaMenor(int numCarta) {
         int menorDiferencia = 105;
         int fila = -1;
         for (int i = 0; i < NUM_FILAS_MESA; i++) {
