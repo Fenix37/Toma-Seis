@@ -125,7 +125,6 @@ public class Juego {
             int i = 0;
             System.out.println("Pulse enter para empezar el reparto");
             jin.nextLine();
-            iu.borrarPantalla();
             while (orden.size() > i) {
 
                 if (mesa.insertarCarta(elecciones.get(orden.get(i)), nombres.get(orden.get(i))) == false) {
@@ -135,7 +134,6 @@ public class Juego {
                 iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
                 i++;
                 jin.nextLine();
-                iu.borrarPantalla();
             }
             elecciones.clear();
             nombres.clear();
