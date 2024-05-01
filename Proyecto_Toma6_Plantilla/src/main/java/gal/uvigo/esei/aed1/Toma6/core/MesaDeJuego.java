@@ -69,7 +69,7 @@ public class MesaDeJuego {
         List<Carta> cartas = new ArrayList<>();
         int numCartas = cartasEnMesa[fila].size();
         for(int i = 0; i < numCartas; i++){
-            cartas.add(cartasEnMesa[i].remove(i));
+            cartas.add(cartasEnMesa[fila].removeLast());
         }
         cartasEnMesa[fila].add(nueva);
         return cartas;

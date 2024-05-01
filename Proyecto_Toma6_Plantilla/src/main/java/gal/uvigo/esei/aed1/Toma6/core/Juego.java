@@ -65,14 +65,14 @@ public class Juego {
      * @return true se existe algún xogador con máis de 66 bueyes e false en
      * caso contrario
      */
-    private boolean finalRonda() {
+    /*private boolean finalRonda() {
         for (Jugador jugador : jugadores) {
             if (jugador.getNumBueyes() >= NumBueyesGanar) {
                 return true;
             }
         }
         return false;
-    }
+    }*/
 
     /**
      *
@@ -157,13 +157,13 @@ public class Juego {
             while (!elecciones.isEmpty()) {
                 int resultadoEleccion = mesa.insertarCarta(elecciones.getFirst());
                 if (resultadoEleccion == -1) {
-                    int op = -1;
+                    int opFila = -1;
                     do{
                         iu.mostrarMensaje("La carta no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
-                        op = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: ");
-                    }while(op < 0 || op > MesaDeJuego.NUM_FILAS_MESA-1);
+                        opFila = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: [" + 1 + "-" + MesaDeJuego.NUM_FILAS_MESA + "] ");
+                    }while(opFila < 1 || opFila > MesaDeJuego.NUM_FILAS_MESA);
                     Jugador aModificar = getJugador(orden.get(i));
-                    for(Carta carta: mesa.vaciarFila(op, elecciones.getFirst())){
+                    for(Carta carta: mesa.vaciarFila(opFila-1, elecciones.getFirst())){
                         aModificar.addMonton(carta);
                     }
                 }
