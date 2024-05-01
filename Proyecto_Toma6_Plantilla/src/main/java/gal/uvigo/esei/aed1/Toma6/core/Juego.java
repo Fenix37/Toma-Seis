@@ -32,7 +32,7 @@ public class Juego {
  * @return true se existe algún xogador con máis de 66 bueyes e false en 
  * caso contrario
  */
-    private boolean finalRonda() {
+    private boolean finalPartida() {
         for (Jugador jugador : jugadores) {
             if (jugador.getNumBueyes() >= NumBueyesGanar) {
                 return true;
@@ -40,39 +40,6 @@ public class Juego {
         }
         return false;
     }
-/**
- * 
- * @return o xogador con menos bueyes,se houbera varios devolve todos os que
- * teñan menos bueyes
- */
-    private List<Jugador> Ganadores() {
-        int minimo = 0;
-        List<Jugador> toRet = new ArrayList();
-        for (Jugador jugador : jugadores) {
-            if (jugador.getNumBueyes() == minimo) {
-                toRet.add(jugador);
-            } else if (jugador.getNumBueyes() < minimo) {
-                toRet.clear();
-                toRet.add(jugador);
-                minimo = jugador.getNumBueyes();
-            }
-        }
-        return toRet;
-    }
-
-    /**
-     *
-     * @return true se existe algún xogador con máis de 66 bueyes e false en
-     * caso contrario
-     */
-    /*private boolean finalRonda() {
-        for (Jugador jugador : jugadores) {
-            if (jugador.getNumBueyes() >= NumBueyesGanar) {
-                return true;
-            }
-        }
-        return false;
-    }*/
 
     /**
      *
@@ -176,7 +143,7 @@ public class Juego {
             }
             elecciones.clear();
         }
-        if (finalRonda()) {
+        if (finalPartida()) {
             iu.mostrarMensaje("FINAL DO XOGO\n");
             Collection<Jugador> ganadores = ganadores();
             if (ganadores.size() > 1) {
