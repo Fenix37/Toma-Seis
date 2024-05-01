@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class Juego {
 
-    public final static int NumBueyesGanar = 66;
+    public final static int numBueyesGanar = 66;
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
@@ -27,14 +27,15 @@ public class Juego {
         mesa = new MesaDeJuego();
 
     }
-/**
- * 
- * @return true se existe algún xogador con máis de 66 bueyes e false en 
- * caso contrario
- */
+
+    /**
+     *
+     * @return true se existe algún xogador con máis de 66 bueyes e false en
+     * caso contrario
+     */
     private boolean finalPartida() {
         for (Jugador jugador : jugadores) {
-            if (jugador.getNumBueyes() >= NumBueyesGanar) {
+            if (jugador.getNumBueyes() >= numBueyesGanar) {
                 return true;
             }
         }
@@ -91,111 +92,111 @@ public class Juego {
     }
 
     public void jugar() {
-        Carta jugada;
-        baraja.barajar();
-        crearJugadores();
-        inicializarMesa();
-        iu.mostrarJugadores(jugadores);
-        iu.mostrarMesa(mesa.toString());
+        do {
+            Carta jugada;
+            baraja.barajar();
+            crearJugadores();
+            inicializarMesa();
+            iu.mostrarJugadores(jugadores);
+            iu.mostrarMesa(mesa.toString());
 
+            List<Carta> elecciones = new ArrayList<>();
+            List<Integer> orden;
+            for (int turno = 0; turno < 10; turno++) {
+                for (Jugador jug : jugadores) {
+                    boolean cartaValida = false;
+                    do {
+                        jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
+                        if (jugada == null) {
+                            iu.mostrarMensaje("Esta carta non se atopa na sua man, "
+                                    + "por favor introduzca unha carta valida. ");
 
-        List<Carta> elecciones = new ArrayList<>();
-        List<Integer> orden;
-        for (int turno = 0; turno < 10; turno++) {
-            for (Jugador jug : jugadores) {
-                boolean cartaValida = false;
-                do {
-                    jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
-                    if (jugada == null) {
-                        iu.mostrarMensaje("Esta carta non se atopa na sua man, "
-                                + "por favor introduzca unha carta valida. ");
+                        } else {
+                            cartaValida = true;
+                        }
+                    } while (!cartaValida);
 
+                    elecciones.add(jugada);
+                }
+                iu.mostrarMensaje("Elecciones hechas: ");
+                iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
+                orden = ordenarCartas(elecciones);
+                int i = 0;
+                while (!elecciones.isEmpty()) {
+                    int resultadoEleccion = mesa.insertarCarta(elecciones.getFirst());
+                    if (resultadoEleccion == -1) {
+                        int opFila = -1;
+                        do {
+                            iu.mostrarMensaje("La carta no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
+                            opFila = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: [" + 1 + "-" + MesaDeJuego.NUM_FILAS_MESA + "] ");
+                        } while (opFila < 1 || opFila > MesaDeJuego.NUM_FILAS_MESA);
+                        Jugador aModificar = getJugador(orden.get(i));
+                        for (Carta carta : mesa.vaciarFila(opFila - 1, elecciones.getFirst())) {
+                            aModificar.addMonton(carta);
+                        }
                     } else {
-                        cartaValida = true;
-                    }
-                } while (!cartaValida);
 
-                elecciones.add(jugada);
-            }
-            iu.mostrarMensaje("Elecciones hechas: ");
-            iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
-            orden = ordenarCartas(elecciones);
-            int i = 0;
-            while (!elecciones.isEmpty()) {
-                int resultadoEleccion = mesa.insertarCarta(elecciones.getFirst());
-                if (resultadoEleccion == -1) {
-                    int opFila = -1;
-                    do{
-                        iu.mostrarMensaje("La carta no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
-                        opFila = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: [" + 1 + "-" + MesaDeJuego.NUM_FILAS_MESA + "] ");
-                    }while(opFila < 1 || opFila > MesaDeJuego.NUM_FILAS_MESA);
-                    Jugador aModificar = getJugador(orden.get(i));
-                    for(Carta carta: mesa.vaciarFila(opFila-1, elecciones.getFirst())){
-                        aModificar.addMonton(carta);
                     }
+                    elecciones.removeFirst();
+                    iu.mostrarMesa(mesa.toString());
+                    i++;
                 }
-                else{
-                   
-                }
-                elecciones.removeFirst();
-                iu.mostrarMesa(mesa.toString());
-                i++;
+                elecciones.clear();
             }
-            elecciones.clear();
-        }
-        if (finalPartida()) {
-            iu.mostrarMensaje("FINAL DO XOGO\n");
-            Collection<Jugador> ganadores = ganadores();
-            if (ganadores.size() > 1) {
-                iu.mostrarMensaje("\tOs gañadores son:");
-            } else {
-                iu.mostrarMensaje("\tGañou:");
-            }
-            iu.mostrarJugadores(ganadores());
-        }
 
+        } while (!finalPartida());
+        iu.mostrarMensaje("FINAL DO XOGO\n");
+        Collection<Jugador> ganadores = ganadores();
+        if (ganadores.size() > 1) {
+            iu.mostrarMensaje("\tOs gañadores son:");
+        } else {
+            iu.mostrarMensaje("\tGañou:");
+        }
+        iu.mostrarJugadores(ganadores());
     }
-    
+
     /**
      * Consigue el objeto Jugador con un indice del Collection Jugadores
+     *
      * @param pos indice donde se encuentra el jugador deseado
      * @return jugador buscado
      */
-    public Jugador getJugador(int pos){
-        if(pos < 0 || pos > jugadores.size()-1){
+    public Jugador getJugador(int pos) {
+        if (pos < 0 || pos > jugadores.size() - 1) {
             throw new IllegalArgumentException("Posicion invalida");
         }
         Iterator<Jugador> itr = jugadores.iterator();
-        for(int i = 0; i < pos; i++){
+        for (int i = 0; i < pos; i++) {
             itr.next();
         }
         return itr.next();
     }
-    
+
     /**
      * Ordena la lista de cartas y crea una lista con su posicion original
+     *
      * @param cartas lista de cartas a ordenar
      * @return lista con las posiciones originales de las cartas
      */
     public List<Integer> ordenarCartas(List<Carta> cartas) {
         List<Integer> orden = new ArrayList<>();
-        for (int i=0; i<cartas.size();i++) {
+        for (int i = 0; i < cartas.size(); i++) {
             orden.add(i);
         }
         Carta tempC;
         int tempI;
-        for (int i = 0; i < (cartas.size()-1); i++) {
-            for (int j = 0; j < (cartas.size()-i-1); j++) {
-                if(cartas.get(j).getNumCarta()>(cartas.get(j).getNumCarta()+1)){
-                    tempC=cartas.get(j);
-                    tempI=orden.get(j);
-                    cartas.set(j, cartas.get(j+1));
-                    orden.set(j, orden.get(j+1));
-                    cartas.set(j+1, tempC);
-                    orden.set(j+1, tempI);
+        for (int i = 0; i < (cartas.size() - 1); i++) {
+            for (int j = 0; j < (cartas.size() - i - 1); j++) {
+                if (cartas.get(j).getNumCarta() > (cartas.get(j).getNumCarta() + 1)) {
+                    tempC = cartas.get(j);
+                    tempI = orden.get(j);
+                    cartas.set(j, cartas.get(j + 1));
+                    orden.set(j, orden.get(j + 1));
+                    cartas.set(j + 1, tempC);
+                    orden.set(j + 1, tempI);
                 }
             }
-            
+
         }
         return orden;
     }
