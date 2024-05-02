@@ -135,7 +135,12 @@ public class Juego {
                             aModificar.addMonton(carta);
                         }
                     } else {
-
+                        int cartaElegida = mesa.filaMenor(elecciones.getFirst().getNumCarta());
+                        Jugador jugadorActual = getJugador(orden.get(cartaElegida));
+                        List<Carta> cartasDeMesa = mesa.vaciarFila(cartaElegida, elecciones.getFirst());
+                        for (Carta carta : cartasDeMesa) {
+                            jugadorActual.addMonton(carta);
+                        }
                     }
                     elecciones.removeFirst();
                     iu.mostrarMesa(mesa.toString());
