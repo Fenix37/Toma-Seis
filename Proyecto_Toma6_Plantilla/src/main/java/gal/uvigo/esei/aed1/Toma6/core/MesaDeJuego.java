@@ -14,6 +14,7 @@ import java.util.List;
 public class MesaDeJuego {
 
     public static final int NUM_FILAS_MESA = 4;
+    public static final int MAX_CARTAS_FILA = 5;
     private List<Carta>[] cartasEnMesa;
 
     public MesaDeJuego() {
@@ -40,7 +41,7 @@ public class MesaDeJuego {
     /**
      *
      * @param nueva Carta nueva a insertar en la mesa
-     * @return "-2" si no se puede insertar la carta porque ya hay 5 cartas en
+     * @return "-2" si no se puede insertar la carta porque ya hay MAX_CARTAS_FILA cartas en
      * la fila donde corresponde, y "-1" porque es menor a todas las últimas
      * cartas de las listas. "1" si se pudo insertar la carta
      */
@@ -49,7 +50,7 @@ public class MesaDeJuego {
         if (fila == -1) {
             return -1; // La carta no puede ser jugada ya que es menor a todas las finales de la mesa.
         }
-        if (cartasEnMesa[fila].size() == 5) {
+        if (cartasEnMesa[fila].size() == MAX_CARTAS_FILA) {
             return -2; // La carta no puede ser jugada ya que su respectiva fila está llena.
         }
         cartasEnMesa[fila].add(nueva); // Insertar la carta en la fila correspondiente de la mesa
