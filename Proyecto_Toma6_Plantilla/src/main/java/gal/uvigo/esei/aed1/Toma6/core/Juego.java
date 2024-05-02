@@ -121,7 +121,7 @@ public class Juego {
                 iu.mostrarMensaje("Elecciones hechas: ");
                 iu.mostrarMesaEnReparto(mesa.toString(), jugadores, elecciones);
                 orden = ordenarCartas(elecciones);
-                int i = 0; 
+                int i = 0;
                 while (!elecciones.isEmpty()) {
                     int resultadoEleccion = mesa.insertarCarta(elecciones.getFirst());
                     if (resultadoEleccion == -1) {
@@ -135,10 +135,10 @@ public class Juego {
                         for (Carta carta : mesa.vaciarFila(opFila - 1, elecciones.getFirst())) {
                             aModificar.addMonton(carta);
                         }
-                    } else if(resultadoEleccion == -2){
+                    } else if (resultadoEleccion == -2) {
                         int cartaElegida = elecciones.getFirst().getNumCarta();
                         int fila = mesa.filaMenor(cartaElegida);
-                        iu.leeString("La carta " + cartaElegida + " no se pudo insertar ya que la fila " + (fila+1) + " tiene "
+                        iu.leeString("La carta " + cartaElegida + " no se pudo insertar ya que la fila " + (fila + 1) + " tiene "
                                 + MesaDeJuego.MAX_CARTAS_FILA + " cartas.");
                         Jugador jugadorActual = getJugador(orden.get(i));
                         List<Carta> cartasDeMesa = mesa.vaciarFila(fila, elecciones.getFirst());
