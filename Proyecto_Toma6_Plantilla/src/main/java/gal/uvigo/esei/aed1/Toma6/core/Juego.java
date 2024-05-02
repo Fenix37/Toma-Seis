@@ -136,7 +136,7 @@ public class Juego {
                         }
                     } else {
                         int cartaElegida = mesa.filaMenor(elecciones.getFirst().getNumCarta());
-                        Jugador jugadorActual = getJugador(orden.get(cartaElegida));
+                        Jugador jugadorActual = getJugador(orden.get(i));
                         List<Carta> cartasDeMesa = mesa.vaciarFila(cartaElegida, elecciones.getFirst());
                         for (Carta carta : cartasDeMesa) {
                             jugadorActual.addMonton(carta);
