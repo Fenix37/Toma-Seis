@@ -127,15 +127,24 @@ public class Juego {
                     if (resultadoEleccion == -1) {
                         int opFila = -1;
                         do {
-                            iu.mostrarMensaje("La carta no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
+                            int cartaElegida = elecciones.getFirst().getNumCarta();
+                            iu.mostrarMensaje("La carta " + cartaElegida + " no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
                             opFila = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: [" + 1 + "-" + MesaDeJuego.NUM_FILAS_MESA + "] ");
                         } while (opFila < 1 || opFila > MesaDeJuego.NUM_FILAS_MESA);
                         Jugador aModificar = getJugador(orden.get(i));
                         for (Carta carta : mesa.vaciarFila(opFila - 1, elecciones.getFirst())) {
                             aModificar.addMonton(carta);
                         }
-                    } else {
-
+                    } else if (resultadoEleccion == -2) {
+                        int cartaElegida = elecciones.getFirst().getNumCarta();
+                        int fila = mesa.filaMenor(cartaElegida);
+                        iu.leeString("La carta " + cartaElegida + " no se pudo insertar ya que la fila " + (fila + 1) + " tiene "
+                                + MesaDeJuego.MAX_CARTAS_FILA + " cartas.");
+                        Jugador jugadorActual = getJugador(orden.get(i));
+                        List<Carta> cartasDeMesa = mesa.vaciarFila(fila, elecciones.getFirst());
+                        for (Carta carta : cartasDeMesa) {
+                            jugadorActual.addMonton(carta);
+                        }
                     }
                     elecciones.removeFirst();
                     iu.mostrarMesa(mesa.toString());
