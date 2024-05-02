@@ -64,39 +64,51 @@ public class Juego {
 
     /**
      * Modifica: jugadores ao crear os xogadores con todolos seus valores
-     * asignados
+     * asignados pero sen ningunha carta
      *
      */
     public void crearJugadores() {
-        final int numCartas = 10;
         //crea os xogadores
         for (String nombreJugador : iu.pedirNombresJugadores()) {
             jugadores.add(new Jugador(nombreJugador));
         }
-        //asignalle as cartas a cada un
+    }
+
+    /**
+     * Modifica: mesa,fai que cada fila da mesa teña excatamente 1 carta
+     *
+     */
+    public void inicializarMesa() {
+        for (int i = 0; i < MesaDeJuego.NUM_FILAS_MESA; i++) {
+            mesa.vaciarFila(i,baraja.getPop());
+        }
+    }
+
+    /**
+     * dalle 10 cartas a cada xogador
+     *
+     */
+    private void repartirCartasJugadores() {
+        final int numCartas = 10;
         for (Jugador jug : jugadores) {
             for (int i = 0; i < numCartas; i++) {
                 jug.introducirCarta(baraja.getPop());
             }
         }
     }
-
-    /**
-     * Modifica: mesa,introduce en cada fila da mesa unha carta
-     *
-     */
-    public void inicializarMesa() {
-        for (int i = 0; i < MesaDeJuego.NUM_FILAS_MESA; i++) {
-            mesa.insertarCarta(baraja.getPop(), i);
-        }
-    }
-
     public void jugar() {
-        do {
-            Carta jugada;
+        //variables que vanse usar máis adiante
+        Carta jugada;
+        boolean cartaValida;
+        //crea os xogadores sen cartas
+        crearJugadores();
+
+        do { 
+            //baraja e asignalle as cartas a mesa e aos xogadores
             baraja.barajar();
-            crearJugadores();
+            repartirCartasJugadores();
             inicializarMesa();
+            
             iu.mostrarJugadores(jugadores);
             iu.mostrarMesa(mesa.toString());
 
@@ -104,7 +116,7 @@ public class Juego {
             List<Integer> orden;
             for (int turno = 0; turno < 10; turno++) {
                 for (Jugador jug : jugadores) {
-                    boolean cartaValida = false;
+                    cartaValida = false;
                     do {
                         jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
                         if (jugada == null) {
