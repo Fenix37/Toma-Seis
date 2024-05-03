@@ -164,6 +164,7 @@ public class Juego {
                 }
                 elecciones.clear();
             }
+            iu.bueyesPorJugador(jugadores);
 
         } while (!finalPartida());
         iu.mostrarMensaje("FINAL DO XOGO\n");
