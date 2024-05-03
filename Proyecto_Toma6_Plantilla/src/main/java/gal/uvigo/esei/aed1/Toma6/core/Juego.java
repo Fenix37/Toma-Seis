@@ -208,7 +208,7 @@ public class Juego {
         int tempI;
         for (int i = 0; i < (cartas.size() - 1); i++) {
             for (int j = 0; j < (cartas.size() - i - 1); j++) {
-                if (cartas.get(j).getNumCarta() > (cartas.get(j).getNumCarta() + 1)) {
+                if (cartas.get(j).getNumCarta() > (cartas.get(j+1).getNumCarta())) {
                     tempC = cartas.get(j);
                     tempI = orden.get(j);
                     cartas.set(j, cartas.get(j + 1));
