@@ -152,4 +152,16 @@ public class IU {
             mostrarJugador(jugador);
         }
     }
+    
+    /**
+     * Muestra por pantalla los bueyes acumulados de cada jugador
+     * @param jugadores Collection de los jugadores víctimas de la función
+     */
+    public void bueyesPorJugador(Collection<Jugador> jugadores){
+        StringBuilder sb = new StringBuilder();
+        for (Jugador jugador : jugadores) {
+            sb.append(jugador.getNombre()).append(": ").append(jugador.getNumBueyes()).append(" bueyes\n");
+        }
+        System.out.print(sb);
+    }
 }
