@@ -138,7 +138,7 @@ public class Juego {
                         int opFila = -1;
                         do {
                             int cartaElegida = elecciones.getFirst().getNumCarta();
-                            iu.mostrarMensaje("La carta " + cartaElegida + " no pudo ser introducida ya que es menor a todas las últimas de la mesa.");
+                            iu.mostrarMensaje("La carta " + cartaElegida + " no pudo ser introducida ya que es menor a todas las ultimas de la mesa.");
                             opFila = iu.leeNum("Introduce la fila de la mesa de las que se va a llevar las cartas: [" + 1 + "-" + MesaDeJuego.NUM_FILAS_MESA + "] ");
                         } while (opFila < 1 || opFila > MesaDeJuego.NUM_FILAS_MESA);
                         Jugador aModificar = getJugador(orden.get(i));
