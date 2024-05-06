@@ -77,7 +77,7 @@ public class Jugador {
 
     /**
      * modifica this ao quitarlle unha carta e se non existen cartas na mano
-     * lanza unha NullPointerException
+     * devolve null
      *
      * @param numCarta: Número da carta que se desexa sacar da baraja do xogador
      * @return Carta co número que se pediu e en caso de non atoparse ou de

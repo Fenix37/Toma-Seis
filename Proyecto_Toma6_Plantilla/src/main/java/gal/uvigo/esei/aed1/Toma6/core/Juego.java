@@ -48,7 +48,7 @@ public class Juego {
      * teñan menos bueyes
      */
     private List<Jugador> ganadores() {
-        int minimo = 0;
+        int minimo = Integer.MAX_VALUE;
         List<Jugador> toRet = new ArrayList();
         for (Jugador jugador : jugadores) {
             if (jugador.getNumBueyes() == minimo) {
@@ -61,7 +61,6 @@ public class Juego {
         }
         return toRet;
     }
-
     /**
      * Modifica: jugadores ao crear os xogadores con todolos seus valores
      * asignados pero sen ningunha carta
@@ -110,7 +109,7 @@ public class Juego {
             inicializarMesa();
             
             iu.mostrarJugadores(jugadores);
-            iu.mostrarMesa(mesa.toString());
+            iu.mostrarMesa(mesa.toString());           
 
             List<Carta> elecciones = new ArrayList<>();
             List<Integer> orden;
