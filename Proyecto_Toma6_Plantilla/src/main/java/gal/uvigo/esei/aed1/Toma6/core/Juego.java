@@ -14,7 +14,7 @@ public class Juego {
 
 
     public static final int NUM_BUEYES_GANAR = 66;
-    public static final int MAX_CARTAS_JUGADOR = 10;
+    static final int MAX_CARTAS_JUGADOR = 10;
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
@@ -84,7 +84,7 @@ public class Juego {
     }
 
     /**
-     * dalle 10 cartas a cada xogador
+     * dalle MAX_CARTAS_JUGADOR cartas a cada xogador
      *
      */
     private void repartirCartasJugadores() {
@@ -113,10 +113,13 @@ public class Juego {
             List<Carta> elecciones = new ArrayList<>();
             List<Integer> orden;
             for (int turno = 0; turno < MAX_CARTAS_JUGADOR; turno++) {
+                //Se le pide una carta a cada jugador
                 for (Jugador jug : jugadores) {
                     cartaValida = false;
                     do {
                         jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
+                        //Si la carta es null es porque no se pudo sacar de su mano ya que no la tiene
+                        //por lo que es inválida
                         if (jugada == null) {
                             iu.mostrarMensaje("Esta carta non se atopa na sua man, "
                                     + "por favor introduzca unha carta valida. ");
@@ -144,8 +147,7 @@ public class Juego {
                         } while (opFila < 1 || opFila > MesaDeJuego.NUM_FILAS_MESA);
                         Jugador aModificar = getJugador(orden.get(i));
                         for (Carta carta : mesa.vaciarFila(opFila - 1, elecciones.getFirst())) {
-                            aModificar.addBueyesMonton(carta.getNumBueyes());
-                            baraja.addCarta(carta);
+                            aModificar.addMonton(carta);
                         }
                     } else if (resultadoEleccion == -2) {
                         int cartaElegida = elecciones.getFirst().getNumCarta();
@@ -155,8 +157,7 @@ public class Juego {
                         Jugador jugadorActual = getJugador(orden.get(i));
                         List<Carta> cartasDeMesa = mesa.vaciarFila(fila, elecciones.getFirst());
                         for (Carta carta : cartasDeMesa) {
-                            jugadorActual.addBueyesMonton(carta.getNumBueyes());
-                            baraja.addCarta(carta);
+                            jugadorActual.addMonton(carta);
                         }
                     }
                     elecciones.removeFirst();
@@ -166,6 +167,7 @@ public class Juego {
                 elecciones.clear();
             }
             iu.bueyesPorJugador(jugadores);
+            devolverCartasMonton();
 
         } while (!finalPartida());
         iu.mostrarMensaje("FINAL DO XOGO\n");
@@ -179,6 +181,13 @@ public class Juego {
             iu.mostrarMensaje(ganador.getNombre());
         }
     }
+    private void devolverCartasMonton(){
+        for(Jugador jugador: jugadores){
+            for(Carta carta: jugador.getMonton()){
+                baraja.addCarta(carta);
+            }
+        }
+    }
 
     /**
      * Consigue el objeto Jugador con un indice del Collection Jugadores
@@ -186,7 +195,7 @@ public class Juego {
      * @param pos indice donde se encuentra el jugador deseado
      * @return jugador buscado
      */
-    private Jugador getJugador(int pos) {
+    private  Jugador getJugador(int pos) {
         if (pos < 0 || pos > jugadores.size() - 1) {
             throw new IllegalArgumentException("Posicion invalida");
         }
