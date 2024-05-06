@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Juego {
 
-    public final static int NUM_BUEYES_GANAR = 66;
-    static final int NUM_CARTAS = 10;
+    public static fina  int NUM_BUEYES_GANAR = 66;
+    static final int MAX_CARTAS_JUGADOR = 10;
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
@@ -88,7 +88,7 @@ public class Juego {
      */
     private void repartirCartasJugadores() {
         for (Jugador jug : jugadores) {
-            for (int i = 0; i < NUM_CARTAS; i++) {
+            for (int i = 0; i < MAX_CARTAS_JUGADOR; i++) {
                 jug.introducirCarta(baraja.getPop());
             }
         }
@@ -111,7 +111,7 @@ public class Juego {
 
             List<Carta> elecciones = new ArrayList<>();
             List<Integer> orden;
-            for (int turno = 0; turno < 10; turno++) {
+            for (int turno = 0; turno < MAX_CARTAS_JUGADOR; turno++) {
                 for (Jugador jug : jugadores) {
                     cartaValida = false;
                     do {
@@ -143,7 +143,8 @@ public class Juego {
                         } while (opFila < 1 || opFila > MesaDeJuego.NUM_FILAS_MESA);
                         Jugador aModificar = getJugador(orden.get(i));
                         for (Carta carta : mesa.vaciarFila(opFila - 1, elecciones.getFirst())) {
-                            aModificar.addMonton(carta);
+                            aModificar.addBueyesMonton(carta.getNumBueyes());
+                            baraja.addCarta(carta);
                         }
                     } else if (resultadoEleccion == -2) {
                         int cartaElegida = elecciones.getFirst().getNumCarta();
@@ -153,7 +154,8 @@ public class Juego {
                         Jugador jugadorActual = getJugador(orden.get(i));
                         List<Carta> cartasDeMesa = mesa.vaciarFila(fila, elecciones.getFirst());
                         for (Carta carta : cartasDeMesa) {
-                            jugadorActual.addMonton(carta);
+                            jugadorActual.addBueyesMonton(carta.getNumBueyes());
+                            baraja.addCarta(carta);
                         }
                     }
                     elecciones.removeFirst();

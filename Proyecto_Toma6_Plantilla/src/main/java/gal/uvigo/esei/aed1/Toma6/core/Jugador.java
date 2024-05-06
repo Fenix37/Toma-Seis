@@ -12,21 +12,15 @@ import java.util.ArrayList;
 public class Jugador {
 
     private List<Carta> mano;
-    private List <Carta> monton; 
     private final String nombre;
     private int numBueyes;
     public Jugador(String nombre) {
         this.mano = new ArrayList<>();
-        this.monton = new ArrayList<>();
         this.nombre = nombre;
         this.numBueyes=0;
     }
-    public void addMonton(Carta nueva){
-        
-        monton.add(nueva);
-    }
-    public List<Carta> geMonton(){
-        return this.monton;
+    public void addBueyesMonton(int bueyes){
+        this.numBueyes += bueyes;
     }
     public int getNumBueyes(){
         return numBueyes;
@@ -46,8 +40,8 @@ public class Jugador {
         boolean introducida = false;
         int fin, inicio, medio;
         //comproba que estea cheo
-        if (mano.size() == 10) {
-            throw new ArrayIndexOutOfBoundsException("O xogador non debe ter máis de 10 cartas");
+        if (mano.size() == Juego.MAX_CARTAS_JUGADOR) {
+            throw new ArrayIndexOutOfBoundsException("O xogador non debe ter máis de " + Juego.MAX_CARTAS_JUGADOR + " cartas");
         }
         //comproba se está valeiro
         if (mano.isEmpty()) {
