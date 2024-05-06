@@ -42,14 +42,7 @@ public class Baraja {
         }
     }
 
-    /**
-     * Crea una baraja nueva con la pila que se le pasa como parámetro.
-     *
-     * @param baraja
-     */
-    public Baraja(Stack<Carta> baraja) {
-        this.baraja = baraja;
-    }
+
 
     public void addCarta(Carta carta) {
         baraja.push(carta);

@@ -1,3 +1,4 @@
+
 /*
  
 Representa una carta, formada por un número y la cantidad de bueyes correspondiente
