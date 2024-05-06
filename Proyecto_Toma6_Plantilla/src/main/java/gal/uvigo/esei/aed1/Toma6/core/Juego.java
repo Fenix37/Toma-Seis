@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Juego {
 
+
     public static final int NUM_BUEYES_GANAR = 66;
     static final int MAX_CARTAS_JUGADOR = 10;
     private final IU iu;
@@ -174,7 +175,9 @@ public class Juego {
         } else {
             iu.mostrarMensaje("\tGañou:");
         }
-        iu.mostrarJugadores(ganadores());
+        for (Jugador ganador : ganadores) {
+            iu.mostrarMensaje(ganador.getNombre());
+        }
     }
 
     /**
