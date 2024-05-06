@@ -13,7 +13,7 @@ import java.util.List;
 public class Juego {
 
     public static final int NUM_BUEYES_GANAR = 66;
-    static final int MAX_CARTAS_JUGADOR = 10;
+    public static final int MAX_CARTAS_JUGADOR = 10;
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
@@ -65,7 +65,7 @@ public class Juego {
      * asignados pero sen ningunha carta
      *
      */
-    public void crearJugadores() {
+    private void crearJugadores() {
         //crea os xogadores
         for (String nombreJugador : iu.pedirNombresJugadores()) {
             jugadores.add(new Jugador(nombreJugador));
@@ -76,7 +76,7 @@ public class Juego {
      * Modifica: mesa,fai que cada fila da mesa teña excatamente 1 carta
      *
      */
-    public void inicializarMesa() {
+    private void inicializarMesa() {
         for (int i = 0; i < MesaDeJuego.NUM_FILAS_MESA; i++) {
             mesa.vaciarFila(i,baraja.getPop());
         }
@@ -183,7 +183,7 @@ public class Juego {
      * @param pos indice donde se encuentra el jugador deseado
      * @return jugador buscado
      */
-    public Jugador getJugador(int pos) {
+    private Jugador getJugador(int pos) {
         if (pos < 0 || pos > jugadores.size() - 1) {
             throw new IllegalArgumentException("Posicion invalida");
         }
@@ -200,7 +200,7 @@ public class Juego {
      * @param cartas lista de cartas a ordenar
      * @return lista con las posiciones originales de las cartas
      */
-    public List<Integer> ordenarCartas(List<Carta> cartas) {
+    private List<Integer> ordenarCartas(List<Carta> cartas) {
         List<Integer> orden = new ArrayList<>();
         for (int i = 0; i < cartas.size(); i++) {
             orden.add(i);
