@@ -14,6 +14,7 @@ import java.util.List;
 public class Baraja {
 
     private Stack<Carta> baraja;
+    private static final int NUM_CARTAS = 104;
 
     /**
      * Crea la baraja predeterminada con las 104 cartas ordenadas de mayor a
@@ -22,7 +23,7 @@ public class Baraja {
     public Baraja() {
         baraja = new Stack();
         //Valor predeterminado
-        for (int i = 1; i <= 104; i++) {
+        for (int i = 1; i <= NUM_CARTAS; i++) {
             int numBueyes = 1;
             if (i == 55) {
                 numBueyes = 7;
@@ -41,14 +42,7 @@ public class Baraja {
         }
     }
 
-    /**
-     * Crea una baraja nueva con la pila que se le pasa como parámetro.
-     *
-     * @param baraja
-     */
-    public Baraja(Stack<Carta> baraja) {
-        this.baraja = baraja;
-    }
+
 
     public void addCarta(Carta carta) {
         baraja.push(carta);

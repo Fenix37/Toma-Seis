@@ -12,22 +12,27 @@ import java.util.ArrayList;
 public class Jugador {
 
     private List<Carta> mano;
-    private List <Carta> monton; 
-    private String nombre;
-
+    private final String nombre;
+    private List<Carta> monton;
+    private int numBueyes;
     public Jugador(String nombre) {
         this.mano = new ArrayList<>();
-        this.monton = new ArrayList<>();
         this.nombre = nombre;
+        this.monton = new ArrayList<>();
+        this.numBueyes=0;
     }
     public void addMonton(Carta nueva){
         monton.add(nueva);
+        numBueyes += nueva.getNumBueyes();
+    }
+    public List<Carta> getMonton(){
+        List<Carta> toret = new ArrayList<>();
+        while(!monton.isEmpty()){
+            toret.add(monton.removeFirst());
+        }
+        return toret;
     }
     public int getNumBueyes(){
-        int numBueyes = 0;
-        for(Carta carta: monton){
-            numBueyes += carta.getNumBueyes();
-        }
         return numBueyes;
     }
 
@@ -45,8 +50,8 @@ public class Jugador {
         boolean introducida = false;
         int fin, inicio, medio;
         //comproba que estea cheo
-        if (mano.size() == 10) {
-            throw new ArrayIndexOutOfBoundsException("O xogador non debe ter máis de 10 cartas");
+        if (mano.size() == Juego.MAX_CARTAS_JUGADOR) {
+            throw new ArrayIndexOutOfBoundsException("O xogador non debe ter máis de " + Juego.MAX_CARTAS_JUGADOR + " cartas");
         }
         //comproba se está valeiro
         if (mano.isEmpty()) {

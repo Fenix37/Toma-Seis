@@ -12,7 +12,9 @@ import java.util.List;
 
 public class Juego {
 
-    public final static int numBueyesGanar = 66;
+
+    public static final int NUM_BUEYES_GANAR = 66;
+    static final int MAX_CARTAS_JUGADOR = 10;
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
@@ -33,7 +35,7 @@ public class Juego {
      */
     private boolean finalPartida() {
         for (Jugador jugador : jugadores) {
-            if (jugador.getNumBueyes() >= numBueyesGanar) {
+            if (jugador.getNumBueyes() >= NUM_BUEYES_GANAR) {
                 return true;
             }
         }
@@ -64,7 +66,7 @@ public class Juego {
      * asignados pero sen ningunha carta
      *
      */
-    public void crearJugadores() {
+    private void crearJugadores() {
         //crea os xogadores
         for (String nombreJugador : iu.pedirNombresJugadores()) {
             jugadores.add(new Jugador(nombreJugador));
@@ -75,20 +77,19 @@ public class Juego {
      * Modifica: mesa,fai que cada fila da mesa teña excatamente 1 carta
      *
      */
-    public void inicializarMesa() {
+    private void inicializarMesa() {
         for (int i = 0; i < MesaDeJuego.NUM_FILAS_MESA; i++) {
             mesa.vaciarFila(i,baraja.getPop());
         }
     }
 
     /**
-     * dalle 10 cartas a cada xogador
+     * dalle MAX_CARTAS_JUGADOR cartas a cada xogador
      *
      */
     private void repartirCartasJugadores() {
-        final int numCartas = 10;
         for (Jugador jug : jugadores) {
-            for (int i = 0; i < numCartas; i++) {
+            for (int i = 0; i < MAX_CARTAS_JUGADOR; i++) {
                 jug.introducirCarta(baraja.getPop());
             }
         }
@@ -111,16 +112,20 @@ public class Juego {
 
             List<Carta> elecciones = new ArrayList<>();
             List<Integer> orden;
-            for (int turno = 0; turno < 10; turno++) {
+            for (int turno = 0; turno < MAX_CARTAS_JUGADOR; turno++) {
+                //Se le pide una carta a cada jugador
                 for (Jugador jug : jugadores) {
                     cartaValida = false;
                     do {
                         jugada = jug.sacarCarta(iu.pedirCartaAJugar(jug));
+                        //Si la carta es null es porque no se pudo sacar de su mano ya que no la tiene
+                        //por lo que es inválida
                         if (jugada == null) {
                             iu.mostrarMensaje("Esta carta non se atopa na sua man, "
                                     + "por favor introduzca unha carta valida. ");
 
                         } else {
+                            
                             cartaValida = true;
                         }
                     } while (!cartaValida);
@@ -162,6 +167,7 @@ public class Juego {
                 elecciones.clear();
             }
             iu.bueyesPorJugador(jugadores);
+            devolverCartasMonton();
 
         } while (!finalPartida());
         iu.mostrarMensaje("FINAL DO XOGO\n");
@@ -171,7 +177,16 @@ public class Juego {
         } else {
             iu.mostrarMensaje("\tGañou:");
         }
-        iu.mostrarJugadores(ganadores());
+        for (Jugador ganador : ganadores) {
+            iu.mostrarMensaje(ganador.getNombre());
+        }
+    }
+    private void devolverCartasMonton(){
+        for(Jugador jugador: jugadores){
+            for(Carta carta: jugador.getMonton()){
+                baraja.addCarta(carta);
+            }
+        }
     }
 
     /**
@@ -180,7 +195,7 @@ public class Juego {
      * @param pos indice donde se encuentra el jugador deseado
      * @return jugador buscado
      */
-    public Jugador getJugador(int pos) {
+    private  Jugador getJugador(int pos) {
         if (pos < 0 || pos > jugadores.size() - 1) {
             throw new IllegalArgumentException("Posicion invalida");
         }
@@ -197,7 +212,7 @@ public class Juego {
      * @param cartas lista de cartas a ordenar
      * @return lista con las posiciones originales de las cartas
      */
-    public List<Integer> ordenarCartas(List<Carta> cartas) {
+    private List<Integer> ordenarCartas(List<Carta> cartas) {
         List<Integer> orden = new ArrayList<>();
         for (int i = 0; i < cartas.size(); i++) {
             orden.add(i);
