@@ -12,7 +12,8 @@ import java.util.List;
 
 public class Juego {
 
-    public final static int numBueyesGanar = 66;
+    public final static int NUM_BUEYES_GANAR = 66;
+    static final int NUM_CARTAS = 10;
     private final IU iu;
     private Baraja baraja;
     private Collection<Jugador> jugadores;
@@ -33,7 +34,7 @@ public class Juego {
      */
     private boolean finalPartida() {
         for (Jugador jugador : jugadores) {
-            if (jugador.getNumBueyes() >= numBueyesGanar) {
+            if (jugador.getNumBueyes() >= NUM_BUEYES_GANAR) {
                 return true;
             }
         }
@@ -86,9 +87,8 @@ public class Juego {
      *
      */
     private void repartirCartasJugadores() {
-        final int numCartas = 10;
         for (Jugador jug : jugadores) {
-            for (int i = 0; i < numCartas; i++) {
+            for (int i = 0; i < NUM_CARTAS; i++) {
                 jug.introducirCarta(baraja.getPop());
             }
         }
@@ -121,6 +121,7 @@ public class Juego {
                                     + "por favor introduzca unha carta valida. ");
 
                         } else {
+                            
                             cartaValida = true;
                         }
                     } while (!cartaValida);

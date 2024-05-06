@@ -13,21 +13,22 @@ public class Jugador {
 
     private List<Carta> mano;
     private List <Carta> monton; 
-    private String nombre;
-
+    private final String nombre;
+    private int numBueyes;
     public Jugador(String nombre) {
         this.mano = new ArrayList<>();
         this.monton = new ArrayList<>();
         this.nombre = nombre;
+        this.numBueyes=0;
     }
     public void addMonton(Carta nueva){
+        
         monton.add(nueva);
     }
+    public List<Carta> geMonton(){
+        return this.monton;
+    }
     public int getNumBueyes(){
-        int numBueyes = 0;
-        for(Carta carta: monton){
-            numBueyes += carta.getNumBueyes();
-        }
         return numBueyes;
     }
 
