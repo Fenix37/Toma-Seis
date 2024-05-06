@@ -6,7 +6,6 @@
  */
 package gal.uvigo.esei.aed1.Toma6.core;
 
-import java.util.Random;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Collections;
