@@ -48,7 +48,7 @@ public class Juego {
      * teñan menos bueyes
      */
     private List<Jugador> ganadores() {
-        int minimo = 0;
+        int minimo = Integer.MAX_VALUE;
         List<Jugador> toRet = new ArrayList();
         for (Jugador jugador : jugadores) {
             if (jugador.getNumBueyes() == minimo) {
