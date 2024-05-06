@@ -12,7 +12,8 @@ import java.util.List;
 
 public class Juego {
 
-    public static final  int NUM_BUEYES_GANAR = 66;
+
+    public static final int NUM_BUEYES_GANAR = 66;
     static final int MAX_CARTAS_JUGADOR = 10;
     private final IU iu;
     private Baraja baraja;
