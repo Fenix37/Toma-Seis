@@ -61,7 +61,6 @@ public class Juego {
         }
         return toRet;
     }
-
     /**
      * Modifica: jugadores ao crear os xogadores con todolos seus valores
      * asignados pero sen ningunha carta
@@ -110,7 +109,7 @@ public class Juego {
             inicializarMesa();
             
             iu.mostrarJugadores(jugadores);
-            iu.mostrarMesa(mesa.toString());
+            iu.mostrarMesa(mesa.toString());           
 
             List<Carta> elecciones = new ArrayList<>();
             List<Integer> orden;
