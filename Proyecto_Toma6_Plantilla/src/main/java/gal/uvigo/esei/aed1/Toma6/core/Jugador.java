@@ -13,14 +13,24 @@ public class Jugador {
 
     private List<Carta> mano;
     private final String nombre;
+    private List<Carta> monton;
     private int numBueyes;
     public Jugador(String nombre) {
         this.mano = new ArrayList<>();
         this.nombre = nombre;
+        this.monton = new ArrayList<>();
         this.numBueyes=0;
     }
-    public void addBueyesMonton(int bueyes){
-        this.numBueyes += bueyes;
+    public void addMonton(Carta nueva){
+        monton.add(nueva);
+        numBueyes += nueva.getNumBueyes();
+    }
+    public List<Carta> getMonton(){
+        List<Carta> toret = new ArrayList<>();
+        while(!monton.isEmpty()){
+            toret.add(monton.removeFirst());
+        }
+        return toret;
     }
     public int getNumBueyes(){
         return numBueyes;
